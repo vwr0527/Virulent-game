@@ -4,3 +4,10 @@ c:\users\victor\documents\visual studio 2010\Projects\Virulent_dev\Virulent_dev\
 c:\users\victor\documents\visual studio 2010\Projects\Virulent_dev\Virulent_dev\Virulent_dev\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 c:\users\victor\documents\visual studio 2010\Projects\Virulent_dev\Virulent_dev\Virulent_dev\obj\x86\Debug\Virulent_dev.exe
 c:\users\victor\documents\visual studio 2010\Projects\Virulent_dev\Virulent_dev\Virulent_dev\obj\x86\Debug\Virulent_dev.pdb
+D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\SpriteFont1.xnb
+D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\bin\x86\Debug\Virulent_dev.exe
+D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\bin\x86\Debug\Virulent_dev.pdb
+D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\obj\x86\Debug\Virulent_dev.exe
+D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\obj\x86\Debug\Virulent_dev.pdb

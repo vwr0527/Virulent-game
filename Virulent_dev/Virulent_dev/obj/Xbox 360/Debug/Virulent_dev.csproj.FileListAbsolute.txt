@@ -4,3 +4,9 @@ c:\users\victor\documents\visual studio 2010\Projects\Virulent_dev\Virulent_dev\
 c:\users\victor\documents\visual studio 2010\Projects\Virulent_dev\Virulent_dev\Virulent_dev\obj\Xbox 360\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 c:\users\victor\documents\visual studio 2010\Projects\Virulent_dev\Virulent_dev\Virulent_dev\obj\Xbox 360\Debug\Virulent_dev.exe
 c:\users\victor\documents\visual studio 2010\Projects\Virulent_dev\Virulent_dev\Virulent_dev\obj\Xbox 360\Debug\Virulent_dev.pdb
+D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\bin\Xbox 360\Debug\Virulent_dev.exe
+D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\bin\Xbox 360\Debug\Virulent_dev.pdb
+D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\obj\Xbox 360\Debug\ResolveAssemblyReference.cache
+D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\obj\Xbox 360\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\obj\Xbox 360\Debug\Virulent_dev.exe
+D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\obj\Xbox 360\Debug\Virulent_dev.pdb

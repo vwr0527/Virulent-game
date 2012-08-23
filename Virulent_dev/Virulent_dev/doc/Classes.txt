@@ -6,6 +6,10 @@ Menu and World will send draw commands to the Graphics Class.
 
 Menu will have Pages
 	Pages will have Selections
-		Selections contain Elements
+		Selections contain Composites
+		Selections also have XML that describes what they contain, and how to draw those things.
 
-Elements contain 3 lists: Sprites, Textfields, and Elements. Yes, Elements can contain as many other elements as you want.
+
+Composites contain 3 lists: Sprites, Textfields, and Composites. Yes, Composites can contain as many other Composites as you want.
+
+Sprites, Textfields, and Composites all inherit from Elements.

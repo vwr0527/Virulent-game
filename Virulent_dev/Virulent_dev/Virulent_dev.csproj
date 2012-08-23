@@ -72,13 +72,6 @@
     </Content>
     <Content Include="doc\Milestones.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Virulent_devContent\Virulent_devContent.contentproj">
-      <Name>Virulent_devContent %28Content%29</Name>
-      <XnaReferenceType>Content</XnaReferenceType>
-      <Project>{62DFB50F-60AF-4EB0-97E6-375863300EA1}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

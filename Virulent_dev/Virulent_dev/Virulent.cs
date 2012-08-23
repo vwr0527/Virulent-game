@@ -19,6 +19,10 @@ namespace Virulent_dev
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        //**********Test additions************
+        SpriteFont font;
+        //************************************
+
         public Virulent()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -48,6 +52,10 @@ namespace Virulent_dev
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+
+            //***************************************
+            font = Content.Load<SpriteFont>("SpriteFont1");
+            //***************************************
         }
 
         /// <summary>
@@ -84,6 +92,12 @@ namespace Virulent_dev
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+
+            //***************************************
+            spriteBatch.Begin();
+            spriteBatch.DrawString(font, "Hello world", Vector2.Zero, Color.White);
+            spriteBatch.End();
+            //***************************************
 
             base.Draw(gameTime);
         }

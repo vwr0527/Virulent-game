@@ -1,6 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
   <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>SpriteFont1.spritefont</Source>
+      <Name>SpriteFont1</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\SpriteFont1.xnb</Output>
+      <Time>2012-08-23T16:04:36-05:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{62DFB50F-60AF-4EB0-97E6-375863300EA1}</ContentProjectGUID>
@@ -8,12 +17,36 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>c:\users\victor\documents\visual studio 2010\Projects\Virulent_dev\Virulent_dev\Virulent_devContent\</RootDirectory>
-      <LoggerRootDirectory>c:\users\victor\documents\visual studio 2010\Projects\Virulent_dev\Virulent_dev\Virulent_dev\</LoggerRootDirectory>
-      <IntermediateDirectory>c:\users\victor\documents\visual studio 2010\Projects\Virulent_dev\Virulent_dev\Virulent_dev\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>c:\users\victor\documents\visual studio 2010\Projects\Virulent_dev\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_devContent\</RootDirectory>
+      <LoggerRootDirectory>D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\</LoggerRootDirectory>
+      <IntermediateDirectory>D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2011-09-01T16:22:30-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2011-09-01T16:22:30-05:00</Value>
+      </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
         <Value>2012-06-01T22:14:05.4730311-05:00</Value>
