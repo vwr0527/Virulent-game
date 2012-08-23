@@ -1,0 +1,6 @@
+c:\users\victor\documents\visual studio 2010\Projects\Virulent_dev\Virulent_dev\Virulent_dev\bin\x86\Debug\Virulent_dev.exe
+c:\users\victor\documents\visual studio 2010\Projects\Virulent_dev\Virulent_dev\Virulent_dev\bin\x86\Debug\Virulent_dev.pdb
+c:\users\victor\documents\visual studio 2010\Projects\Virulent_dev\Virulent_dev\Virulent_dev\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\users\victor\documents\visual studio 2010\Projects\Virulent_dev\Virulent_dev\Virulent_dev\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+c:\users\victor\documents\visual studio 2010\Projects\Virulent_dev\Virulent_dev\Virulent_dev\obj\x86\Debug\Virulent_dev.exe
+c:\users\victor\documents\visual studio 2010\Projects\Virulent_dev\Virulent_dev\Virulent_dev\obj\x86\Debug\Virulent_dev.pdb

@@ -1,0 +1,11 @@
+﻿Graphics class will be responsible for drawing things.
+World class will be responsible for loading the level, simulating the world.
+Menu class will be the menu.
+
+Menu and World will send draw commands to the Graphics Class.
+
+Menu will have Pages
+	Pages will have Selections
+		Selections contain Elements
+
+Elements contain 3 lists: Sprites, Textfields, and Elements. Yes, Elements can contain as many other elements as you want.

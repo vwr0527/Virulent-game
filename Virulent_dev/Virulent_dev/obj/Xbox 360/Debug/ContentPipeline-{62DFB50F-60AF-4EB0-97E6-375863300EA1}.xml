@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <ContentProjectGUID>{62DFB50F-60AF-4EB0-97E6-375863300EA1}</ContentProjectGUID>
+      <TargetPlatform>Xbox360</TargetPlatform>
+      <TargetProfile>HiDef</TargetProfile>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>true</CompressContent>
+      <RootDirectory>c:\users\victor\documents\visual studio 2010\Projects\Virulent_dev\Virulent_dev\Virulent_devContent\</RootDirectory>
+      <LoggerRootDirectory>c:\users\victor\documents\visual studio 2010\Projects\Virulent_dev\Virulent_dev\Virulent_dev\</LoggerRootDirectory>
+      <IntermediateDirectory>c:\users\victor\documents\visual studio 2010\Projects\Virulent_dev\Virulent_dev\Virulent_dev\obj\Xbox 360\Debug\</IntermediateDirectory>
+      <OutputDirectory>c:\users\victor\documents\visual studio 2010\Projects\Virulent_dev\Virulent_dev\Virulent_dev\bin\Xbox 360\Debug\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2012-06-01T22:14:05.4730311-05:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>
