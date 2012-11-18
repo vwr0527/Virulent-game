@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010 Express for Windows Phone
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Virulent_dev", "Virulent_dev\Virulent_dev\Virulent_dev.csproj", "{F23A8BBD-25AB-4909-B9A6-BDEDD2BBF5A3}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "Virulent_devContent", "Virulent_dev\Virulent_devContent\Virulent_devContent.contentproj", "{62DFB50F-60AF-4EB0-97E6-375863300EA1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Virulent_devContent", "Virulent_dev\Virulent_devContent\Virulent_devContent.contentproj", "{62DFB50F-60AF-4EB0-97E6-375863300EA1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Virulent_dev Windows", "Virulent_dev\Virulent_dev\Virulent_dev Windows.csproj", "{FAC0001B-A548-462A-A3CB-DF1CA626BD01}"
 EndProject

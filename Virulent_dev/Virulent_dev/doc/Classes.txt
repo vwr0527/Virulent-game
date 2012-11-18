@@ -1,4 +1,12 @@
-﻿Graphics class will be responsible for drawing things.
+﻿Virulent creates a GameManager
+
+GameManager contains
+	GraphicsManager
+	AudioManager
+	WorldManager
+	MenuManager
+
+Graphics class will be responsible for drawing things.
 World class will be responsible for loading the level, simulating the world.
 Menu class will be the menu.
 

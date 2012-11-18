@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.Media;
 
 namespace Virulent_dev
@@ -18,15 +20,25 @@ namespace Virulent_dev
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        SpriteFont spriteFont;
+        XMLReaderTest xmlReader;
+        GamerServicesComponent storageComponent;
 
-        //**********Test additions************
-        SpriteFont font;
-        //************************************
+        PersistantStorageManager persistMan;
+        GraphicsDrawingManager graphMan;
+
 
         public Virulent()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            storageComponent = new GamerServicesComponent(this);
+            this.Components.Add(storageComponent);
+
+            persistMan = new PersistantStorageManager(null);
+            graphMan = new GraphicsDrawingManager();
+
         }
 
         /// <summary>
@@ -50,12 +62,9 @@ namespace Virulent_dev
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            spriteFont = Content.Load<SpriteFont>("SpriteFont1");
+            xmlReader = new XMLReaderTest();
             // TODO: use this.Content to load your game content here
-
-            //***************************************
-            font = Content.Load<SpriteFont>("SpriteFont1");
-            //***************************************
         }
 
         /// <summary>
@@ -67,6 +76,8 @@ namespace Virulent_dev
             // TODO: Unload any non ContentManager content here
         }
 
+        GamePadState currentState;
+
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -74,11 +85,21 @@ namespace Virulent_dev
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            GamePadState previousState = currentState;
+            currentState = GamePad.GetState(PlayerIndex.One);
+            // Allows the default game to exit on Xbox 360 and Windows
+            if (currentState.Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
+            if ((currentState.Buttons.A == ButtonState.Pressed) &&
+                (previousState.Buttons.A == ButtonState.Released))
+            {
+                persistMan.DoSaveRequest(Guide.IsVisible, PlayerIndex.One);
+            }
+
+            // If a save is pending, save as soon as the
+            // storage device is chosen
+            persistMan.DoPendingSave();
 
             base.Update(gameTime);
         }
@@ -89,15 +110,8 @@ namespace Virulent_dev
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-
-            //***************************************
-            spriteBatch.Begin();
-            spriteBatch.DrawString(font, "Hello world", Vector2.Zero, Color.White);
-            spriteBatch.End();
-            //***************************************
+            
+            graphMan.DrawAll(GraphicsDevice, spriteBatch, spriteFont);
 
             base.Draw(gameTime);
         }

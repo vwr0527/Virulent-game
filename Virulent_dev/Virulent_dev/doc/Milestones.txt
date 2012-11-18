@@ -1,4 +1,9 @@
 ﻿Milestone 1: Render text, texture and geometry on the screen
+
+Subgoal1: Create test class to read in an XML file and display it on screen.
+Subgoal2: Modify test class to write to the XML file a random string.
+Subgoal3: Have test class remember a setting after changing it, without recompiling.
+
 Milestone 2: Simple 1 page menu system, simple in game physics (bouncy ball)
 Milestone 3: Multipage menu, adjustable settings, basic sound
 Milestone 4: Finite item spawner, controllable item
