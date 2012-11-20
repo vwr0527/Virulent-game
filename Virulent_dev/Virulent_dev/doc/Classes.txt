@@ -1,4 +1,13 @@
-﻿Virulent creates a GameManager
+﻿First version:
+Virulent is the game manager.
+Virulent contains
+InputManager, StorageManager, ResourceManager,
+GraphicsManager, AudioManager, WorldManager and MenuManager
+
+==========================================================================
+Pre-Brainstorming
+
+Virulent creates a GameManager
 
 GameManager contains
 	GraphicsManager

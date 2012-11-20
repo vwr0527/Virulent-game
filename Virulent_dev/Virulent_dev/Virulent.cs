@@ -13,89 +13,63 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Virulent_dev
 {
-    /// <summary>
-    /// This is the main type for your game
-    /// </summary>
     public class Virulent : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        SpriteFont spriteFont;
         XMLReaderTest xmlReader;
         GamerServicesComponent storageComponent;
 
-        PersistantStorageManager persistMan;
-        GraphicsDrawingManager graphMan;
+        StorageManager persistMan;
+        GraphicsManager graphMan;
+        GUIManager guiMan;
+        WorldManager worldMan;
+        InputManager inputMan;
 
 
         public Virulent()
         {
-            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
             storageComponent = new GamerServicesComponent(this);
             this.Components.Add(storageComponent);
 
-            persistMan = new PersistantStorageManager(null);
-            graphMan = new GraphicsDrawingManager();
-
+            persistMan = new StorageManager(null);
+            graphMan = new GraphicsManager(this);
+            inputMan = new InputManager();
+            guiMan = new GUIManager(inputMan);
+            worldMan = new WorldManager(inputMan);
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            spriteFont = Content.Load<SpriteFont>("SpriteFont1");
+            graphMan.LoadContent(Content);
             xmlReader = new XMLReaderTest();
-            // TODO: use this.Content to load your game content here
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
 
-        GamePadState currentState;
-
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            GamePadState previousState = currentState;
-            currentState = GamePad.GetState(PlayerIndex.One);
-            // Allows the default game to exit on Xbox 360 and Windows
-            if (currentState.Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+            inputMan.Update(gameTime);
 
-            if ((currentState.Buttons.A == ButtonState.Pressed) &&
-                (previousState.Buttons.A == ButtonState.Released))
+            if (worldMan.ExitRequested() || guiMan.ExitRequested())
+            {
+                this.Exit();
+            }
+
+            if (worldMan.SaveRequested() || guiMan.SaveRequested())
             {
                 persistMan.DoSaveRequest(Guide.IsVisible, PlayerIndex.One);
             }
+
+            guiMan.Update(gameTime);
+            worldMan.Update(gameTime);
 
             // If a save is pending, save as soon as the
             // storage device is chosen
@@ -103,15 +77,11 @@ namespace Virulent_dev
 
             base.Update(gameTime);
         }
-
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        
         protected override void Draw(GameTime gameTime)
         {
             
-            graphMan.DrawAll(GraphicsDevice, spriteBatch, spriteFont);
+            graphMan.DrawAll();
 
             base.Draw(gameTime);
         }

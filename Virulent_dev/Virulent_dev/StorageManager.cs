@@ -9,15 +9,15 @@ using System.IO;
 
 namespace Virulent_dev
 {
-    class PersistantStorageManager
+    class StorageManager
     {
-        StorageDevice device;
-        IAsyncResult result;
+        StorageDevice m_device;
+        IAsyncResult m_result;
         bool gameSaveRequested = false;
 
-        public PersistantStorageManager(StorageDevice deviceParam)
+        public StorageManager(StorageDevice deviceParam)
         {
-            device = deviceParam;
+            m_device = deviceParam;
         }
 
 
@@ -27,17 +27,17 @@ namespace Virulent_dev
             if ((!guideIsVisible) && (gameSaveRequested == false))
             {
                 gameSaveRequested = true;
-                result = StorageDevice.BeginShowSelector(
+                m_result = StorageDevice.BeginShowSelector(
                         whichPlayer, null, null);
             }
         }
 
         public void DoPendingSave()
         {
-            if ((gameSaveRequested) && (result.IsCompleted))
+            if ((gameSaveRequested) && (m_result.IsCompleted))
             {
-                device = StorageDevice.EndShowSelector(result);
-                if (device != null && device.IsConnected)
+                m_device = StorageDevice.EndShowSelector(m_result);
+                if (m_device != null && m_device.IsConnected)
                 {
                     //this is where the saving actually happens.
                     MessWithFiles();
@@ -52,12 +52,12 @@ namespace Virulent_dev
 
             // Open a storage container.
             IAsyncResult result =
-                device.BeginOpenContainer("StorageDemo", null, null);
+                m_device.BeginOpenContainer("StorageDemo", null, null);
 
             // Wait for the WaitHandle to become signaled.
             result.AsyncWaitHandle.WaitOne();
 
-            StorageContainer container = device.EndOpenContainer(result);
+            StorageContainer container = m_device.EndOpenContainer(result);
 
             // Close the wait handle.
             result.AsyncWaitHandle.Close();
