@@ -36,7 +36,7 @@ namespace Virulent_dev
             graphMan = new GraphicsManager(this);
             inputMan = new InputManager();
             guiMan = new GUIManager(inputMan);
-            worldMan = new WorldManager(inputMan);
+            worldMan = new WorldManager(inputMan, graphMan);
         }
 
         protected override void Initialize()
@@ -80,6 +80,7 @@ namespace Virulent_dev
         
         protected override void Draw(GameTime gameTime)
         {
+            worldMan.Draw(gameTime);
             
             graphMan.DrawAll();
 

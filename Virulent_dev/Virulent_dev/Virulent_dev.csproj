@@ -60,10 +60,13 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cell.cs" />
+    <Compile Include="GraphicElement.cs" />
     <Compile Include="GraphicsManager.cs" />
     <Compile Include="GUIManager.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="StorageManager.cs" />
+    <Compile Include="VRArray.cs" />
     <Compile Include="WorldManager.cs" />
     <Compile Include="XMLReaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -67,6 +67,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cell.cs" />
+    <Compile Include="GraphicElement.cs" />
     <Compile Include="GraphicsManager.cs" />
     <Compile Include="GUIManager.cs" />
     <Compile Include="InputManager.cs" />
@@ -74,6 +76,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="StorageManager.cs" />
     <Compile Include="Virulent.cs" />
+    <Compile Include="VRArray.cs" />
     <Compile Include="WorldManager.cs" />
     <Compile Include="XMLReaderTest.cs" />
   </ItemGroup>

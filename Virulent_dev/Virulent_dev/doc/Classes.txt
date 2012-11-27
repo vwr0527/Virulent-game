@@ -4,6 +4,11 @@ Virulent contains
 InputManager, StorageManager, ResourceManager,
 GraphicsManager, AudioManager, WorldManager and MenuManager
 
+World and Menu will read input from InputManager, send draw commands
+to graphics manager, send audio requests to audiomanager, and send save
+and load requests to storagemanager.
+Audio and Graphics Managers will request necessary resources from resource
+manager.
 ==========================================================================
 Pre-Brainstorming
 
