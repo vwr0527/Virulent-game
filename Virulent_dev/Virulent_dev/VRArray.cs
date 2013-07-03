@@ -44,12 +44,12 @@ namespace Virulent_dev
         //==================================================
 
         // if it's full, add to the list.
-        // if it's not full, check the position at current_index + 1 and -1,
-        // then +2 and -2, then +3 and -3 and so on. When an empty cell is found,
+        // if it's not full, When an empty cell is found,
         // clone the added element into it.
         // afterwards, current index is the newly added element
         public void Add(T data)
         {
+            //It's full. extend the list.
             if (num_active == max_index)
             {
                 //create and add a new cell to the cell list.
@@ -63,26 +63,25 @@ namespace Virulent_dev
 
                 return;
             }
-            //===================
 
+            //it's not full. There are empty cells. Find them and fill them.
             if (num_active < max_index)
             {
-                //Debug.WriteLine("======================");
                 for (int i = 0; i < max_index; ++i)
                 {
-                    if (!cellList[i].IsActive())
+                    if (cellList[i].IsActive() == false)
                     {
-                        ///Debug.WriteLine("not active");
                         current_index = i;
                         cellList[i].CopyData(data, CopyMembers);
                         cellList[i].Activate();
                         ++num_active;
+
                         return;
                     }
-                    //else
-                        //Debug.WriteLine("active");
                 }
             }
+            //if reached here, add failed
+            //TODO: Add error
         }
 
         public void EmptyAll()

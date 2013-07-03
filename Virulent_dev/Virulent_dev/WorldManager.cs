@@ -37,12 +37,14 @@ namespace Virulent_dev
 
         public void Draw(GameTime gameTime)
         {
+            /*
             double vari = Math.Sin((double)gameTime.TotalGameTime.TotalMilliseconds / (double)1000);
             //Debug.WriteLine(vari);
             for (int i = 0; i < 10; ++i)
             {
                 r_graphMan.X(new Vector2(i * 10.0f, i * i * (float)vari));
             }
+             */
         }
     }
 }

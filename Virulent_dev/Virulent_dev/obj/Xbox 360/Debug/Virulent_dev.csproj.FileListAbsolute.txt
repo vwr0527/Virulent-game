@@ -10,3 +10,9 @@ D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\obj\Xbox 360\Deb
 D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\obj\Xbox 360\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\obj\Xbox 360\Debug\Virulent_dev.exe
 D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\obj\Xbox 360\Debug\Virulent_dev.pdb
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\Xbox 360\Debug\Virulent_dev.exe
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\Xbox 360\Debug\Virulent_dev.pdb
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\obj\Xbox 360\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\obj\Xbox 360\Debug\Virulent_dev.exe
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\obj\Xbox 360\Debug\Virulent_dev.pdb
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\obj\Xbox 360\Debug\Virulent_dev.csprojResolveAssemblyReference.cache

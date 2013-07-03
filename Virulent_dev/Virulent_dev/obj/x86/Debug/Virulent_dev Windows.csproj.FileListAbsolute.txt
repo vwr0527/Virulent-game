@@ -11,3 +11,10 @@ D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\obj\x86\Debug\Re
 D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\obj\x86\Debug\Virulent_dev.exe
 D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\obj\x86\Debug\Virulent_dev.pdb
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\SpriteFont1.xnb
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Virulent_dev.exe
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Virulent_dev.pdb
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\obj\x86\Debug\Virulent_dev.exe
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\obj\x86\Debug\Virulent_dev.pdb
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\obj\x86\Debug\Virulent_dev Windows.csprojResolveAssemblyReference.cache
