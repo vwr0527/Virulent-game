@@ -228,7 +228,7 @@ namespace Virulent_dev
                 bottomRightBack, bottomNormal, textureTopRight);
             cubeVertices[33] =
                 new VertexPositionNormalTexture(
-                bottomLeftFront, rightNormal, textureBottomLeft);
+                bottomLeftFront, bottomNormal, textureBottomLeft);
             cubeVertices[34] =
                 new VertexPositionNormalTexture(
                 bottomRightBack, bottomNormal, textureBottomRight);
