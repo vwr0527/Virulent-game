@@ -7,9 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Virulent_dev
 {
-    //graphic element is the generic representation of any kind of graphic.
-    //graphic elements can 'link to' sprites, polygon, or text.
-    //they 'link' instead of contain, because they try not to repeat information.
+    //graphicElement contains starting index and ending index for a collection/grouping of verticies
     class GraphicElement
     {
         public Vector2 pos;

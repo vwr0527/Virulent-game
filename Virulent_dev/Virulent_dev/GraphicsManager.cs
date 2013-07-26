@@ -13,7 +13,8 @@ namespace Virulent_dev
      * Graphics Manager:
      * manages split screen, sprite rendering, geometry rendering,
      * 
-     * 
+     * uses graphic elements to draw anything.
+     * needs connection to resourcemanager
      */
     class GraphicsManager
     {
@@ -33,10 +34,13 @@ namespace Virulent_dev
         VertexDeclaration basicEffectVertexDeclaration;
         VertexBuffer vertexBuffer;
         BasicEffect basicEffect;
+        RasterizerState rasterizerState1;
 
         //my stuff
         VRArray<GraphicElement> drawList;
+        Texture2D texture;
 
+        //constructor
         public GraphicsManager(Game game)
         {
             graphicsDeviceManager = new GraphicsDeviceManager(game);
@@ -49,11 +53,12 @@ namespace Virulent_dev
             numPoints = 8;
         }
 
+        //3d cube stuff
         private void SetupView()
         {
             float tilt = MathHelper.ToRadians(0);  // 0 degree angle
             // Use the world matrix to tilt the cube along x and y axes.
-            worldMatrix = Matrix.CreateRotationX(tilt) * Matrix.CreateRotationY(tilt);
+            //worldMatrix = Matrix.CreateRotationX(tilt) * Matrix.CreateRotationY(tilt);
             viewMatrix = Matrix.CreateLookAt(new Vector3(5, 5, 5), Vector3.Zero, Vector3.Up);
 
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
@@ -74,6 +79,61 @@ namespace Virulent_dev
                 (float)graphicsDevice.Viewport.Width /
                 (float)graphicsDevice.Viewport.Height,
                 1.0f, 100.0f);
+        }
+        private void InitializeBasicEffect()
+        {
+            basicEffect = new BasicEffect(graphicsDevice);
+
+            basicEffect.World = worldMatrix;
+            basicEffect.View = viewMatrix;
+            basicEffect.Projection = projectionMatrix;
+
+            // primitive color
+            basicEffect.AmbientLightColor = new Vector3(0.1f, 0.1f, 0.1f);
+            basicEffect.DiffuseColor = new Vector3(1.0f, 1.0f, 1.0f);
+            basicEffect.SpecularColor = new Vector3(0.25f, 0.25f, 0.25f);
+            basicEffect.SpecularPower = 5.0f;
+            basicEffect.Alpha = 1.0f;
+            basicEffect.VertexColorEnabled = false;
+            basicEffect.LightingEnabled = true;
+            if (basicEffect.LightingEnabled)
+            {
+                basicEffect.DirectionalLight0.Enabled = true; // enable each light individually
+                if (basicEffect.DirectionalLight0.Enabled)
+                {
+                    // x direction
+                    basicEffect.DirectionalLight0.DiffuseColor = new Vector3(1, 0, 0); // range is 0 to 1
+                    basicEffect.DirectionalLight0.Direction = Vector3.Normalize(new Vector3(-1, 0, 0));
+                    // points from the light to the origin of the scene
+                    basicEffect.DirectionalLight0.SpecularColor = Vector3.One;
+                }
+
+                basicEffect.DirectionalLight1.Enabled = true;
+                if (basicEffect.DirectionalLight1.Enabled)
+                {
+                    // y direction
+                    basicEffect.DirectionalLight1.DiffuseColor = new Vector3(0, 0.75f, 0);
+                    basicEffect.DirectionalLight1.Direction = Vector3.Normalize(new Vector3(0, -1, 0));
+                    basicEffect.DirectionalLight1.SpecularColor = Vector3.One;
+                }
+
+                basicEffect.DirectionalLight2.Enabled = true;
+                if (basicEffect.DirectionalLight2.Enabled)
+                {
+                    // z direction
+                    basicEffect.DirectionalLight2.DiffuseColor = new Vector3(0, 0, 0.5f);
+                    basicEffect.DirectionalLight2.Direction = Vector3.Normalize(new Vector3(0, 0, -1));
+                    basicEffect.DirectionalLight2.SpecularColor = Vector3.One;
+                }
+            }
+
+            rasterizerState1 = new RasterizerState();
+            rasterizerState1.CullMode = CullMode.None;
+        }
+        private void SetupGraphicsDevice()
+        {
+            graphicsDevice.RasterizerState = rasterizerState1;
+            graphicsDevice.SetVertexBuffer(vertexBuffer);
         }
         private void SetupVertexBuffer()
         {
@@ -236,93 +296,37 @@ namespace Virulent_dev
                 new VertexPositionNormalTexture(
                 bottomLeftBack, bottomNormal, textureTopRight);
         }
-        RasterizerState rasterizerState1;
-        private void InitializeBasicEffect()
-        {
-            basicEffect = new BasicEffect(graphicsDevice);
 
-            basicEffect.World = worldMatrix;
-            basicEffect.View = viewMatrix;
-            basicEffect.Projection = projectionMatrix;
-
-            // primitive color
-            basicEffect.AmbientLightColor = new Vector3(0.1f, 0.1f, 0.1f);
-            basicEffect.DiffuseColor = new Vector3(1.0f, 1.0f, 1.0f);
-            basicEffect.SpecularColor = new Vector3(0.25f, 0.25f, 0.25f);
-            basicEffect.SpecularPower = 5.0f;
-            basicEffect.Alpha = 1.0f;
-            basicEffect.VertexColorEnabled = false;
-            basicEffect.LightingEnabled = true;
-            if (basicEffect.LightingEnabled)
-            {
-                basicEffect.DirectionalLight0.Enabled = true; // enable each light individually
-                if (basicEffect.DirectionalLight0.Enabled)
-                {
-                    // x direction
-                    basicEffect.DirectionalLight0.DiffuseColor = new Vector3(1, 0, 0); // range is 0 to 1
-                    basicEffect.DirectionalLight0.Direction = Vector3.Normalize(new Vector3(-1, 0, 0));
-                    // points from the light to the origin of the scene
-                    basicEffect.DirectionalLight0.SpecularColor = Vector3.One;
-                }
-
-                basicEffect.DirectionalLight1.Enabled = true;
-                if (basicEffect.DirectionalLight1.Enabled)
-                {
-                    // y direction
-                    basicEffect.DirectionalLight1.DiffuseColor = new Vector3(0, 0.75f, 0);
-                    basicEffect.DirectionalLight1.Direction = Vector3.Normalize(new Vector3(0, -1, 0));
-                    basicEffect.DirectionalLight1.SpecularColor = Vector3.One;
-                }
-
-                basicEffect.DirectionalLight2.Enabled = true;
-                if (basicEffect.DirectionalLight2.Enabled)
-                {
-                    // z direction
-                    basicEffect.DirectionalLight2.DiffuseColor = new Vector3(0, 0, 0.5f);
-                    basicEffect.DirectionalLight2.Direction = Vector3.Normalize(new Vector3(0, 0, -1));
-                    basicEffect.DirectionalLight2.SpecularColor = Vector3.One;
-                }
-            }
-
-            rasterizerState1 = new RasterizerState();
-            rasterizerState1.CullMode = CullMode.None;
-        }
-        private void SetupGraphicsDevice()
-        {
-            graphicsDevice.RasterizerState = rasterizerState1;
-            graphicsDevice.SetVertexBuffer(vertexBuffer);
-        }
-
-        private void createVerts()
+        //2D stuff
+        private void CreateVerts()
         {
             pointList = new VertexPositionColorTexture[numPoints];
 
-            for (int x = 0; x < numPoints / 2; x++)
+            for (int x = 0; x < numPoints / 2; ++x)
             {
-                for (int y = 0; y < 2; y++)
+                for (int y = 0; y < 2; ++y)
                 {
                     pointList[(x * 2) + y] = new VertexPositionColorTexture(
                         new Vector3(x * 100, y * 100, 0), Color.White, new Vector2(0,0));
                 }
             }
         }
-        private void createVertIndicies()
+        private void CreateVertIndicies()
         {
             // Initialize an array of indices of type short.
             lineListIndices = new short[(numPoints * 2) - 2];
 
             // Populate the array with references to indices in the vertex buffer
-            for (int i = 0; i < numPoints - 1; i++)
+            for (int i = 0; i < numPoints - 1; ++i)
             {
                 lineListIndices[i * 2] = (short)(i);
                 lineListIndices[(i * 2) + 1] = (short)(i + 1);
             }
         }
-
-        private void setupCameraTransforms()
+        private void SetupCameraTransforms()
         {
             viewMatrix = Matrix.CreateLookAt(
-                new Vector3(0.0f, 0.0f, 1.0f),
+                new Vector3(5f, 5f, 5f),
                 Vector3.Zero,
                 Vector3.Up
                 );
@@ -333,6 +337,7 @@ namespace Virulent_dev
                 (float)graphicsDevice.Viewport.Height,
                 0,
                 1.0f, 1000.0f);
+            projectionMatrix = Matrix.CreateOrthographic(10, 10 * ((float)graphicsDevice.Viewport.Height / (float)graphicsDevice.Viewport.Width), 0.1f, 1000f);
         }
 
         public void LoadContent(ContentManager content)
@@ -340,11 +345,12 @@ namespace Virulent_dev
             graphicsDevice = graphicsDeviceManager.GraphicsDevice;
             spriteBatch = new SpriteBatch(graphicsDevice);
             currentFont = content.Load<SpriteFont>("SpriteFont1");
-            //setupCameraTransforms();
-            //createVerts();
-            //createVertIndicies();
+            texture = content.Load<Texture2D>("test");
+            SetupCameraTransforms();
+            //CreateVerts();
+            //CreateVertIndicies();
 
-            SetupView();
+            //SetupView();
             InitializeBasicEffect();
             CreateCube();
             SetupVertexBuffer();
@@ -388,6 +394,8 @@ namespace Virulent_dev
             basicEffect.World = worldMatrix;
             //basicEffect.View = viewMatrix;
             //basicEffect.Projection = projectionMatrix;
+            basicEffect.TextureEnabled = true;
+            basicEffect.Texture = texture;
 
             foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
             {
