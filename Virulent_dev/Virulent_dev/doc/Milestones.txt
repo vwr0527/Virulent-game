@@ -12,8 +12,3 @@ Sub2: Game with fixed spawning, fixed entity array, one entity, fixed update loo
 Milestone 3: Multipage menu, adjustable settings, basic sound
 Milestone 4: Finite item spawner, controllable item
 Milestone 5: Simple camera motion
-
-Milestone 6: XML Persistant data
-Subgoal1: Create test class to read in an XML file and display it on screen.
-Subgoal2: Modify test class to write to the XML file a random string.
-Subgoal3: Have test class remember a setting after changing it, without recompiling.

@@ -21,10 +21,7 @@ Menu and World will send draw commands to the Graphics Class.
 
 Menu will have Pages
 	Pages will have Selections
-		Selections contain Composites
-		Selections also have XML that describes what they contain, and how to draw those things.
 
 
-Within graphics class are:
-
-four lists: Sprites, TextFields, vertex list, vertex index list.
+Graphics will have GraphicElements
+	

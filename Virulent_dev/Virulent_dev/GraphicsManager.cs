@@ -50,36 +50,8 @@ namespace Virulent_dev
             projectionMatrix = new Matrix();
 
             drawList = new VRArray<GraphicElement>(GraphicElement.CopyMembers);
-            numPoints = 8;
         }
 
-        //3d cube stuff
-        private void SetupView()
-        {
-            float tilt = MathHelper.ToRadians(0);  // 0 degree angle
-            // Use the world matrix to tilt the cube along x and y axes.
-            //worldMatrix = Matrix.CreateRotationX(tilt) * Matrix.CreateRotationY(tilt);
-            viewMatrix = Matrix.CreateLookAt(new Vector3(5, 5, 5), Vector3.Zero, Vector3.Up);
-
-            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
-                MathHelper.ToRadians(45),  // 45 degree angle
-                (float)graphicsDevice.Viewport.Width /
-                (float)graphicsDevice.Viewport.Height,
-                1.0f, 100.0f);
-        }
-        private void SetupView(float tiltAngle)
-        {
-            float tilt = MathHelper.ToRadians(tiltAngle);  // 0 degree angle
-            // Use the world matrix to tilt the cube along x and y axes.
-            worldMatrix = Matrix.CreateRotationX(tilt) * Matrix.CreateRotationY(tilt);
-            viewMatrix = Matrix.CreateLookAt(new Vector3(5, 5, 5), Vector3.Zero, Vector3.Up);
-
-            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
-                MathHelper.ToRadians(45),  // 45 degree angle
-                (float)graphicsDevice.Viewport.Width /
-                (float)graphicsDevice.Viewport.Height,
-                1.0f, 100.0f);
-        }
         private void InitializeBasicEffect()
         {
             basicEffect = new BasicEffect(graphicsDevice);
@@ -87,7 +59,9 @@ namespace Virulent_dev
             basicEffect.World = worldMatrix;
             basicEffect.View = viewMatrix;
             basicEffect.Projection = projectionMatrix;
-
+        }
+        private void TurnOnBasicEffectLighting()
+        {
             // primitive color
             basicEffect.AmbientLightColor = new Vector3(0.1f, 0.1f, 0.1f);
             basicEffect.DiffuseColor = new Vector3(1.0f, 1.0f, 1.0f);
@@ -126,16 +100,21 @@ namespace Virulent_dev
                     basicEffect.DirectionalLight2.SpecularColor = Vector3.One;
                 }
             }
-
+        }
+        private void InitRasterizerState()
+        {
             rasterizerState1 = new RasterizerState();
+
+            rasterizerState1.FillMode = FillMode.WireFrame;
             rasterizerState1.CullMode = CullMode.None;
         }
         private void SetupGraphicsDevice()
         {
             graphicsDevice.RasterizerState = rasterizerState1;
+            graphicsDevice.DepthStencilState = DepthStencilState.Default;
             graphicsDevice.SetVertexBuffer(vertexBuffer);
         }
-        private void SetupVertexBuffer()
+        private void InitVertexDeclaration()
         {
             basicEffectVertexDeclaration = new VertexDeclaration(new VertexElement[]
                 {
@@ -144,6 +123,9 @@ namespace Virulent_dev
                     new VertexElement(24, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0)
                 }
             );
+        }
+        private void SetupCubeVertexBuffer()
+        {
             vertexBuffer = new VertexBuffer(
                             graphicsDevice,
                             VertexPositionNormalTexture.VertexDeclaration,
@@ -154,6 +136,13 @@ namespace Virulent_dev
         }
         private void CreateCube()
         {
+            //to draw: 
+            /*graphicsDevice.DrawPrimitives(
+                PrimitiveType.TriangleList,
+                0,
+                12
+            );*/
+
             Vector3 topLeftFront = new Vector3(-1.0f, 1.0f, 1.0f);
             Vector3 bottomLeftFront = new Vector3(-1.0f, -1.0f, 1.0f);
             Vector3 topRightFront = new Vector3(1.0f, 1.0f, 1.0f);
@@ -296,49 +285,94 @@ namespace Virulent_dev
                 new VertexPositionNormalTexture(
                 bottomLeftBack, bottomNormal, textureTopRight);
         }
-
-        //2D stuff
         private void CreateVerts()
         {
+            numPoints = 65536;
             pointList = new VertexPositionColorTexture[numPoints];
 
+            //zig zag up
             for (int x = 0; x < numPoints / 2; ++x)
             {
                 for (int y = 0; y < 2; ++y)
                 {
                     pointList[(x * 2) + y] = new VertexPositionColorTexture(
-                        new Vector3(x * 100, y * 100, 0), Color.White, new Vector2(0,0));
+                        new Vector3(x, y, (float)Math.Sin(((double)x) / 2f)*2.0f), Color.White, new Vector2(0, 0));
                 }
             }
         }
         private void CreateVertIndicies()
         {
             // Initialize an array of indices of type short.
-            lineListIndices = new short[(numPoints * 2) - 2];
+            /*lineListIndices = new short[(numPoints * 2) - 2];
 
             // Populate the array with references to indices in the vertex buffer
             for (int i = 0; i < numPoints - 1; ++i)
             {
                 lineListIndices[i * 2] = (short)(i);
                 lineListIndices[(i * 2) + 1] = (short)(i + 1);
+            }*/
+
+            lineListIndices = new short[numPoints];
+
+            // Populate the array with references to indices in the vertex buffer
+            for (int i = 0; i < numPoints; ++i)
+            {
+                lineListIndices[i] = (short)(i);
             }
         }
-        private void SetupCameraTransforms()
+        private void SetupVertexBuffer()
         {
-            viewMatrix = Matrix.CreateLookAt(
-                new Vector3(5f, 5f, 5f),
-                Vector3.Zero,
-                Vector3.Up
-                );
+            vertexBuffer = new VertexBuffer(
+                            graphicsDevice,
+                            VertexPositionColorTexture.VertexDeclaration,
+                            pointList.Length,
+                            BufferUsage.None);
 
-            projectionMatrix = Matrix.CreateOrthographicOffCenter(
-                0,
-                (float)graphicsDevice.Viewport.Width,
-                (float)graphicsDevice.Viewport.Height,
-                0,
-                1.0f, 1000.0f);
+            vertexBuffer.SetData<VertexPositionColorTexture>(pointList);
+        }
+
+        //2D camera
+        private void Setup2DView()
+        {
+            worldMatrix = Matrix.Identity;
+            viewMatrix = Matrix.CreateLookAt(new Vector3(5f, 5f, 5f), Vector3.Zero, Vector3.Up);
             projectionMatrix = Matrix.CreateOrthographic(10, 10 * ((float)graphicsDevice.Viewport.Height / (float)graphicsDevice.Viewport.Width), 0.1f, 1000f);
         }
+        private void Setup2DView(float tiltAngle)
+        {
+            float tilt = MathHelper.ToRadians(tiltAngle);  // 0 degree angle
+            // Use the world matrix to tilt the cube along x and y axes.
+            worldMatrix = Matrix.CreateRotationX(tilt) * Matrix.CreateRotationY(tilt);
+            viewMatrix = Matrix.CreateLookAt(new Vector3(5, 5, 5), Vector3.Zero, Vector3.Up);
+
+            projectionMatrix = Matrix.CreateOrthographic(10, 10 * ((float)graphicsDevice.Viewport.Height / (float)graphicsDevice.Viewport.Width), 0.1f, 1000f);
+        }
+        //3D camera
+        private void SetupView()
+        {
+            worldMatrix = Matrix.Identity;
+            viewMatrix = Matrix.CreateLookAt(new Vector3(5, 5, 5), Vector3.Zero, Vector3.Up);
+
+            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
+                MathHelper.ToRadians(45),  // 45 degree angle
+                (float)graphicsDevice.Viewport.Width /
+                (float)graphicsDevice.Viewport.Height,
+                1.0f, 100.0f);
+        }
+        private void SetupView(float tiltAngle)
+        {
+            float tilt = MathHelper.ToRadians(tiltAngle);
+            // Use the world matrix to tilt the cube along x and y axes.
+            worldMatrix = Matrix.CreateRotationX(tilt) * Matrix.CreateRotationY(tilt);
+            viewMatrix = Matrix.CreateLookAt(new Vector3(5, 3, 5), Vector3.Zero, Vector3.Up);
+
+            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
+                MathHelper.ToRadians(45),  // 45 degree angle
+                (float)graphicsDevice.Viewport.Width /
+                (float)graphicsDevice.Viewport.Height,
+                1.0f, 100.0f);
+        }
+
 
         public void LoadContent(ContentManager content)
         {
@@ -346,15 +380,14 @@ namespace Virulent_dev
             spriteBatch = new SpriteBatch(graphicsDevice);
             currentFont = content.Load<SpriteFont>("SpriteFont1");
             texture = content.Load<Texture2D>("test");
-            SetupCameraTransforms();
-            //CreateVerts();
-            //CreateVertIndicies();
 
-            //SetupView();
+            CreateVerts();
+            CreateVertIndicies();
+
+            SetupView();
             InitializeBasicEffect();
-            CreateCube();
             SetupVertexBuffer();
-
+            InitRasterizerState();
         }
         /*
         public void X(Vector2 position)
@@ -373,49 +406,40 @@ namespace Virulent_dev
         float value = 1f;
         public void DrawAll()
         {
-            // TODO: Add your drawing code here
-            graphicsDevice.Clear(Color.CornflowerBlue);
+            graphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
             spriteBatch.DrawString(currentFont, "Hello there", Vector2.Zero, Color.White);
             for (int i = 0, j = drawList.Size(); i < j; ++i)
             {
-                //Debug.WriteLine("drawing [" + i + "] with position " + drawList.ElementAt(i).pos);
-                //spriteBatch.DrawString(currentFont, "X", drawList.ElementAt(i).pos, Color.Black);
                 drawList.ElementAt(i).Draw(spriteBatch, graphicsDevice);
             }
             spriteBatch.End();
 
-            graphicsDevice.DepthStencilState = DepthStencilState.Default;
             SetupGraphicsDevice();
+            value += 1.0f;
             SetupView(value);
-            value += 1f;
-            Debug.WriteLine(value);
+            //Debug.WriteLine(value);
 
             basicEffect.World = worldMatrix;
-            //basicEffect.View = viewMatrix;
-            //basicEffect.Projection = projectionMatrix;
+            basicEffect.View = viewMatrix;
+            basicEffect.Projection = projectionMatrix;
             basicEffect.TextureEnabled = true;
             basicEffect.Texture = texture;
 
             foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
             {
                 pass.Apply();
-                graphicsDevice.DrawPrimitives(
-                    PrimitiveType.TriangleList,
-                    0,
-                    12
+                graphicsDevice.DrawUserIndexedPrimitives<VertexPositionColorTexture>(
+                    PrimitiveType.TriangleStrip,
+                    pointList,
+                    0,  // vertex buffer offset to add to each element of the index buffer
+                    numPoints,  // number of vertices in pointList
+                    lineListIndices,  // the index buffer
+                    0,  // first index element to read
+                    numPoints-2   // number of primitives to draw
                 );
             }
 
-            /*graphicsDevice.DrawUserIndexedPrimitives<VertexPositionColorTexture>(
-                PrimitiveType.LineList,
-                pointList,
-                0,  // vertex buffer offset to add to each element of the index buffer
-                8,  // number of vertices in pointList
-                lineListIndices,  // the index buffer
-                0,  // first index element to read
-                7   // number of primitives to draw
-            );*/
             drawList.EmptyAll();
         }
     }
