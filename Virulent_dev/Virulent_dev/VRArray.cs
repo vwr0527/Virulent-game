@@ -103,6 +103,23 @@ namespace Virulent_dev
              */
         }
 
+        public void DeleteElementAt(int index)
+        {
+            cellList[index].Deactivate();
+        }
+
+        public void DeleteElement(T data)
+        {
+            for (int i = 0; i < max_index; ++i)
+            {
+                if (cellList[i].GetData().Equals(data))
+                {
+                    cellList[i].Deactivate();
+                    return;
+                }
+            }
+        }
+
         public T ElementAt(int index)
         {
             return cellList[index].GetData();

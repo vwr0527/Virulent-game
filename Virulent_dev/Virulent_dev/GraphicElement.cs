@@ -16,7 +16,7 @@ namespace Virulent_dev
             subject.pos.X = target.pos.X;
             subject.pos.Y = target.pos.Y;
         }
-        public void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
+        public void Draw(GraphicsDevice graphicsDevice)
         {
             
         }

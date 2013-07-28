@@ -65,6 +65,7 @@
     <Compile Include="GraphicsManager.cs" />
     <Compile Include="GUIManager.cs" />
     <Compile Include="InputManager.cs" />
+    <Compile Include="SpriteElement.cs" />
     <Compile Include="StorageManager.cs" />
     <Compile Include="VRArray.cs" />
     <Compile Include="WorldManager.cs" />

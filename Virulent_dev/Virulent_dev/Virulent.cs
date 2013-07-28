@@ -29,13 +29,13 @@ namespace Virulent_dev
         {
             Content.RootDirectory = "Content";
 
-            storageComponent = new GamerServicesComponent(this);
+            storageComponent = new GamerServicesComponent(this);//unnecessary?
             this.Components.Add(storageComponent);
 
             persistMan = new StorageManager(null);
             graphMan = new GraphicsManager(this);
             inputMan = new InputManager();
-            guiMan = new GUIManager(inputMan);
+            guiMan = new GUIManager(inputMan, graphMan);
             worldMan = new WorldManager(inputMan, graphMan);
         }
 
@@ -81,6 +81,7 @@ namespace Virulent_dev
         protected override void Draw(GameTime gameTime)
         {
             worldMan.Draw(gameTime);
+            guiMan.Draw(gameTime);
             
             graphMan.DrawAll();
 

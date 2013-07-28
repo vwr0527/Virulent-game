@@ -38,6 +38,7 @@ namespace Virulent_dev
 
         //my stuff
         VRArray<GraphicElement> drawList;
+        VRArray<SpriteElement> spriteList;
         Texture2D texture;
 
         //constructor
@@ -50,6 +51,7 @@ namespace Virulent_dev
             projectionMatrix = new Matrix();
 
             drawList = new VRArray<GraphicElement>(GraphicElement.CopyMembers);
+            spriteList = new VRArray<SpriteElement>(SpriteElement.CopyMembers);
         }
 
         private void InitializeBasicEffect()
@@ -296,7 +298,7 @@ namespace Virulent_dev
                 for (int y = 0; y < 2; ++y)
                 {
                     pointList[(x * 2) + y] = new VertexPositionColorTexture(
-                        new Vector3(x, y, (float)Math.Sin(((double)x) / 2f)*2.0f), Color.White, new Vector2(0, 0));
+                        new Vector3(0.1f * x * (float)Math.Cos((double)x / 4.0f), ((x / 8.0f) + y), 0.1f * x * (float)Math.Sin((double)x / 4.0f)), Color.White, new Vector2(0, 0));
                 }
             }
         }
@@ -357,22 +359,21 @@ namespace Virulent_dev
                 MathHelper.ToRadians(45),  // 45 degree angle
                 (float)graphicsDevice.Viewport.Width /
                 (float)graphicsDevice.Viewport.Height,
-                1.0f, 100.0f);
+                1.0f, 1000.0f);
         }
         private void SetupView(float tiltAngle)
         {
             float tilt = MathHelper.ToRadians(tiltAngle);
             // Use the world matrix to tilt the cube along x and y axes.
-            worldMatrix = Matrix.CreateRotationX(tilt) * Matrix.CreateRotationY(tilt);
-            viewMatrix = Matrix.CreateLookAt(new Vector3(5, 3, 5), Vector3.Zero, Vector3.Up);
+            worldMatrix = Matrix.CreateRotationZ(tilt);// Matrix.CreateRotationX(tilt) * Matrix.CreateRotationY(tilt);
+            viewMatrix = Matrix.CreateLookAt(new Vector3(50, 30, 10), Vector3.Zero, Vector3.Up);
 
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
                 MathHelper.ToRadians(45),  // 45 degree angle
                 (float)graphicsDevice.Viewport.Width /
                 (float)graphicsDevice.Viewport.Height,
-                1.0f, 100.0f);
+                1.0f, 10000.0f);
         }
-
 
         public void LoadContent(ContentManager content)
         {
@@ -406,25 +407,20 @@ namespace Virulent_dev
         float value = 1f;
         public void DrawAll()
         {
-            graphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin();
-            spriteBatch.DrawString(currentFont, "Hello there", Vector2.Zero, Color.White);
-            for (int i = 0, j = drawList.Size(); i < j; ++i)
-            {
-                drawList.ElementAt(i).Draw(spriteBatch, graphicsDevice);
-            }
-            spriteBatch.End();
-
-            SetupGraphicsDevice();
             value += 1.0f;
             SetupView(value);
-            //Debug.WriteLine(value);
 
             basicEffect.World = worldMatrix;
             basicEffect.View = viewMatrix;
             basicEffect.Projection = projectionMatrix;
             basicEffect.TextureEnabled = true;
             basicEffect.Texture = texture;
+
+            graphicsDevice.Clear(Color.Black);
+
+            SetupGraphicsDevice();
+
+            UpdateVerts();
 
             foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
             {
@@ -440,7 +436,43 @@ namespace Virulent_dev
                 );
             }
 
-            drawList.EmptyAll();
+            Draw2D();
+        }
+        private void UpdateVerts()
+        {
+            for (int i = 0, j = drawList.Size(); i < j; ++i)
+            {
+                drawList.ElementAt(i).Draw(graphicsDevice);
+            }
+        }
+        private void Draw2D()
+        {
+            spriteBatch.Begin();
+            for (int i = 0; i < spriteList.Size(); ++i)
+            {
+                spriteList.ElementAt(i).Draw(spriteBatch);
+            }
+            spriteBatch.End();
+        }
+
+        public SpriteElement AddText(StringBuilder txt, SpriteFont fontChoice)
+        {
+            if (fontChoice == null)
+            {
+                fontChoice = currentFont;
+            }
+            SpriteElement addedElement = new SpriteElement(null, txt, fontChoice);
+            spriteList.Add(addedElement);
+
+            return addedElement;
+        }
+
+        public SpriteElement AddSprite(Texture2D textureChoice)
+        {
+            SpriteElement addedElement = new SpriteElement(texture, null, null);
+            spriteList.Add(addedElement);
+
+            return addedElement;
         }
     }
 }

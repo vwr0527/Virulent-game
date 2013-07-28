@@ -9,13 +9,12 @@ namespace Virulent_dev
 {
     class InputManager
     {
-        
         GamePadState currentState;
         GamePadState previousState;
 
         public void Update(GameTime gameTime)
         {
-            GamePadState previousState = currentState;
+            previousState = currentState;
             currentState = GamePad.GetState(PlayerIndex.One);
         }
 
