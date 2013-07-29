@@ -47,6 +47,7 @@ namespace Virulent_dev
         protected override void LoadContent()
         {
             graphMan.LoadContent(Content);
+            guiMan.LoadContent(Content);
             xmlReader = new XMLReaderTest();
         }
 
@@ -70,7 +71,6 @@ namespace Virulent_dev
 
             guiMan.Update(gameTime);
             worldMan.Update(gameTime);
-
             // If a save is pending, save as soon as the
             // storage device is chosen
             persistMan.DoPendingSave();

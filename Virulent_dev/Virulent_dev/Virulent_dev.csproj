@@ -64,6 +64,7 @@
     <Compile Include="GraphicElement.cs" />
     <Compile Include="GraphicsManager.cs" />
     <Compile Include="GUIManager.cs" />
+    <Compile Include="GUIObjects\MenuPage.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="SpriteElement.cs" />
     <Compile Include="StorageManager.cs" />
@@ -81,6 +82,9 @@
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </Content>
     <Content Include="doc\Milestones.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="WorldObjects\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

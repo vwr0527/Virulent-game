@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Diagnostics;
 
 namespace Virulent_dev
 {
@@ -11,6 +12,7 @@ namespace Virulent_dev
     class SpriteElement
     {
         public Vector2 pos;
+        private Vector2 transformedPos;
         private Vector2 orig;
         public Color col;
         public StringBuilder text;
@@ -30,6 +32,9 @@ namespace Virulent_dev
 
             scale = 1;
             col = Color.White;
+            pos = new Vector2(0, 0);
+            transformedPos = new Vector2(0, 0);
+            rotation = 0;
         }
         public static void CopyMembers(SpriteElement subject, SpriteElement target)
         {
@@ -49,16 +54,19 @@ namespace Virulent_dev
 
             target.orig = new Vector2((float)(target.texture.Width / 2), (float)(target.texture.Height / 2));
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
+            Vector2 transformedPos = new Vector2(
+            pos.X * graphicsDevice.Viewport.Width,
+            pos.Y * graphicsDevice.Viewport.Height);
             if (texture != null)
             {
-                spriteBatch.Draw(texture, pos, null, col, rotation, orig, scale, SpriteEffects.None, 0);
+                spriteBatch.Draw(texture, transformedPos, null, col, rotation, orig, scale, SpriteEffects.None, 0);
             }
             //TODO: If no font specified, use a default font
             if (text != null && font != null)
             {
-                spriteBatch.DrawString(font, text.ToString(), pos, col);
+                spriteBatch.DrawString(font, text, transformedPos, col, rotation, orig, scale, SpriteEffects.None, 0);
             }
         }
     }

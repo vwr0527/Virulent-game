@@ -28,5 +28,10 @@ namespace Virulent_dev
             return previousState.Buttons.A == ButtonState.Released
                 && currentState.Buttons.A == ButtonState.Pressed;
         }
+
+        public bool StartPressed()
+        {
+            return currentState.Buttons.Start == ButtonState.Pressed;
+        }
     }
 }

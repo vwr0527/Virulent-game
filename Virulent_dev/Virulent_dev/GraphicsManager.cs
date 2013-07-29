@@ -450,7 +450,7 @@ namespace Virulent_dev
             spriteBatch.Begin();
             for (int i = 0; i < spriteList.Size(); ++i)
             {
-                spriteList.ElementAt(i).Draw(spriteBatch);
+                spriteList.ElementAt(i).Draw(graphicsDevice, spriteBatch);
             }
             spriteBatch.End();
         }
@@ -469,7 +469,7 @@ namespace Virulent_dev
 
         public SpriteElement AddSprite(Texture2D textureChoice)
         {
-            SpriteElement addedElement = new SpriteElement(texture, null, null);
+            SpriteElement addedElement = new SpriteElement(textureChoice, null, null);
             spriteList.Add(addedElement);
 
             return addedElement;
