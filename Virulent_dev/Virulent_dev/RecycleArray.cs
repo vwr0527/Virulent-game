@@ -16,7 +16,7 @@ using System.Diagnostics;
 namespace Virulent_dev
 {
     //remember to reset the size (by clearing the list) after a level
-    class VRArray<T>
+    class RecycleArray<T>
     {
         List<Cell<T>> cellList;
         int max_index = 0;
@@ -24,18 +24,18 @@ namespace Virulent_dev
         int current_index = 0;
         Action<T, T> CopyMembers;
 
-        public VRArray(Action<T,T> copyMethod)
+        public RecycleArray(Action<T,T> copyMethod)
         {
             CopyMembers = copyMethod;
             cellList = new List<Cell<T>>();
         }
-        public VRArray(int size, Action<T,T> copyMethod)
+        public RecycleArray(int size, Action<T,T> copyMethod)
         {
             CopyMembers = copyMethod;
             cellList = new List<Cell<T>>(size);
             max_index = size - 1;
         }
-        public VRArray(IEnumerable<Cell<T>> collection, Action<T, T> copyMethod)
+        public RecycleArray(IEnumerable<Cell<T>> collection, Action<T, T> copyMethod)
         {
             CopyMembers = copyMethod;
             cellList = new List<Cell<T>>(collection);

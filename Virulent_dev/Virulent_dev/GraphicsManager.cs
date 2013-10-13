@@ -21,406 +21,168 @@ namespace Virulent_dev
         GraphicsDeviceManager graphicsDeviceManager;
         GraphicsDevice graphicsDevice;
         SpriteBatch spriteBatch;
-        SpriteFont currentFont;
-
-        //basiceffect
-        Matrix worldMatrix;
-        Matrix viewMatrix;
-        Matrix projectionMatrix;
-        VertexPositionColorTexture[] pointList;
-        short[] lineListIndices;
-        int numPoints;
-        VertexPositionNormalTexture[] cubeVertices;
-        VertexDeclaration basicEffectVertexDeclaration;
-        VertexBuffer vertexBuffer;
-        BasicEffect basicEffect;
-        RasterizerState rasterizerState1;
-
-        //my stuff
-        VRArray<GraphicElement> drawList;
-        VRArray<SpriteElement> spriteList;
-        Texture2D texture;
+        RecycleArray<SpriteElement> spriteList;
 
         //constructor
-        public GraphicsManager(Game game)
+        public GraphicsManager(GraphicsDeviceManager gdm)
         {
-            graphicsDeviceManager = new GraphicsDeviceManager(game);
-
-            worldMatrix = new Matrix();
-            viewMatrix = new Matrix();
-            projectionMatrix = new Matrix();
-
-            drawList = new VRArray<GraphicElement>(GraphicElement.CopyMembers);
-            spriteList = new VRArray<SpriteElement>(SpriteElement.CopyMembers);
-        }
-
-        private void InitializeBasicEffect()
-        {
-            basicEffect = new BasicEffect(graphicsDevice);
-
-            basicEffect.World = worldMatrix;
-            basicEffect.View = viewMatrix;
-            basicEffect.Projection = projectionMatrix;
-        }
-        private void TurnOnBasicEffectLighting()
-        {
-            // primitive color
-            basicEffect.AmbientLightColor = new Vector3(0.1f, 0.1f, 0.1f);
-            basicEffect.DiffuseColor = new Vector3(1.0f, 1.0f, 1.0f);
-            basicEffect.SpecularColor = new Vector3(0.25f, 0.25f, 0.25f);
-            basicEffect.SpecularPower = 5.0f;
-            basicEffect.Alpha = 1.0f;
-            basicEffect.VertexColorEnabled = false;
-            basicEffect.LightingEnabled = true;
-            if (basicEffect.LightingEnabled)
-            {
-                basicEffect.DirectionalLight0.Enabled = true; // enable each light individually
-                if (basicEffect.DirectionalLight0.Enabled)
-                {
-                    // x direction
-                    basicEffect.DirectionalLight0.DiffuseColor = new Vector3(1, 0, 0); // range is 0 to 1
-                    basicEffect.DirectionalLight0.Direction = Vector3.Normalize(new Vector3(-1, 0, 0));
-                    // points from the light to the origin of the scene
-                    basicEffect.DirectionalLight0.SpecularColor = Vector3.One;
-                }
-
-                basicEffect.DirectionalLight1.Enabled = true;
-                if (basicEffect.DirectionalLight1.Enabled)
-                {
-                    // y direction
-                    basicEffect.DirectionalLight1.DiffuseColor = new Vector3(0, 0.75f, 0);
-                    basicEffect.DirectionalLight1.Direction = Vector3.Normalize(new Vector3(0, -1, 0));
-                    basicEffect.DirectionalLight1.SpecularColor = Vector3.One;
-                }
-
-                basicEffect.DirectionalLight2.Enabled = true;
-                if (basicEffect.DirectionalLight2.Enabled)
-                {
-                    // z direction
-                    basicEffect.DirectionalLight2.DiffuseColor = new Vector3(0, 0, 0.5f);
-                    basicEffect.DirectionalLight2.Direction = Vector3.Normalize(new Vector3(0, 0, -1));
-                    basicEffect.DirectionalLight2.SpecularColor = Vector3.One;
-                }
-            }
-        }
-        private void InitRasterizerState()
-        {
-            rasterizerState1 = new RasterizerState();
-
-            rasterizerState1.FillMode = FillMode.WireFrame;
-            rasterizerState1.CullMode = CullMode.None;
-        }
-        private void SetupGraphicsDevice()
-        {
-            graphicsDevice.RasterizerState = rasterizerState1;
-            graphicsDevice.DepthStencilState = DepthStencilState.Default;
-            graphicsDevice.SetVertexBuffer(vertexBuffer);
-        }
-        private void InitVertexDeclaration()
-        {
-            basicEffectVertexDeclaration = new VertexDeclaration(new VertexElement[]
-                {
-                    new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0),
-                    new VertexElement(12, VertexElementFormat.Vector3, VertexElementUsage.Normal, 0),
-                    new VertexElement(24, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0)
-                }
-            );
-        }
-        private void SetupCubeVertexBuffer()
-        {
-            vertexBuffer = new VertexBuffer(
-                            graphicsDevice,
-                            VertexPositionNormalTexture.VertexDeclaration,
-                            cubeVertices.Length,
-                            BufferUsage.None);
-
-            vertexBuffer.SetData<VertexPositionNormalTexture>(cubeVertices);
-        }
-        private void CreateCube()
-        {
-            //to draw: 
-            /*graphicsDevice.DrawPrimitives(
-                PrimitiveType.TriangleList,
-                0,
-                12
-            );*/
-
-            Vector3 topLeftFront = new Vector3(-1.0f, 1.0f, 1.0f);
-            Vector3 bottomLeftFront = new Vector3(-1.0f, -1.0f, 1.0f);
-            Vector3 topRightFront = new Vector3(1.0f, 1.0f, 1.0f);
-            Vector3 bottomRightFront = new Vector3(1.0f, -1.0f, 1.0f);
-            Vector3 topLeftBack = new Vector3(-1.0f, 1.0f, -1.0f);
-            Vector3 topRightBack = new Vector3(1.0f, 1.0f, -1.0f);
-            Vector3 bottomLeftBack = new Vector3(-1.0f, -1.0f, -1.0f);
-            Vector3 bottomRightBack = new Vector3(1.0f, -1.0f, -1.0f);
-
-            Vector2 textureTopLeft = new Vector2(0.0f, 0.0f);
-            Vector2 textureTopRight = new Vector2(1.0f, 0.0f);
-            Vector2 textureBottomLeft = new Vector2(0.0f, 1.0f);
-            Vector2 textureBottomRight = new Vector2(1.0f, 1.0f);
-
-            Vector3 frontNormal = new Vector3(0.0f, 0.0f, 1.0f);
-            Vector3 backNormal = new Vector3(0.0f, 0.0f, -1.0f);
-            Vector3 topNormal = new Vector3(0.0f, 1.0f, 0.0f);
-            Vector3 bottomNormal = new Vector3(0.0f, -1.0f, 0.0f);
-            Vector3 leftNormal = new Vector3(-1.0f, 0.0f, 0.0f);
-            Vector3 rightNormal = new Vector3(1.0f, 0.0f, 0.0f);
-
-            cubeVertices = new VertexPositionNormalTexture[36];
-            // Front face.
-            cubeVertices[0] =
-                new VertexPositionNormalTexture(
-                topLeftFront, frontNormal, textureTopLeft);
-            cubeVertices[1] =
-                new VertexPositionNormalTexture(
-                bottomLeftFront, frontNormal, textureBottomLeft);
-            cubeVertices[2] =
-                new VertexPositionNormalTexture(
-                topRightFront, frontNormal, textureTopRight);
-            cubeVertices[3] =
-                new VertexPositionNormalTexture(
-                bottomLeftFront, frontNormal, textureBottomLeft);
-            cubeVertices[4] =
-                new VertexPositionNormalTexture(
-                bottomRightFront, frontNormal, textureBottomRight);
-            cubeVertices[5] =
-                new VertexPositionNormalTexture(
-                topRightFront, frontNormal, textureTopRight);
-
-            // Back face.
-            cubeVertices[6] =
-                new VertexPositionNormalTexture(
-                topLeftBack, backNormal, textureTopLeft);
-            cubeVertices[7] =
-                new VertexPositionNormalTexture(
-                bottomLeftBack, backNormal, textureBottomLeft);
-            cubeVertices[8] =
-                new VertexPositionNormalTexture(
-                topRightBack, backNormal, textureTopRight);
-            cubeVertices[9] =
-                new VertexPositionNormalTexture(
-                bottomLeftBack, backNormal, textureBottomLeft);
-            cubeVertices[10] =
-                new VertexPositionNormalTexture(
-                bottomRightBack, backNormal, textureBottomRight);
-            cubeVertices[11] =
-                new VertexPositionNormalTexture(
-                topRightBack, backNormal, textureTopRight);
-
-            // Left face.
-            cubeVertices[12] =
-                new VertexPositionNormalTexture(
-                topLeftFront, leftNormal, textureTopLeft);
-            cubeVertices[13] =
-                new VertexPositionNormalTexture(
-                bottomLeftFront, leftNormal, textureBottomLeft);
-            cubeVertices[14] =
-                new VertexPositionNormalTexture(
-                topLeftBack, leftNormal, textureTopRight);
-            cubeVertices[15] =
-                new VertexPositionNormalTexture(
-                bottomLeftFront, leftNormal, textureBottomLeft);
-            cubeVertices[16] =
-                new VertexPositionNormalTexture(
-                bottomLeftBack, leftNormal, textureBottomRight);
-            cubeVertices[17] =
-                new VertexPositionNormalTexture(
-                topLeftBack, leftNormal, textureTopRight);
-
-            // Right face.
-            cubeVertices[18] =
-                new VertexPositionNormalTexture(
-                topRightFront, rightNormal, textureTopLeft);
-            cubeVertices[19] =
-                new VertexPositionNormalTexture(
-                bottomRightFront, rightNormal, textureBottomLeft);
-            cubeVertices[20] =
-                new VertexPositionNormalTexture(
-                topRightBack, rightNormal, textureTopRight);
-            cubeVertices[21] =
-                new VertexPositionNormalTexture(
-                bottomRightFront, rightNormal, textureBottomLeft);
-            cubeVertices[22] =
-                new VertexPositionNormalTexture(
-                bottomRightBack, rightNormal, textureBottomRight);
-            cubeVertices[23] =
-                new VertexPositionNormalTexture(
-                topRightBack, rightNormal, textureTopRight);
-
-            // Top face.
-            cubeVertices[24] =
-                new VertexPositionNormalTexture(
-                topLeftFront, topNormal, textureTopLeft);
-            cubeVertices[25] =
-                new VertexPositionNormalTexture(
-                topRightFront, topNormal, textureBottomLeft);
-            cubeVertices[26] =
-                new VertexPositionNormalTexture(
-                topRightBack, topNormal, textureTopRight);
-            cubeVertices[27] =
-                new VertexPositionNormalTexture(
-                topLeftFront, topNormal, textureBottomLeft);
-            cubeVertices[28] =
-                new VertexPositionNormalTexture(
-                topRightBack, topNormal, textureBottomRight);
-            cubeVertices[29] =
-                new VertexPositionNormalTexture(
-                topLeftBack, topNormal, textureTopRight);
-
-            // Bottom face.
-            cubeVertices[30] =
-                new VertexPositionNormalTexture(
-                bottomLeftFront, bottomNormal, textureTopLeft);
-            cubeVertices[31] =
-                new VertexPositionNormalTexture(
-                bottomRightFront, bottomNormal, textureBottomLeft);
-            cubeVertices[32] =
-                new VertexPositionNormalTexture(
-                bottomRightBack, bottomNormal, textureTopRight);
-            cubeVertices[33] =
-                new VertexPositionNormalTexture(
-                bottomLeftFront, bottomNormal, textureBottomLeft);
-            cubeVertices[34] =
-                new VertexPositionNormalTexture(
-                bottomRightBack, bottomNormal, textureBottomRight);
-            cubeVertices[35] =
-                new VertexPositionNormalTexture(
-                bottomLeftBack, bottomNormal, textureTopRight);
-        }
-        private void CreateVerts()
-        {
-            numPoints = 65536;
-            pointList = new VertexPositionColorTexture[numPoints];
-
-            //zig zag up
-            for (int x = 0; x < numPoints / 2; ++x)
-            {
-                for (int y = 0; y < 2; ++y)
-                {
-                    pointList[(x * 2) + y] = new VertexPositionColorTexture(
-                        new Vector3(0.1f * x * (float)Math.Cos((double)x / 4.0f), ((x / 8.0f) + y), 0.1f * x * (float)Math.Sin((double)x / 4.0f)), Color.White, new Vector2(0, 0));
-                }
-            }
-        }
-        private void CreateVertIndicies()
-        {
-            // Initialize an array of indices of type short.
-            /*lineListIndices = new short[(numPoints * 2) - 2];
-
-            // Populate the array with references to indices in the vertex buffer
-            for (int i = 0; i < numPoints - 1; ++i)
-            {
-                lineListIndices[i * 2] = (short)(i);
-                lineListIndices[(i * 2) + 1] = (short)(i + 1);
-            }*/
-
-            lineListIndices = new short[numPoints];
-
-            // Populate the array with references to indices in the vertex buffer
-            for (int i = 0; i < numPoints; ++i)
-            {
-                lineListIndices[i] = (short)(i);
-            }
-        }
-        private void SetupVertexBuffer()
-        {
-            vertexBuffer = new VertexBuffer(
-                            graphicsDevice,
-                            VertexPositionColorTexture.VertexDeclaration,
-                            pointList.Length,
-                            BufferUsage.None);
-
-            vertexBuffer.SetData<VertexPositionColorTexture>(pointList);
-        }
-
-        //2D camera
-        private void Setup2DView()
-        {
-            worldMatrix = Matrix.Identity;
-            viewMatrix = Matrix.CreateLookAt(new Vector3(5f, 5f, 5f), Vector3.Zero, Vector3.Up);
-            projectionMatrix = Matrix.CreateOrthographic(10, 10 * ((float)graphicsDevice.Viewport.Height / (float)graphicsDevice.Viewport.Width), 0.1f, 1000f);
-        }
-        private void Setup2DView(float tiltAngle)
-        {
-            float tilt = MathHelper.ToRadians(tiltAngle);  // 0 degree angle
-            // Use the world matrix to tilt the cube along x and y axes.
-            worldMatrix = Matrix.CreateRotationX(tilt) * Matrix.CreateRotationY(tilt);
-            viewMatrix = Matrix.CreateLookAt(new Vector3(5, 5, 5), Vector3.Zero, Vector3.Up);
-
-            projectionMatrix = Matrix.CreateOrthographic(10, 10 * ((float)graphicsDevice.Viewport.Height / (float)graphicsDevice.Viewport.Width), 0.1f, 1000f);
-        }
-        //3D camera
-        private void SetupView()
-        {
-            worldMatrix = Matrix.Identity;
-            viewMatrix = Matrix.CreateLookAt(new Vector3(5, 5, 5), Vector3.Zero, Vector3.Up);
-
-            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
-                MathHelper.ToRadians(45),  // 45 degree angle
-                (float)graphicsDevice.Viewport.Width /
-                (float)graphicsDevice.Viewport.Height,
-                1.0f, 1000.0f);
-        }
-        private void SetupView(float tiltAngle)
-        {
-            float tilt = MathHelper.ToRadians(tiltAngle);
-            // Use the world matrix to tilt the cube along x and y axes.
-            worldMatrix = Matrix.CreateRotationZ(tilt);// Matrix.CreateRotationX(tilt) * Matrix.CreateRotationY(tilt);
-            viewMatrix = Matrix.CreateLookAt(new Vector3(50, 30, 10), Vector3.Zero, Vector3.Up);
-
-            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
-                MathHelper.ToRadians(45),  // 45 degree angle
-                (float)graphicsDevice.Viewport.Width /
-                (float)graphicsDevice.Viewport.Height,
-                1.0f, 10000.0f);
+            graphicsDeviceManager = gdm;
+            spriteList = new RecycleArray<SpriteElement>(SpriteElement.CopyMembers);
         }
 
         public void LoadContent(ContentManager content)
         {
             graphicsDevice = graphicsDeviceManager.GraphicsDevice;
             spriteBatch = new SpriteBatch(graphicsDevice);
-            currentFont = content.Load<SpriteFont>("SpriteFont1");
-            texture = content.Load<Texture2D>("test");
-
-            CreateVerts();
-            CreateVertIndicies();
-
-            SetupView();
-            InitializeBasicEffect();
-            SetupVertexBuffer();
-            InitRasterizerState();
         }
-        /*
-        public void X(Vector2 position)
+
+        public void DrawAll(GameTime gameTime)
         {
-            GraphicElement g = drawList.GetEmptyElement();
-            if (g == null)
+            spriteBatch.Begin();
+            for (int i = 0; i < spriteList.Size(); ++i)
             {
-                g = new GraphicElement();
-                //Debug.WriteLine("made a new GE");
+                spriteList.ElementAt(i).Draw(graphicsDevice, spriteBatch);
             }
-            g.pos = position;
-            drawList.Add(g);
+            spriteBatch.End();
         }
-        */
 
-        float value = 1f;
-        public void DrawAll()
+        //move these to some kind of graphics element factory class
+        public SpriteElement AddText(StringBuilder txt, SpriteFont fontChoice)
         {
-            value += 1.0f;
-            SetupView(value);
+            if (fontChoice == null)
+            {
+                return null;
+            }
+            SpriteElement addedElement = new SpriteElement(null, txt, fontChoice);
+            spriteList.Add(addedElement);
+
+            return addedElement;
+        }
+        public SpriteElement AddSprite(Texture2D textureChoice)
+        {
+            SpriteElement addedElement = new SpriteElement(textureChoice, null, null);
+            spriteList.Add(addedElement);
+
+            return addedElement;
+        }
+    }
+}
+/*
+ *         
+
+        //basiceffect
+        Matrix worldMatrix;
+        Matrix viewMatrix;
+        Matrix projectionMatrix;
+        BasicEffect basicEffect;
+        RasterizerState rasterizerState;
+
+        //vertecies
+        VertexPositionColorTexture[] pointList;
+        short[] lineListIndices;
+        int numPoints;
+        VertexBuffer vertexBuffer;
+
+        //my stuff
+        RecycleArray<GraphicElement> drawList;
+        RecycleArray<SpriteElement> spriteList;
+        
+        public GraphicsManager(GraphicsDeviceManager gdm)
+        {
+            graphicsDeviceManager = gdm;
+            worldMatrix = new Matrix();
+            viewMatrix = new Matrix();
+            projectionMatrix = new Matrix();
+
+            drawList = new RecycleArray<GraphicElement>(GraphicElement.CopyMembers);
+            spriteList = new RecycleArray<SpriteElement>(SpriteElement.CopyMembers);
+        }
+        private void SetupView(float tiltAngle)
+        {
+            float tilt = MathHelper.ToRadians(tiltAngle);
+            // Use the world matrix to tilt the cube along x and y axes.
+            worldMatrix = Matrix.CreateRotationZ(tilt);// Matrix.CreateRotationX(tilt) * Matrix.CreateRotationY(tilt);
+            //worldMatrix = Matrix.Identity;
+            viewMatrix = Matrix.CreateLookAt(new Vector3(-5, 0, 0), Vector3.Zero, Vector3.Up);
+            
+            //projectionMatrix = Matrix.CreateOrthographic(10, 10 * ((float)graphicsDevice.Viewport.Height / (float)graphicsDevice.Viewport.Width), 0.1f, 1000f);
+
+            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
+                MathHelper.ToRadians(45),  // 45 degree angle
+                (float)graphicsDevice.Viewport.Width /
+                (float)graphicsDevice.Viewport.Height,
+                1.0f, 10000.0f);
 
             basicEffect.World = worldMatrix;
             basicEffect.View = viewMatrix;
             basicEffect.Projection = projectionMatrix;
-            basicEffect.TextureEnabled = true;
-            basicEffect.Texture = texture;
+        }
+        Random rand = new Random();
+        Color randomColor()
+        {
+            return new Color((float)rand.NextDouble(),
+                (float)rand.NextDouble(),
+                (float)rand.NextDouble());
+        }
+        public void LoadContent(ContentManager content)
+        {
+            graphicsDevice = graphicsDeviceManager.GraphicsDevice;
+            spriteBatch = new SpriteBatch(graphicsDevice);
+
+            #region Create verticies
+            numPoints = 65536;
+            pointList = new VertexPositionColorTexture[numPoints];
+            for (int x = 0; x < numPoints / 2; ++x)
+            {
+                for (int y = 0; y < 2; ++y)
+                {
+                    pointList[(x * 2) + y] = new VertexPositionColorTexture(
+                        new Vector3(0.1f * x * (float)Math.Cos((double)x / 4.0f), ((x / 8.0f) + y), 0.1f * x * (float)Math.Sin((double)x / 4.0f)), randomColor(), new Vector2(0, 0));
+                }
+            }
+            #endregion
+            #region Create vertex index arrays
+            lineListIndices = new short[numPoints];
+            for (int i = 0; i < numPoints; ++i)
+            {
+                lineListIndices[i] = (short)(i);
+            }
+            #endregion
+            #region Setup vertex buffer
+            vertexBuffer = new VertexBuffer(
+                            graphicsDevice,
+                            VertexPositionColorTexture.VertexDeclaration,
+                            pointList.Length,
+                            BufferUsage.None);
+            vertexBuffer.SetData<VertexPositionColorTexture>(pointList);
+            #endregion
+
+            basicEffect = new BasicEffect(graphicsDevice);
+            SetupView(0);
+            #region Initialize rasterizer state
+            rasterizerState = new RasterizerState();
+            rasterizerState.FillMode = FillMode.WireFrame;
+            rasterizerState.CullMode = CullMode.None;
+            #endregion
+        }
+        public void DrawAll(GameTime gameTime)
+        {
+            #region Update Verticies
+            for (int i = 0, j = drawList.Size(); i < j; ++i)
+            {
+                drawList.ElementAt(i).Update(gameTime);
+            }
+            #endregion
 
             graphicsDevice.Clear(Color.Black);
 
-            SetupGraphicsDevice();
+            SetupView((float)gameTime.TotalGameTime.TotalMilliseconds / 100.0f);
 
-            UpdateVerts();
+            graphicsDevice.RasterizerState = rasterizerState;
+            graphicsDevice.DepthStencilState = DepthStencilState.Default;
+            graphicsDevice.SetVertexBuffer(vertexBuffer);
+
+            basicEffect.VertexColorEnabled = true;
 
             foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
             {
@@ -435,44 +197,20 @@ namespace Virulent_dev
                     numPoints-2   // number of primitives to draw
                 );
             }
-
-            Draw2D();
-        }
-        private void UpdateVerts()
-        {
-            for (int i = 0, j = drawList.Size(); i < j; ++i)
-            {
-                drawList.ElementAt(i).Draw(graphicsDevice);
-            }
-        }
-        private void Draw2D()
-        {
+            #region Draw gui and text
             spriteBatch.Begin();
             for (int i = 0; i < spriteList.Size(); ++i)
             {
                 spriteList.ElementAt(i).Draw(graphicsDevice, spriteBatch);
             }
             spriteBatch.End();
+            #endregion
         }
-
-        public SpriteElement AddText(StringBuilder txt, SpriteFont fontChoice)
+        public GraphicElement AddGeom()
         {
-            if (fontChoice == null)
-            {
-                fontChoice = currentFont;
-            }
-            SpriteElement addedElement = new SpriteElement(null, txt, fontChoice);
-            spriteList.Add(addedElement);
+            GraphicElement addedElement = new GraphicElement();
+            drawList.Add(addedElement);
 
             return addedElement;
         }
-
-        public SpriteElement AddSprite(Texture2D textureChoice)
-        {
-            SpriteElement addedElement = new SpriteElement(textureChoice, null, null);
-            spriteList.Add(addedElement);
-
-            return addedElement;
-        }
-    }
-}
+*/

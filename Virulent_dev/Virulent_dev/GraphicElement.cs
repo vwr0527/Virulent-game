@@ -7,7 +7,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Virulent_dev
 {
-    //graphicElement contains starting index and ending index for a collection/grouping of verticies
+    //graphicElement contains the starting and ending indecies of the solid or line
+    //a flag to distinguish whether to draw it as a series of connected lines or a single solid
+    //a link to a VectorBank entry
+    //currentcolor and previouscolor
+    //and previousmatrix and currentmatrix.
+    //graphicsManager then uses these to generate the final verticies and vertex indicies, taking
+    // into account the camera position, movement and other states.
     class GraphicElement
     {
         public Vector2 pos;
@@ -16,7 +22,7 @@ namespace Virulent_dev
             subject.pos.X = target.pos.X;
             subject.pos.Y = target.pos.Y;
         }
-        public void Draw(GraphicsDevice graphicsDevice)
+        public void Update(GameTime gameTime)
         {
             
         }

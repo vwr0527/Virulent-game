@@ -4,6 +4,9 @@ Subgoal1: Render text - complete
 Subgoal2: Render texture - complete
 Subgoal3: Render geometry - complete
 
+move text rendering code to guiman - done
+move geometry rendering code to worldman
+
 Milestone 2: Simple 1 page menu system, simple in game physics (bouncy ball)
 
 Sub1: Menu system (page class, button class, pageinfo class)

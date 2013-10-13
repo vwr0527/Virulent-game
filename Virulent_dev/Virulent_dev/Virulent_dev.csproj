@@ -60,15 +60,19 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Camera.cs" />
     <Compile Include="Cell.cs" />
     <Compile Include="GraphicElement.cs" />
     <Compile Include="GraphicsManager.cs" />
-    <Compile Include="GUIManager.cs" />
-    <Compile Include="GUIObjects\MenuPage.cs" />
+    <Compile Include="MenuManager.cs" />
+    <Compile Include="MenuObjects\MenuPage.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="SpriteElement.cs" />
-    <Compile Include="StorageManager.cs" />
-    <Compile Include="VRArray.cs" />
+    <Compile Include="PersistanceManager.cs" />
+    <Compile Include="VectorBank.cs" />
+    <Compile Include="VectorObjects\BlueSquare.cs" />
+    <Compile Include="VectorObjects\VectorBankEntry.cs" />
+    <Compile Include="RecycleArray.cs" />
     <Compile Include="WorldManager.cs" />
     <Compile Include="XMLReaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -11,11 +11,17 @@ namespace Virulent_dev
     {
         GamePadState currentState;
         GamePadState previousState;
+        KeyboardState currentKeyState;
+        KeyboardState previousKeyState;
+
 
         public void Update(GameTime gameTime)
         {
             previousState = currentState;
             currentState = GamePad.GetState(PlayerIndex.One);
+
+            previousKeyState = currentKeyState;
+            currentKeyState = Keyboard.GetState(PlayerIndex.One);
         }
 
         public bool IsBackPressed()
@@ -32,6 +38,11 @@ namespace Virulent_dev
         public bool StartPressed()
         {
             return currentState.Buttons.Start == ButtonState.Pressed;
+        }
+
+        public bool SKeyPressed()
+        {
+            return currentKeyState.IsKeyDown(Keys.S);
         }
     }
 }

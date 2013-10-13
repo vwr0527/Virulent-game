@@ -9,17 +9,21 @@ using System.IO;
 
 namespace Virulent_dev
 {
-    class StorageManager
+    class PersistanceManager
     {
         StorageDevice m_device;
         IAsyncResult m_result;
         bool gameSaveRequested = false;
 
-        public StorageManager(StorageDevice deviceParam)
+        public PersistanceManager(StorageDevice deviceParam)
         {
             m_device = deviceParam;
         }
 
+        public PersistanceManager()
+        {
+            m_device = null;
+        }
 
         public void DoSaveRequest(bool guideIsVisible, PlayerIndex whichPlayer)
         {

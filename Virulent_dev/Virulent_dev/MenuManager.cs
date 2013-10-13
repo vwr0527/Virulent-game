@@ -10,23 +10,19 @@ using Virulent_dev.GUIObjects;
 
 namespace Virulent_dev
 {
-    class GUIManager
+    class MenuManager
     {
-        InputManager r_inputMan;
-        GraphicsManager r_graphMan;
-        private bool exit = false;
-        private bool savegame = false;
-        private bool paused = false;
+        private bool active = false;
+        private bool bringUpMenu = false;
         private SpriteElement textStatement;
         private StringBuilder[] txt;
         private Texture2D picture;
+        private SpriteFont font;
         private SpriteElement pickle;
         private MenuPage mainmenu;
 
-        public GUIManager(InputManager inputMan, GraphicsManager graphMan)
+        public MenuManager()
         {
-            r_inputMan = inputMan;
-            r_graphMan = graphMan;
             txt = new StringBuilder[10];
             txt[0] = new StringBuilder();
             txt[0].Append("Hello");
@@ -36,38 +32,20 @@ namespace Virulent_dev
         public void LoadContent(ContentManager content)
         {
             picture = content.Load<Texture2D>("test");
+            font = content.Load<SpriteFont>("SpriteFont1");
         }
 
-        public bool ExitRequested()
+        public bool IsActive()
         {
-            return exit;
+            return active;
         }
 
-        public bool SaveRequested()
+        public void Update(GameTime gameTime, InputManager r_inputMan)
         {
-            return savegame;
+            bringUpMenu = r_inputMan.StartPressed();
         }
 
-        public void BringUpMenu()
-        {
-            if (r_inputMan.StartPressed())
-            {
-
-            }
-        }
-
-        public bool IsPaused()
-        {
-            return paused;
-        }
-
-        public void Update(GameTime gameTime)
-        {
-            exit = r_inputMan.IsBackPressed();
-            savegame = r_inputMan.APressed();
-        }
-
-        public void Draw(GameTime gameTime)
+        public void Draw(GameTime gameTime, GraphicsManager r_graphMan)
         {
             if (pickle == null) pickle = r_graphMan.AddSprite(picture);
             else
@@ -78,9 +56,15 @@ namespace Virulent_dev
                 pickle.col.R = 80;
                 pickle.col.G = 80;
                 pickle.col.B = 80;
-                pickle.scale = 3.2f;
+                pickle.scale = 4f;
+                pickle.rotation += gameTime.ElapsedGameTime.Milliseconds / 3000f;
             }
-            if (textStatement == null) textStatement = r_graphMan.AddText(txt[0], null);
+            if (textStatement == null) textStatement = r_graphMan.AddText(txt[0], font);
+            else
+            {
+                textStatement.scale = 2.5f;
+                textStatement.rotation += gameTime.ElapsedGameTime.Milliseconds / -2000f;
+            }
         }
     }
 }

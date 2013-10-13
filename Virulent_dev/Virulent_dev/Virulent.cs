@@ -15,28 +15,27 @@ namespace Virulent_dev
 {
     public class Virulent : Microsoft.Xna.Framework.Game
     {
-        XMLReaderTest xmlReader;
-        GamerServicesComponent storageComponent;
+        PersistanceManager persist;
+        GraphicsManager graphics;
+        MenuManager menu;
+        WorldManager world;
+        InputManager input;
 
-        StorageManager persistMan;
-        GraphicsManager graphMan;
-        GUIManager guiMan;
-        WorldManager worldMan;
-        InputManager inputMan;
-
+        private bool exit = false;
+        private bool savegame = false;
+        private bool paused = false;
+        private bool menuactive = false;
 
         public Virulent()
         {
             Content.RootDirectory = "Content";
+            Components.Add(new GamerServicesComponent(this));
 
-            storageComponent = new GamerServicesComponent(this);//unnecessary?
-            this.Components.Add(storageComponent);
-
-            persistMan = new StorageManager(null);
-            graphMan = new GraphicsManager(this);
-            inputMan = new InputManager();
-            guiMan = new GUIManager(inputMan, graphMan);
-            worldMan = new WorldManager(inputMan, graphMan);
+            persist = new PersistanceManager();
+            graphics = new GraphicsManager(new GraphicsDeviceManager(this));
+            input = new InputManager();
+            menu = new MenuManager();
+            world = new WorldManager();
         }
 
         protected override void Initialize()
@@ -46,9 +45,8 @@ namespace Virulent_dev
 
         protected override void LoadContent()
         {
-            graphMan.LoadContent(Content);
-            guiMan.LoadContent(Content);
-            xmlReader = new XMLReaderTest();
+            graphics.LoadContent(Content);
+            menu.LoadContent(Content);
         }
 
         protected override void UnloadContent()
@@ -57,33 +55,49 @@ namespace Virulent_dev
 
         protected override void Update(GameTime gameTime)
         {
-            inputMan.Update(gameTime);
+            input.Update(gameTime);
+            exit = input.IsBackPressed();
+            savegame = input.SKeyPressed();
 
-            if (worldMan.ExitRequested() || guiMan.ExitRequested())
+            if (exit)
             {
                 this.Exit();
             }
 
-            if (worldMan.SaveRequested() || guiMan.SaveRequested())
+            if (savegame)
             {
-                persistMan.DoSaveRequest(Guide.IsVisible, PlayerIndex.One);
+                //TODO: multiple players
+                persist.DoSaveRequest(Guide.IsVisible, PlayerIndex.One);
             }
 
-            guiMan.Update(gameTime);
-            worldMan.Update(gameTime);
-            // If a save is pending, save as soon as the
-            // storage device is chosen
-            persistMan.DoPendingSave();
+            if (paused)
+            {
+                world.PausedUpdate(gameTime, input);
+            }
+            else
+            {
+                world.Update(gameTime, input);
+            }
+
+            if (menuactive)
+            {
+                menu.Update(gameTime, input);
+            }
+            else
+            {
+            }
+
+            persist.DoPendingSave();
 
             base.Update(gameTime);
         }
         
         protected override void Draw(GameTime gameTime)
         {
-            worldMan.Draw(gameTime);
-            guiMan.Draw(gameTime);
-            
-            graphMan.DrawAll();
+            world.Draw(gameTime, graphics);
+            menu.Draw(gameTime, graphics);
+
+            graphics.DrawAll(gameTime);
 
             base.Draw(gameTime);
         }
