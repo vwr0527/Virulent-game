@@ -10,7 +10,7 @@ namespace Virulent_dev
         /// </summary>
         static void Main(string[] args)
         {
-            using (Virulent game = new Virulent())
+            using (VirulentGame game = new VirulentGame())
             {
                 game.Run();
             }

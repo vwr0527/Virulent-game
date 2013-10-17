@@ -23,9 +23,6 @@ namespace Virulent_dev
 
         public MenuManager()
         {
-            txt = new StringBuilder[10];
-            txt[0] = new StringBuilder();
-            txt[0].Append("Hello");
             mainmenu = new MenuPage();
         }
 
@@ -33,6 +30,11 @@ namespace Virulent_dev
         {
             picture = content.Load<Texture2D>("test");
             font = content.Load<SpriteFont>("SpriteFont1");
+            txt = new StringBuilder[10];
+            txt[0] = new StringBuilder();
+            txt[0].Append("Hello");
+            pickle = new SpriteElement(picture);
+            textStatement = new SpriteElement(txt[0], font);
         }
 
         public bool IsActive()
@@ -47,24 +49,19 @@ namespace Virulent_dev
 
         public void Draw(GameTime gameTime, GraphicsManager r_graphMan)
         {
-            if (pickle == null) pickle = r_graphMan.AddSprite(picture);
-            else
-            {
-                pickle.pos.X = 0.5f;
-                pickle.pos.Y = 0.5f;
-                pickle.col.A = 200;
-                pickle.col.R = 80;
-                pickle.col.G = 80;
-                pickle.col.B = 80;
-                pickle.scale = 4f;
-                pickle.rotation += gameTime.ElapsedGameTime.Milliseconds / 3000f;
-            }
-            if (textStatement == null) textStatement = r_graphMan.AddText(txt[0], font);
-            else
-            {
-                textStatement.scale = 2.5f;
-                textStatement.rotation += gameTime.ElapsedGameTime.Milliseconds / -2000f;
-            }
+            pickle.pos.X = 0.5f;
+            pickle.pos.Y = 0.5f;
+            pickle.col.A = 200;
+            pickle.col.R = 80;
+            pickle.col.G = 80;
+            pickle.col.B = 80;
+            pickle.scale = 4f;
+            pickle.rotation += gameTime.ElapsedGameTime.Milliseconds / 3000f;
+            r_graphMan.Add(pickle);
+
+            textStatement.scale = 2.5f;
+            textStatement.rotation += gameTime.ElapsedGameTime.Milliseconds / -2000f;
+            r_graphMan.Add(textStatement);
         }
     }
 }

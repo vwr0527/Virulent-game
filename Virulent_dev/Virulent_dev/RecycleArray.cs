@@ -23,6 +23,7 @@ namespace Virulent_dev
         int num_active = 0;
         int current_index = 0;
         Action<T, T> CopyMembers;
+        bool set_data_instead_of_copy = false;
 
         public RecycleArray(Action<T,T> copyMethod)
         {
@@ -72,7 +73,10 @@ namespace Virulent_dev
                     if (cellList[i].IsActive() == false)
                     {
                         current_index = i;
-                        cellList[i].CopyData(data, CopyMembers);
+                        if (set_data_instead_of_copy)
+                            cellList[i].SetData(data);
+                        else
+                            cellList[i].CopyData(data, CopyMembers);
                         cellList[i].Activate();
                         ++num_active;
 
@@ -88,19 +92,10 @@ namespace Virulent_dev
         {
             for (int i = 0; i < max_index; ++i)
             {
-                //Debug.WriteLine("HELLO " + cellList[i].IsActive());
                 cellList[i].Deactivate();
-                //Debug.WriteLine("GOODBYE " + cellList[i].IsActive());
             }
             num_active = 0;
             current_index = 0;
-            //Debug.WriteLine("just emptied all");
-            /*
-            for (int i = 0; i < max_index; ++i)
-            {
-                Debug.WriteLine(cellList[i].IsActive());
-            }
-             */
         }
 
         public void DeleteElementAt(int index)
@@ -147,67 +142,13 @@ namespace Virulent_dev
             }
             return result;
         }
-    }
 
-}
-
-
-
-/* this is the generic algorithm. I would polish this but it's useless for now
-public static void OscillatingSearch()
-{
-    int j = 0;
-    for (int i = 0; i < 10; ++i)
-    {
-        if (i % 2 == 0)
+        //If the data is being stored somewhere else, overwriting the data
+        //won't cause garbage collection, because it won't delete the only
+        //reference to the old data. It will only be copying references.
+        public void SetDataMode(bool activate_set_mode)
         {
-            ++j;
-            int backward = 6 - j;
-            if (backward < 0)
-            {
-                backward += 10;
-            }
-            Debug.WriteLine(backward);
-        }
-        else
-        {
-            int forward = Math.Abs(5 + j);
-            Debug.WriteLine(forward);
+            set_data_instead_of_copy = activate_set_mode;
         }
     }
 }
- * 
-
-
-                int j = 0;
-                for (int i = 0; i < max_index; ++i)
-                {
-                    if (i % 2 == 0)
-                    {
-                        ++j;
-                        int backward = current_index + 1 - j;
-                        if (backward < 0)
-                        {
-                            backward += max_index;
-                        }
-                        if (cellList.ElementAt(backward).isEmpty)
-                        {
-                            Reincarnate(data, backward);
-                            current_index = backward;
-                            ++num_active;
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        int forward = Math.Abs(current_index + j);
-                        if (cellList.ElementAt(forward).isEmpty)
-                        {
-                            Reincarnate(data, forward);
-                            current_index = forward;
-                            ++num_active;
-                            return;
-                        }
-                    }
-                }
-*/

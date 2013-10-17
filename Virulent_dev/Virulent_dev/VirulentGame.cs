@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Virulent_dev
 {
-    public class Virulent : Microsoft.Xna.Framework.Game
+    public class VirulentGame : Microsoft.Xna.Framework.Game
     {
         PersistanceManager persist;
         GraphicsManager graphics;
@@ -26,7 +26,7 @@ namespace Virulent_dev
         private bool paused = false;
         private bool menuactive = false;
 
-        public Virulent()
+        public VirulentGame()
         {
             Content.RootDirectory = "Content";
             Components.Add(new GamerServicesComponent(this));
@@ -47,6 +47,7 @@ namespace Virulent_dev
         {
             graphics.LoadContent(Content);
             menu.LoadContent(Content);
+            SpriteElement.LoadDefaultFont(Content);
         }
 
         protected override void UnloadContent()

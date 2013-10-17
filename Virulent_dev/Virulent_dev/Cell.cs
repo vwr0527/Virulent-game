@@ -23,10 +23,7 @@ namespace Virulent_dev
         }
         public void SetData(T param)
         {
-            if (data == null)
-            {
-                data = param;
-            }
+            data = param;
         }
         public void CopyData(T param, Action<T, T> copyMethod)
         {

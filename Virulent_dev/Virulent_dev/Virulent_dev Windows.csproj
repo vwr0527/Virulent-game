@@ -79,12 +79,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="RecycleArray.cs" />
     <Compile Include="SpriteElement.cs" />
-    <Compile Include="VectorBank.cs" />
-    <Compile Include="VectorObjects\BlueSquare.cs" />
-    <Compile Include="VectorObjects\VectorBankEntry.cs" />
-    <Compile Include="Virulent.cs" />
+    <Compile Include="VirulentGame.cs" />
     <Compile Include="WorldManager.cs" />
-    <Compile Include="XMLReaderTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="doc\Classes.txt" />

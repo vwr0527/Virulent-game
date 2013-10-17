@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 using System.Diagnostics;
 
 namespace Virulent_dev
@@ -20,7 +21,15 @@ namespace Virulent_dev
         public SpriteFont font;
         public float scale;
         public float rotation;
+        public static SpriteFont defaultFont;
+        public static void LoadDefaultFont(ContentManager content)
+        {
+            defaultFont = content.Load<SpriteFont>("SpriteFont1");
+        }
 
+        public SpriteElement(Texture2D textureSource) : this(textureSource, null, null) { }
+        public SpriteElement(StringBuilder textSource) : this(null, textSource, defaultFont) { }
+        public SpriteElement(StringBuilder textSource, SpriteFont fontSource) : this(null, textSource, fontSource) { }
         public SpriteElement(Texture2D textureSource, StringBuilder textSource, SpriteFont fontSource)
         {
             texture = textureSource;
@@ -52,7 +61,8 @@ namespace Virulent_dev
             subject.texture = target.texture;
             subject.font = target.font;
 
-            target.orig = new Vector2((float)(target.texture.Width / 2), (float)(target.texture.Height / 2));
+            if (target.texture != null)
+                subject.orig = target.orig;
         }
         public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
