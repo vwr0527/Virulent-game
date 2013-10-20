@@ -9,18 +9,18 @@ using System.IO;
 
 namespace Virulent_dev
 {
-    class PersistanceManager
+    class StorageManager
     {
         StorageDevice m_device;
         IAsyncResult m_result;
         bool gameSaveRequested = false;
 
-        public PersistanceManager(StorageDevice deviceParam)
+        public StorageManager(StorageDevice deviceParam)
         {
             m_device = deviceParam;
         }
 
-        public PersistanceManager()
+        public StorageManager()
         {
             m_device = null;
         }

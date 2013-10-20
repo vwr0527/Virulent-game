@@ -15,27 +15,30 @@ namespace Virulent_dev
 {
     public class VirulentGame : Microsoft.Xna.Framework.Game
     {
-        PersistanceManager persist;
+        StorageManager storage;
         GraphicsManager graphics;
         MenuManager menu;
         WorldManager world;
+        CinematicManager cinema;
         InputManager input;
 
         private bool exit = false;
         private bool savegame = false;
         private bool paused = false;
         private bool menuactive = false;
+        private bool cinematicactive = true;
 
         public VirulentGame()
         {
             Content.RootDirectory = "Content";
             Components.Add(new GamerServicesComponent(this));
 
-            persist = new PersistanceManager();
+            storage = new StorageManager();
             graphics = new GraphicsManager(new GraphicsDeviceManager(this));
             input = new InputManager();
             menu = new MenuManager();
             world = new WorldManager();
+            cinema = new CinematicManager();
         }
 
         protected override void Initialize()
@@ -46,8 +49,9 @@ namespace Virulent_dev
         protected override void LoadContent()
         {
             graphics.LoadContent(Content);
+            cinema.LoadContent(Content);
+            world.LoadContent(Content);
             menu.LoadContent(Content);
-            SpriteElement.LoadDefaultFont(Content);
         }
 
         protected override void UnloadContent()
@@ -57,18 +61,24 @@ namespace Virulent_dev
         protected override void Update(GameTime gameTime)
         {
             input.Update(gameTime);
+
             exit = input.IsBackPressed();
             savegame = input.SKeyPressed();
-
-            if (exit)
+            if (input.StartPressed()) menuactive = !menuactive;
+            
+            if (cinematicactive)
             {
-                this.Exit();
+                cinema.Update(gameTime, input);
             }
 
-            if (savegame)
+            if (menuactive)
             {
-                //TODO: multiple players
-                persist.DoSaveRequest(Guide.IsVisible, PlayerIndex.One);
+                menu.Update(gameTime, input);
+                paused = true;
+            }
+            else
+            {
+                paused = false;
             }
 
             if (paused)
@@ -80,15 +90,17 @@ namespace Virulent_dev
                 world.Update(gameTime, input);
             }
 
-            if (menuactive)
+            if (savegame)
             {
-                menu.Update(gameTime, input);
-            }
-            else
-            {
+                storage.DoSaveRequest(Guide.IsVisible, PlayerIndex.One);
             }
 
-            persist.DoPendingSave();
+            storage.DoPendingSave();
+
+            if (exit)
+            {
+                this.Exit();
+            }
 
             base.Update(gameTime);
         }
@@ -96,11 +108,16 @@ namespace Virulent_dev
         protected override void Draw(GameTime gameTime)
         {
             world.Draw(gameTime, graphics);
-            menu.Draw(gameTime, graphics);
-
+            if (cinematicactive) cinema.Draw(gameTime, graphics);
+            if (menuactive) menu.Draw(gameTime, graphics);
             graphics.DrawAll(gameTime);
 
             base.Draw(gameTime);
         }
     }
 }
+
+//cinematic active  / menu inactive / world inactive | startup!
+//cinematic inactive/ menu active   / world demoing  | main menu
+//cinematic inactive/ menu inactive / world active   | playing
+//cinematic inactive/ menu active   / world paused   | paused menu

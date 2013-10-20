@@ -37,7 +37,11 @@ namespace Virulent_dev
 
         public bool StartPressed()
         {
-            return currentState.Buttons.Start == ButtonState.Pressed;
+            bool gamepad = currentState.Buttons.Start == ButtonState.Pressed
+            && previousState.Buttons.Start == ButtonState.Released;
+            bool keyboard = currentKeyState.IsKeyDown(Keys.Escape)
+            && previousKeyState.IsKeyUp(Keys.Escape);
+            return gamepad || keyboard;
         }
 
         public bool SKeyPressed()

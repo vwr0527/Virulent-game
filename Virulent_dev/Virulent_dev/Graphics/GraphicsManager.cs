@@ -20,7 +20,6 @@ namespace Virulent_dev
         SpriteBatch spriteBatch;
         RecycleArray<SpriteElement> spriteList;
 
-        //constructor
         public GraphicsManager(GraphicsDeviceManager gdm)
         {
             graphicsDeviceManager = gdm;
@@ -32,6 +31,7 @@ namespace Virulent_dev
         {
             graphicsDevice = graphicsDeviceManager.GraphicsDevice;
             spriteBatch = new SpriteBatch(graphicsDevice);
+            SpriteElement.LoadDefaultFont(content);
         }
 
         public void DrawAll(GameTime gameTime)
