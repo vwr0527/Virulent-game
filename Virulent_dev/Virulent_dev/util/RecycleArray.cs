@@ -150,5 +150,18 @@ namespace Virulent_dev
         {
             set_data_instead_of_copy = activate_set_mode;
         }
+
+        public void Debug()
+        {
+            System.Diagnostics.Debug.WriteLine(num_active);
+            for (int i = 0; i < max_index; ++i)
+            {
+                if (cellList[i].IsActive())
+                {
+                    T result = cellList[i].GetData();
+                    System.Diagnostics.Debug.WriteLine(result);
+                }
+            }
+        }
     }
 }

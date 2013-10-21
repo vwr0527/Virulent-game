@@ -22,11 +22,11 @@ namespace Virulent_dev
         CinematicManager cinema;
         InputManager input;
 
-        private bool exit = false;
-        private bool savegame = false;
-        private bool paused = false;
-        private bool menuactive = false;
-        private bool cinematicactive = true;
+        bool exit = false;
+        bool savegame = false;
+        bool paused = false;
+        bool menuactive = false;
+        bool cinematicactive = true;
 
         public VirulentGame()
         {
@@ -64,30 +64,33 @@ namespace Virulent_dev
 
             exit = input.IsBackPressed();
             savegame = input.SKeyPressed();
-            if (input.StartPressed()) menuactive = !menuactive;
-            
+
             if (cinematicactive)
             {
                 cinema.Update(gameTime, input);
-            }
-
-            if (menuactive)
-            {
-                menu.Update(gameTime, input);
-                paused = true;
+                if (input.StartPressed()) cinematicactive = false;
             }
             else
             {
-                paused = false;
-            }
+                if (input.StartPressed()) menuactive = !menuactive;
+                if (menuactive)
+                {
+                    menu.Update(gameTime, input);
+                    paused = true;
+                }
+                else
+                {
+                    paused = false;
+                }
 
-            if (paused)
-            {
-                world.PausedUpdate(gameTime, input);
-            }
-            else
-            {
-                world.Update(gameTime, input);
+                if (paused)
+                {
+                    world.PausedUpdate(gameTime, input);
+                }
+                else
+                {
+                    world.Update(gameTime, input);
+                }
             }
 
             if (savegame)
@@ -107,9 +110,13 @@ namespace Virulent_dev
         
         protected override void Draw(GameTime gameTime)
         {
-            world.Draw(gameTime, graphics);
             if (cinematicactive) cinema.Draw(gameTime, graphics);
-            if (menuactive) menu.Draw(gameTime, graphics);
+            else
+            {
+                world.Draw(gameTime, graphics);
+                if (menuactive)
+                    menu.Draw(gameTime, graphics);
+            }
             graphics.DrawAll(gameTime);
 
             base.Draw(gameTime);

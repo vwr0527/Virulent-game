@@ -19,3 +19,5 @@ C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\obj\x86\D
 C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\obj\x86\Debug\Virulent_dev.pdb
 C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\test.xnb
 C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\obj\x86\Debug\Virulent_dev Windows.csprojResolveAssemblyReference.cache
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\placeholder_button_test.xnb
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\placeholder_cinematic_background.xnb

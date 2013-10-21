@@ -19,6 +19,24 @@
       <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\test.xnb</Output>
       <Time>2013-07-21T18:55:02.5827856-05:00</Time>
     </Item>
+    <Item>
+      <Source>placeholder_button_test.png</Source>
+      <Name>placeholder_button_test</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\placeholder_button_test.xnb</Output>
+      <Time>2013-10-20T23:53:15.435774-05:00</Time>
+    </Item>
+    <Item>
+      <Source>placeholder_cinematic_background.png</Source>
+      <Name>placeholder_cinematic_background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\placeholder_cinematic_background.xnb</Output>
+      <Time>2013-10-20T23:53:15.434774-05:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{62DFB50F-60AF-4EB0-97E6-375863300EA1}</ContentProjectGUID>

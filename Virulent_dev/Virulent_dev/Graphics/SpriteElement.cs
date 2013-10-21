@@ -38,6 +38,8 @@ namespace Virulent_dev
 
             if (texture != null)
                 orig = new Vector2((float)(texture.Width / 2), (float)(texture.Height / 2));
+            else
+                orig = Vector2.Zero;
 
             scale = 1;
             col = Color.White;
@@ -63,6 +65,8 @@ namespace Virulent_dev
 
             if (target.texture != null)
                 subject.orig = target.orig;
+            else
+                subject.orig = Vector2.Zero;
         }
         public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
@@ -73,7 +77,6 @@ namespace Virulent_dev
             {
                 spriteBatch.Draw(texture, transformedPos, null, col, rotation, orig, scale, SpriteEffects.None, 0);
             }
-            //TODO: If no font specified, use a default font
             if (text != null && font != null)
             {
                 spriteBatch.DrawString(font, text, transformedPos, col, rotation, orig, scale, SpriteEffects.None, 0);
