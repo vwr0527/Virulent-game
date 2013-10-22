@@ -14,7 +14,6 @@ namespace Virulent_dev
         KeyboardState currentKeyState;
         KeyboardState previousKeyState;
 
-
         public void Update(GameTime gameTime)
         {
             previousState = currentState;

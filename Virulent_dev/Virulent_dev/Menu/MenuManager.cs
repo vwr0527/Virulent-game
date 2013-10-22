@@ -29,12 +29,13 @@ namespace Virulent_dev
             txt[0] = new StringBuilder();
             txt[0].Append("Hello");
             textStatement = new SpriteElement(txt[0], font);
+            textStatement.pos.X = 0.5f;
             textStatement.scale = 2.5f;
         }
 
         public void Update(GameTime gameTime, InputManager inputMan)
         {
-            textStatement.pos.Y = ((float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / 300.0)*0.01f);
+            textStatement.pos.Y = 0.1f+((float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / 300.0)*0.01f);
         }
 
         public void Draw(GameTime gameTime, GraphicsManager graphMan)

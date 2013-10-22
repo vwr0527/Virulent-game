@@ -38,6 +38,8 @@ namespace Virulent_dev
 
             if (texture != null)
                 orig = new Vector2((float)(texture.Width / 2), (float)(texture.Height / 2));
+            else if (font != null)
+                orig = font.MeasureString(text) / 2;
             else
                 orig = Vector2.Zero;
 
@@ -65,6 +67,8 @@ namespace Virulent_dev
 
             if (target.texture != null)
                 subject.orig = target.orig;
+            else if (target.font != null)
+                subject.orig = target.font.MeasureString(subject.text) / 2;
             else
                 subject.orig = Vector2.Zero;
         }
