@@ -7,7 +7,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using System.Diagnostics;
 
-namespace Virulent_dev
+using Virulent_dev.Graphics;
+using Virulent_dev.Input;
+
+namespace Virulent_dev.Cinematic
 {
     class CinematicManager
     {

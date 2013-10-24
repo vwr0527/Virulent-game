@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Virulent_dev
+namespace Virulent_dev.Graphics
 {
     //graphicElement contains the starting and ending indecies of the solid or line
     //a flag to distinguish whether to draw it as a series of connected lines or a single solid

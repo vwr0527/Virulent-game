@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 
-namespace Virulent_dev
+namespace Virulent_dev.Graphics
 {
     class Camera
     {

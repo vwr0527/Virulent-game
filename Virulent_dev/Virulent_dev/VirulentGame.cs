@@ -11,6 +11,12 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.Media;
 
+using Virulent_dev.Menu;
+using Virulent_dev.World;
+using Virulent_dev.Input;
+using Virulent_dev.Graphics;
+using Virulent_dev.Cinematic;
+
 namespace Virulent_dev
 {
     public class VirulentGame : Microsoft.Xna.Framework.Game

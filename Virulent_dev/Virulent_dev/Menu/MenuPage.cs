@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
 
-namespace Virulent_dev.GUIObjects
+namespace Virulent_dev.Menu
 {
     class MenuPage
     {

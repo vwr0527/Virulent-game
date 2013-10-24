@@ -7,7 +7,7 @@
     <Platform Condition=" '$(Platform)' == '' ">Xbox 360</Platform>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Virulent_dev</RootNamespace>
+    <RootNamespace>Virulent_dev.Menu</RootNamespace>
     <AssemblyName>Virulent_dev</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Graphics\Camera.cs" />
+    <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="util\Cell.cs" />
     <Compile Include="Cinematic\CinematicManager.cs" />
     <Compile Include="Graphics\GraphicElement.cs" />

@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 
-namespace Virulent_dev
+namespace Virulent_dev.Input
 {
     class InputManager
     {

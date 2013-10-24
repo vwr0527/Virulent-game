@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 
-namespace Virulent_dev
+namespace Virulent_dev.Graphics
 {
     /**
      * Graphics Manager:

@@ -6,41 +6,34 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using System.Diagnostics;
-using Virulent_dev.GUIObjects;
 
-namespace Virulent_dev
+using Virulent_dev.Graphics;
+using Virulent_dev.Input;
+
+namespace Virulent_dev.Menu
 {
     class MenuManager
     {
-        private SpriteElement textStatement;
-        private StringBuilder[] txt;
-        private SpriteFont font;
-        private MenuPage mainmenu;
+        private MainMenu mainmenu;
 
         public MenuManager()
         {
-            mainmenu = new MenuPage();
+            mainmenu = new MainMenu();
         }
 
         public void LoadContent(ContentManager content)
         {
-            font = content.Load<SpriteFont>("SpriteFont1");
-            txt = new StringBuilder[10];
-            txt[0] = new StringBuilder();
-            txt[0].Append("Hello");
-            textStatement = new SpriteElement(txt[0], font);
-            textStatement.pos.X = 0.5f;
-            textStatement.scale = 2.5f;
+            mainmenu.LoadContent(content);
         }
 
         public void Update(GameTime gameTime, InputManager inputMan)
         {
-            textStatement.pos.Y = 0.1f+((float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / 300.0)*0.01f);
+            mainmenu.Update(gameTime, inputMan);
         }
 
         public void Draw(GameTime gameTime, GraphicsManager graphMan)
         {
-            graphMan.Add(textStatement);
+            mainmenu.Draw(gameTime, graphMan);
         }
     }
 }

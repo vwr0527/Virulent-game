@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using System.Diagnostics;
 
-namespace Virulent_dev
+namespace Virulent_dev.Graphics
 {
     //sprite element contains text, font, texture, position, scale, rotation, and color information
     class SpriteElement
