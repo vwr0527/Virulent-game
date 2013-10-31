@@ -14,26 +14,79 @@ namespace Virulent_dev.Menu
 {
     class MenuManager
     {
-        private MainMenu mainmenu;
+        private MainMenu rootMenu;
+        private IMenuPage currentMenu;
+        private bool active = true;
+        private bool quit = false;
+        private bool save = false;
 
         public MenuManager()
         {
-            mainmenu = new MainMenu();
+            rootMenu = new MainMenu();
+            currentMenu = rootMenu;
         }
 
         public void LoadContent(ContentManager content)
         {
-            mainmenu.LoadContent(content);
+            rootMenu.LoadContent(content);
         }
 
         public void Update(GameTime gameTime, InputManager inputMan)
         {
-            mainmenu.Update(gameTime, inputMan);
+            currentMenu.Update(gameTime, inputMan);
+
+            if (currentMenu.ExitMenu())
+            {
+                active = false;
+            }
+
+            if (currentMenu.SwitchingPages())
+            {
+                currentMenu = currentMenu.GetNextPage();
+            }
+
+            if (currentMenu.SaveGame())
+            {
+                save = true;
+            }
+
+            if (currentMenu.ExitGame())
+            {
+                quit = true;
+            }
         }
 
         public void Draw(GameTime gameTime, GraphicsManager graphMan)
         {
-            mainmenu.Draw(gameTime, graphMan);
+            currentMenu.Draw(gameTime, graphMan);
+        }
+
+        public bool IsActive()
+        {
+            return active;
+        }
+
+        public void Activate()
+        {
+            active = true;
+        }
+
+        public bool SaveGame()
+        {
+            if (save)
+            {
+                save = false;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool QuitGame()
+        {
+            return quit;
         }
     }
 }

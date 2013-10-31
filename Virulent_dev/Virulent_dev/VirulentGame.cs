@@ -19,7 +19,7 @@ using Virulent_dev.Cinematic;
 
 namespace Virulent_dev
 {
-    public class VirulentGame : Microsoft.Xna.Framework.Game
+    public class VirulentGame : Game
     {
         StorageManager storage;
         GraphicsManager graphics;
@@ -28,10 +28,6 @@ namespace Virulent_dev
         CinematicManager cinema;
         InputManager input;
 
-        bool exit = false;
-        bool savegame = false;
-        bool paused = false;
-        bool menuactive = false;
         bool cinematicactive = true;
 
         public VirulentGame()
@@ -68,28 +64,29 @@ namespace Virulent_dev
         {
             input.Update(gameTime);
 
-            exit = input.IsBackPressed();
-            savegame = input.SKeyPressed();
-
             if (cinematicactive)
             {
                 cinema.Update(gameTime, input);
-                if (input.StartPressed()) cinematicactive = false;
+                if (input.AnyPressed()) cinematicactive = false;
             }
             else
             {
-                if (input.StartPressed()) menuactive = !menuactive;
-                if (menuactive)
+                if (menu.IsActive())
                 {
                     menu.Update(gameTime, input);
-                    paused = true;
+                    world.Pause();
                 }
                 else
                 {
-                    paused = false;
+                    world.Unpause();
+                    if (input.StartPressed())
+                    {
+                        menu.Update(gameTime, input);
+                        menu.Activate();
+                    }
                 }
 
-                if (paused)
+                if (world.IsPaused())
                 {
                     world.PausedUpdate(gameTime, input);
                 }
@@ -99,28 +96,28 @@ namespace Virulent_dev
                 }
             }
 
-            if (savegame)
+            if (menu.SaveGame() || world.SaveGame())
             {
                 storage.DoSaveRequest(Guide.IsVisible, PlayerIndex.One);
             }
 
             storage.DoPendingSave();
 
-            if (exit)
+            if (menu.QuitGame())
             {
                 this.Exit();
             }
 
             base.Update(gameTime);
         }
-        
+
         protected override void Draw(GameTime gameTime)
         {
             if (cinematicactive) cinema.Draw(gameTime, graphics);
             else
             {
                 world.Draw(gameTime, graphics);
-                if (menuactive)
+                if (menu.IsActive())
                     menu.Draw(gameTime, graphics);
             }
             graphics.DrawAll(gameTime);

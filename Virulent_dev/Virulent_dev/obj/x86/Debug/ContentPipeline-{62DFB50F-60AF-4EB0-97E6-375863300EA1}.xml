@@ -37,6 +37,24 @@
       <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\placeholder_cinematic_background.xnb</Output>
       <Time>2013-10-20T23:53:15.434774-05:00</Time>
     </Item>
+    <Item>
+      <Source>Hyperspace.spritefont</Source>
+      <Name>Hyperspace</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\Hyperspace.xnb</Output>
+      <Time>2013-10-31T00:51:32.5729547-05:00</Time>
+    </Item>
+    <Item>
+      <Source>SquaredDisplay.spritefont</Source>
+      <Name>SquaredDisplay</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\SquaredDisplay.xnb</Output>
+      <Time>2013-10-31T00:53:57.5642478-05:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{62DFB50F-60AF-4EB0-97E6-375863300EA1}</ContentProjectGUID>

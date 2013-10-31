@@ -21,3 +21,5 @@ C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\D
 C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\obj\x86\Debug\Virulent_dev Windows.csprojResolveAssemblyReference.cache
 C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\placeholder_button_test.xnb
 C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\placeholder_cinematic_background.xnb
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\Hyperspace.xnb
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\SquaredDisplay.xnb

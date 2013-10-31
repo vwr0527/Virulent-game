@@ -47,5 +47,10 @@ namespace Virulent_dev.Input
         {
             return currentKeyState.IsKeyDown(Keys.S);
         }
+
+        public bool AnyPressed()
+        {
+            return StartPressed();
+        }
     }
 }
