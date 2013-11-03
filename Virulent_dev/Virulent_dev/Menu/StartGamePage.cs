@@ -12,7 +12,7 @@ using Virulent_dev.Input;
 
 namespace Virulent_dev.Menu
 {
-    class NewGamePage : MenuPage
+    class StartGamePage : MenuPage
     {
         private SpriteElement el_page1;
         private SpriteElement el_page2;
@@ -24,7 +24,7 @@ namespace Virulent_dev.Menu
 
         private MenuPage mainMenu;
 
-        public NewGamePage(MainMenu putMainMenuHere)
+        public StartGamePage(MainMenu putMainMenuHere)
         {
             mainMenu = putMainMenuHere;
         }
@@ -39,15 +39,15 @@ namespace Virulent_dev.Menu
             el_page5 = new SpriteElement(new StringBuilder("Back"), font);
             cursor = new SpriteElement(content.Load<Texture2D>("cursor"));
             el_page1.pos.X = 0.5f;
-            el_page1.pos.Y = 0.2f;
+            el_page1.pos.Y = 0.3f;
             el_page2.pos.X = 0.5f;
-            el_page2.pos.Y = 0.3f;
+            el_page2.pos.Y = 0.425f;
             el_page3.pos.X = 0.5f;
-            el_page3.pos.Y = 0.4f;
+            el_page3.pos.Y = 0.55f;
             el_page4.pos.X = 0.5f;
-            el_page4.pos.Y = 0.5f;
+            el_page4.pos.Y = 0.675f;
             el_page5.pos.X = 0.5f;
-            el_page5.pos.Y = 0.6f;
+            el_page5.pos.Y = 0.8f;
             cursor.pos.X = 0.35f;
             cursor.pos.Y = 0.4f;
             cursor.scale = 0.5f;
@@ -62,7 +62,7 @@ namespace Virulent_dev.Menu
             if (cursorpos > 4) cursorpos = 4;
             if (cursorpos < 0) cursorpos = 0;
 
-            cursor.pos.Y = 0.2f + ((float)cursorpos) * 0.1f;
+            cursor.pos.Y = 0.3f + ((float)cursorpos) * 0.125f;
             cursor.pos.X = 0.35f + ((float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / 100.0) * 0.005f);
 
             el_page1.scale = 1f;

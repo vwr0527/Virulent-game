@@ -16,6 +16,7 @@ namespace Virulent_dev.Cinematic
     {
         SpriteElement bg;
         SpriteElement thing;
+        bool active = true;
 
         public void LoadContent(ContentManager content)
         {
@@ -48,6 +49,16 @@ namespace Virulent_dev.Cinematic
         {
             graphics.Add(bg);
             graphics.Add(thing);
+        }
+
+        public bool IsActive()
+        {
+            return active;
+        }
+
+        public void Deactivate()
+        {
+            active = false;
         }
     }
 }

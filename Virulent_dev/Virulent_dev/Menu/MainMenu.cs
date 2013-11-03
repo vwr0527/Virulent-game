@@ -21,7 +21,7 @@ namespace Virulent_dev.Menu
         private SpriteElement cursor;
         private int cursorpos;
 
-        private NewGamePage newGamePage;
+        private StartGamePage startGamePage;
         private MenuPage nextPage;
 
         public override void LoadContent(ContentManager content)
@@ -29,7 +29,7 @@ namespace Virulent_dev.Menu
             SpriteFont font = content.Load<SpriteFont>("SquaredDisplay");
             SpriteFont titlefont = content.Load<SpriteFont>("Hyperspace");
             title = new SpriteElement(new StringBuilder("Virulent"), titlefont);
-            el_newgame = new SpriteElement(new StringBuilder("New Game"), font);
+            el_newgame = new SpriteElement(new StringBuilder("Start Game"), font);
             el_options = new SpriteElement(new StringBuilder("Options"), font);
             el_quit = new SpriteElement(new StringBuilder("Quit Game"), font);
             cursor = new SpriteElement(content.Load<Texture2D>("cursor"));
@@ -45,8 +45,8 @@ namespace Virulent_dev.Menu
             cursor.scale = 0.5f;
             cursorpos = 0;
 
-            newGamePage = new NewGamePage(this);
-            newGamePage.LoadContent(content);
+            startGamePage = new StartGamePage(this);
+            startGamePage.LoadContent(content);
         }
 
         public override void Update(GameTime gameTime, InputManager inputMan)
@@ -72,7 +72,7 @@ namespace Virulent_dev.Menu
                 if (inputMan.EnterPressed())
                 {
                     switching = true;
-                    nextPage = newGamePage;
+                    nextPage = startGamePage;
                 }
             }
             else if (cursorpos == 1)
@@ -100,7 +100,6 @@ namespace Virulent_dev.Menu
             graphMan.Add(el_options);
             graphMan.Add(el_quit);
             graphMan.Add(cursor);
-            Debug.WriteLine(cursor.texture);
         }
 
         public override MenuPage GetNextPage()

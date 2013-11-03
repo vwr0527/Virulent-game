@@ -14,56 +14,58 @@ namespace Virulent_dev.World
 {
     class WorldManager
     {
-        private Texture2D picture;
-        private SpriteElement pickle;
         private bool paused = false;
         private bool save = false;
+        private bool demo = true;
+        private Level currentLevel;
+        private Dictionary<String, Level> levels;
+        private EntityManager entMan;
 
         public WorldManager()
         {
-
+            levels = new Dictionary<string, Level>();
+            levels.Add("pretty particles", new PrettyParticlesLevel());
+            currentLevel = levels["pretty particles"];
+            entMan = new EntityManager();
         }
 
         public void LoadContent(ContentManager content)
         {
-            picture = content.Load<Texture2D>("test");
-            pickle = new SpriteElement(picture);
-            pickle.pos.X = 0.5f;
-            pickle.pos.Y = 0.5f;
-            pickle.scale = 4f;
+            foreach (KeyValuePair<String, Level> kvp in levels)
+            {
+                kvp.Value.LoadContent(content);
+            }
+            entMan.LoadContent(content);
         }
 
         public void Update(GameTime gameTime, InputManager inputMan)
         {
-            pickle.rotation += gameTime.ElapsedGameTime.Milliseconds / 3000f;
+            currentLevel.Update(gameTime, inputMan);
+            entMan.Update(gameTime, inputMan);
         }
 
         public void PausedUpdate(GameTime gameTime, InputManager inputMan)
         {
-            pickle.rotation += gameTime.ElapsedGameTime.Milliseconds / 30000f;
+            if (demo)
+            {
+                Update(gameTime, inputMan);
+            }
         }
 
         public void Draw(GameTime gameTime, GraphicsManager graphMan)
         {
-            graphMan.Add(pickle);
+            currentLevel.Draw(gameTime, graphMan);
+            entMan.Draw(gameTime, graphMan);
         }
 
         public void Pause()
         {
             paused = true;
-            pickle.col.A = 255;
-            pickle.col.R = 80;
-            pickle.col.G = 80;
-            pickle.col.B = 80;
         }
 
         public void Unpause()
         {
             paused = false;
-            pickle.col.A = 255;
-            pickle.col.R = 160;
-            pickle.col.G = 160;
-            pickle.col.B = 160;
         }
 
         public bool SaveGame()

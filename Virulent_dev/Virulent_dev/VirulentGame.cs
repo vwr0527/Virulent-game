@@ -28,8 +28,6 @@ namespace Virulent_dev
         CinematicManager cinema;
         InputManager input;
 
-        bool cinematicactive = true;
-
         public VirulentGame()
         {
             Content.RootDirectory = "Content";
@@ -64,10 +62,10 @@ namespace Virulent_dev
         {
             input.Update(gameTime);
 
-            if (cinematicactive)
+            if (cinema.IsActive())
             {
                 cinema.Update(gameTime, input);
-                if (input.AnyPressed()) cinematicactive = false;
+                if (input.AnyPressed()) cinema.Deactivate();
             }
             else
             {
@@ -81,6 +79,7 @@ namespace Virulent_dev
                     world.Unpause();
                     if (input.StartPressed())
                     {
+                        menu.ResetRoot();
                         menu.Update(gameTime, input);
                         menu.Activate();
                     }
@@ -113,7 +112,7 @@ namespace Virulent_dev
 
         protected override void Draw(GameTime gameTime)
         {
-            if (cinematicactive) cinema.Draw(gameTime, graphics);
+            if (cinema.IsActive()) cinema.Draw(gameTime, graphics);
             else
             {
                 world.Draw(gameTime, graphics);
@@ -129,5 +128,6 @@ namespace Virulent_dev
 
 //cinematic active  / menu inactive / world inactive | startup!
 //cinematic inactive/ menu active   / world demoing  | main menu
+//cinematic inactive/ menu inactive / world demoing  | watching demo
 //cinematic inactive/ menu inactive / world active   | playing
 //cinematic inactive/ menu active   / world paused   | paused menu

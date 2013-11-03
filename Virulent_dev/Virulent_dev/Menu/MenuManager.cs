@@ -20,6 +20,8 @@ namespace Virulent_dev.Menu
         private bool quit = false;
         private bool save = false;
 
+        private SpriteElement darken;
+
         public MenuManager()
         {
             rootMenu = new MainMenu();
@@ -29,25 +31,31 @@ namespace Virulent_dev.Menu
         public void LoadContent(ContentManager content)
         {
             rootMenu.LoadContent(content);
+
+            darken = new SpriteElement(content.Load<Texture2D>("white"));
+            darken.pos.X = 0.5f;
+            darken.pos.Y = 0.5f;
+            darken.col = new Color(0, 0, 0, 0.5f);
+            darken.scale = 100f;
         }
 
         public void Update(GameTime gameTime, InputManager inputMan)
         {
-            currentMenu.Update(gameTime, inputMan);
-
-            if (currentMenu.ExitMenu())
-            {
-                active = false;
-            }
-
             if (currentMenu.SwitchingPages())
             {
                 currentMenu = currentMenu.GetNextPage();
             }
 
+            currentMenu.Update(gameTime, inputMan);
+
             if (currentMenu.SaveGame())
             {
                 save = true;
+            }
+
+            if (currentMenu.ExitMenu())
+            {
+                active = false;
             }
 
             if (currentMenu.ExitGame())
@@ -58,7 +66,13 @@ namespace Virulent_dev.Menu
 
         public void Draw(GameTime gameTime, GraphicsManager graphMan)
         {
+            graphMan.Add(darken);
             currentMenu.Draw(gameTime, graphMan);
+        }
+
+        public void ResetRoot()
+        {
+            currentMenu = rootMenu;
         }
 
         public bool IsActive()
