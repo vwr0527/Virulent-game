@@ -15,7 +15,7 @@ namespace Virulent_dev.Menu
     class MenuManager
     {
         private MainMenu rootMenu;
-        private IMenuPage currentMenu;
+        private MenuPage currentMenu;
         private bool active = true;
         private bool quit = false;
         private bool save = false;

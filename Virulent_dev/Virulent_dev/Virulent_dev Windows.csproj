@@ -73,9 +73,9 @@
     <Compile Include="Graphics\GraphicsManager.cs" />
     <Compile Include="Graphics\SpriteElement.cs" />
     <Compile Include="Input\InputManager.cs" />
-    <Compile Include="Menu\IMenuPage.cs" />
     <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="Menu\MenuManager.cs" />
+    <Compile Include="Menu\MenuPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Storage\StorageManager.cs" />
