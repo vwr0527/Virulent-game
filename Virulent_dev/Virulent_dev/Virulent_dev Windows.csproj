@@ -73,6 +73,7 @@
     <Compile Include="Graphics\GraphicsManager.cs" />
     <Compile Include="Graphics\SpriteElement.cs" />
     <Compile Include="Input\InputManager.cs" />
+    <Compile Include="Menu\NewGamePage.cs" />
     <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="Menu\MenuManager.cs" />
     <Compile Include="Menu\MenuPage.cs" />

@@ -52,5 +52,18 @@ namespace Virulent_dev.Input
         {
             return StartPressed();
         }
+
+        public bool DownPressed()
+        {
+            return currentKeyState.IsKeyDown(Keys.Down) && previousKeyState.IsKeyUp(Keys.Down);
+        }
+        public bool UpPressed()
+        {
+            return currentKeyState.IsKeyDown(Keys.Up) && previousKeyState.IsKeyUp(Keys.Up);
+        }
+        public bool EnterPressed()
+        {
+            return currentKeyState.IsKeyDown(Keys.Enter) && previousKeyState.IsKeyUp(Keys.Enter);
+        }
     }
 }

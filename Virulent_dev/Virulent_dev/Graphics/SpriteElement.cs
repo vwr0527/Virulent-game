@@ -27,6 +27,8 @@ namespace Virulent_dev.Graphics
             defaultFont = content.Load<SpriteFont>("SpriteFont1");
         }
 
+
+        public SpriteElement() { }
         public SpriteElement(Texture2D textureSource) : this(textureSource, null, null) { }
         public SpriteElement(StringBuilder textSource) : this(null, textSource, defaultFont) { }
         public SpriteElement(StringBuilder textSource, SpriteFont fontSource) : this(null, textSource, fontSource) { }
@@ -49,6 +51,7 @@ namespace Virulent_dev.Graphics
             transformedPos = new Vector2(0, 0);
             rotation = 0;
         }
+
         public static void CopyMembers(SpriteElement subject, SpriteElement target)
         {
             subject.pos.X = target.pos.X;
@@ -71,6 +74,12 @@ namespace Virulent_dev.Graphics
                 subject.orig = target.font.MeasureString(subject.text) / 2;
             else
                 subject.orig = Vector2.Zero;
+        }
+        public static SpriteElement CreateNewCopy(SpriteElement target)
+        {
+            SpriteElement subject = new SpriteElement();
+            CopyMembers(subject, target);
+            return subject;
         }
         public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {

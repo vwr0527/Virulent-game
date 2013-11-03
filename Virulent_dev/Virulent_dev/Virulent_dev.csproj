@@ -63,6 +63,7 @@
     <Compile Include="Graphics\Camera.cs" />
     <Compile Include="Menu\MenuPage.cs" />
     <Compile Include="Menu\MainMenu.cs" />
+    <Compile Include="Menu\NewGamePage.cs" />
     <Compile Include="util\Cell.cs" />
     <Compile Include="Cinematic\CinematicManager.cs" />
     <Compile Include="Graphics\GraphicElement.cs" />

@@ -23,8 +23,8 @@ namespace Virulent_dev.Graphics
         public GraphicsManager(GraphicsDeviceManager gdm)
         {
             graphicsDeviceManager = gdm;
-            spriteList = new RecycleArray<SpriteElement>(SpriteElement.CopyMembers);
-            spriteList.SetDataMode(false);
+            spriteList = new RecycleArray<SpriteElement>(SpriteElement.CopyMembers, SpriteElement.CreateNewCopy);
+            spriteList.SetDataMode(true);
         }
 
         public void LoadContent(ContentManager content)

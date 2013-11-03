@@ -32,6 +32,11 @@ namespace Virulent_dev
                 copyMethod(data, param);
             }
         }
+        public void CreateCopy(T param, Func<T, T> createCopyMethod)
+        {
+            data = createCopyMethod(param);
+        }
+
         public T GetData()
         {
             return data;

@@ -23,22 +23,26 @@ namespace Virulent_dev
         int num_active = 0;
         int current_index = 0;
         Action<T, T> CopyMembers;
+        Func<T, T> CreateCopyMethod;
         bool set_data_instead_of_copy = false;
 
-        public RecycleArray(Action<T,T> copyMethod)
+        public RecycleArray(Action<T,T> copyMethod, Func<T, T> createCopyMethod)
         {
             CopyMembers = copyMethod;
+            CreateCopyMethod = createCopyMethod;
             cellList = new List<Cell<T>>();
         }
-        public RecycleArray(int size, Action<T,T> copyMethod)
+        public RecycleArray(int size, Action<T, T> copyMethod, Func<T, T> createCopyMethod)
         {
             CopyMembers = copyMethod;
+            CreateCopyMethod = createCopyMethod;
             cellList = new List<Cell<T>>(size);
             max_index = size - 1;
         }
-        public RecycleArray(IEnumerable<Cell<T>> collection, Action<T, T> copyMethod)
+        public RecycleArray(IEnumerable<Cell<T>> collection, Action<T, T> copyMethod, Func<T, T> createCopyMethod)
         {
             CopyMembers = copyMethod;
+            CreateCopyMethod = createCopyMethod;
             cellList = new List<Cell<T>>(collection);
             max_index = collection.Count() - 1;
         }
@@ -55,7 +59,11 @@ namespace Virulent_dev
             {
                 //create and add a new cell to the cell list.
                 Cell<T> cell = new Cell<T>();
-                cell.SetData(data);
+                //used to be just SetData here. If you used copy data mode, it would create an interesting bug.
+                if (set_data_instead_of_copy)
+                    cell.SetData(data);
+                else
+                    cell.CreateCopy(data, CreateCopyMethod);
                 cell.Activate();
                 cellList.Add(cell);
                 ++max_index;
