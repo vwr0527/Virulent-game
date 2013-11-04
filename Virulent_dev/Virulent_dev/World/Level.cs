@@ -12,6 +12,8 @@ namespace Virulent_dev.World
 {
     class Level
     {
+        protected int numPendingSpawns = 0;
+
         public virtual void LoadContent(ContentManager content)
         {
         }
@@ -22,6 +24,26 @@ namespace Virulent_dev.World
 
         public virtual void Update(GameTime gameTime, InputManager inputMan)
         {
+        }
+
+        public virtual int NumPendingSpawns()
+        {
+            return numPendingSpawns;
+        }
+
+        public virtual Entity SpawnNext()
+        {
+            return null;
+        }
+
+        public virtual bool Victory()
+        {
+            return false;
+        }
+
+        public virtual bool Failure()
+        {
+            return false;
         }
     }
 }

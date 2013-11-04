@@ -83,6 +83,8 @@
     <Compile Include="util\Cell.cs" />
     <Compile Include="util\RecycleArray.cs" />
     <Compile Include="VirulentGame.cs" />
+    <Compile Include="World\Entities\Particle.cs" />
+    <Compile Include="World\Entity.cs" />
     <Compile Include="World\EntityManager.cs" />
     <Compile Include="World\Level.cs" />
     <Compile Include="World\PrettyParticlesLevel.cs" />
