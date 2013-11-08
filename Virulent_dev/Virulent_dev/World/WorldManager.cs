@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Content;
 
 using Virulent_dev.Graphics;
 using Virulent_dev.Input;
+using Virulent_dev.World.Levels;
 
 namespace Virulent_dev.World
 {

@@ -73,11 +73,12 @@
     <Compile Include="Graphics\SpriteElement.cs" />
     <Compile Include="Storage\StorageManager.cs" />
     <Compile Include="util\RecycleArray.cs" />
-    <Compile Include="World\Entities\Particle.cs" />
     <Compile Include="World\Entity.cs" />
     <Compile Include="World\EntityManager.cs" />
     <Compile Include="World\Level.cs" />
-    <Compile Include="World\PrettyParticlesLevel.cs" />
+    <Compile Include="World\Levels\PrettyParticlesLevel.cs" />
+    <Compile Include="World\State.cs" />
+    <Compile Include="World\States\Particle.cs" />
     <Compile Include="World\WorldManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />

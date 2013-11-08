@@ -31,6 +31,8 @@ namespace Virulent_dev.World
             return numPendingSpawns;
         }
 
+        //must return a existing member of the class
+        //do not create a new entity to return here
         public virtual Entity SpawnNext()
         {
             return null;

@@ -42,7 +42,6 @@ namespace Virulent_dev.Graphics
                 spriteList.ElementAt(i).Draw(graphicsDevice, spriteBatch);
             }
             spriteBatch.End();
-            //spriteList.Debug();
             spriteList.EmptyAll();
         }
 

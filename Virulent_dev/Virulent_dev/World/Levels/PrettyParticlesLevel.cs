@@ -9,14 +9,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 using Virulent_dev.Graphics;
 using Virulent_dev.Input;
-using Virulent_dev.World.Entities;
+using Virulent_dev.World.States;
 
-namespace Virulent_dev.World
+namespace Virulent_dev.World.Levels
 {
     class PrettyParticlesLevel : Level
     {
         SpriteElement bg;
-
+        Entity e;
         TimeSpan respawnTime;
         TimeSpan prevSpawnTime;
 
@@ -29,6 +29,10 @@ namespace Virulent_dev.World
 
             respawnTime = new TimeSpan(0, 0, 3);
             prevSpawnTime = new TimeSpan();
+
+            e = new Entity();
+            e.state = new Particle();
+            e.sprite = new SpriteElement(content.Load<Texture2D>("dot"));
         }
 
         public override void Draw(GameTime gameTime, GraphicsManager graphMan)
@@ -56,29 +60,28 @@ namespace Virulent_dev.World
         {
             if (numPendingSpawns == 0) return null;
 
-            Particle p = new Particle();
             if (numPendingSpawns == 4)
             {
-                p.pos.X = 0.1f;
-                p.pos.Y = 0.1f;
+                e.pos.X = 0.1f;
+                e.pos.Y = 0.1f;
             }
             if (numPendingSpawns == 3)
             {
-                p.pos.X = 0.9f;
-                p.pos.Y = 0.1f;
+                e.pos.X = 0.9f;
+                e.pos.Y = 0.1f;
             }
             if (numPendingSpawns == 2)
             {
-                p.pos.X = 0.1f;
-                p.pos.Y = 0.9f;
+                e.pos.X = 0.1f;
+                e.pos.Y = 0.9f;
             }
             if (numPendingSpawns == 1)
             {
-                p.pos.X = 0.9f;
-                p.pos.Y = 0.9f;
+                e.pos.X = 0.9f;
+                e.pos.Y = 0.9f;
             }
             --numPendingSpawns;
-            return p;
+            return e;
         }
     }
 }

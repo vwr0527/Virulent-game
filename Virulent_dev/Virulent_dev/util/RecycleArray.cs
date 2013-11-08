@@ -52,7 +52,8 @@ namespace Virulent_dev
         // if it's not full, When an empty cell is found,
         // clone the added element into it.
         // afterwards, current index is the newly added element
-        public void Add(T data)
+        // ADDENDUM: Returns the actual thing that was added or created.
+        public T Add(T data)
         {
             //It's full. extend the list.
             if (num_active == max_index)
@@ -70,7 +71,7 @@ namespace Virulent_dev
                 ++num_active;
                 current_index = max_index;
 
-                return;
+                return cell.GetData();
             }
 
             //it's not full. There are empty cells. Find them and fill them.
@@ -88,12 +89,13 @@ namespace Virulent_dev
                         cellList[i].Activate();
                         ++num_active;
 
-                        return;
+                        return cellList[i].GetData();
                     }
                 }
             }
             //if reached here, add failed
             //TODO: Add error
+            return default(T);
         }
 
         public void EmptyAll()
@@ -108,16 +110,21 @@ namespace Virulent_dev
 
         public void DeleteElementAt(int index)
         {
-            cellList[index].Deactivate();
+            if (cellList[index].IsActive())
+            {
+                cellList[index].Deactivate();
+                --num_active;
+            }
         }
 
         public void DeleteElement(T data)
         {
             for (int i = 0; i < max_index; ++i)
             {
-                if (cellList[i].GetData().Equals(data))
+                if (cellList[i].IsActive() && cellList[i].GetData().Equals(data))
                 {
                     cellList[i].Deactivate();
+                    --num_active;
                     return;
                 }
             }
