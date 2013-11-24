@@ -23,6 +23,12 @@ namespace Virulent_dev.World
         public State state;
         public SpriteElement sprite = new SpriteElement();
 
+        public void Init()
+        {
+            if (state != null)
+                state.Init(this);
+        }
+
         public void Update(GameTime gameTime, InputManager inputMan)
         {
             if (state != null)
@@ -32,7 +38,7 @@ namespace Virulent_dev.World
         public void Draw(GameTime gameTime, GraphicsManager graphMan)
         {
             sprite.pos = pos;
-            graphMan.Add(sprite);
+            graphMan.DrawWorldSprite(sprite);
         }
 
         private static void CopyAllExceptSprite(Entity a, Entity b)

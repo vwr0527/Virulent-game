@@ -95,11 +95,11 @@ namespace Virulent_dev.Menu
 
         public override void Draw(GameTime gameTime, GraphicsManager graphMan)
         {
-            graphMan.Add(title);
-            graphMan.Add(el_newgame);
-            graphMan.Add(el_options);
-            graphMan.Add(el_quit);
-            graphMan.Add(cursor);
+            graphMan.DrawUISprite(title);
+            graphMan.DrawUISprite(el_newgame);
+            graphMan.DrawUISprite(el_options);
+            graphMan.DrawUISprite(el_quit);
+            graphMan.DrawUISprite(cursor);
         }
 
         public override MenuPage GetNextPage()

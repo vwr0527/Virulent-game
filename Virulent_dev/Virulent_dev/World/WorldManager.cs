@@ -44,7 +44,11 @@ namespace Virulent_dev.World
             currentLevel.Update(gameTime, inputMan);
             entMan.Update(gameTime, inputMan);
             while (currentLevel.NumPendingSpawns() > 0)
-                entMan.AddEnt(currentLevel.SpawnNext());
+            {
+                Entity toSpawn = currentLevel.SpawnNext();
+                toSpawn.Init();
+                entMan.AddEnt(toSpawn);
+            }
         }
 
         public void PausedUpdate(GameTime gameTime, InputManager inputMan)

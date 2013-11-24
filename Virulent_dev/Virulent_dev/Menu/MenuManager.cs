@@ -66,7 +66,7 @@ namespace Virulent_dev.Menu
 
         public void Draw(GameTime gameTime, GraphicsManager graphMan)
         {
-            graphMan.Add(darken);
+            graphMan.DrawUISprite(darken);
             currentMenu.Draw(gameTime, graphMan);
         }
 

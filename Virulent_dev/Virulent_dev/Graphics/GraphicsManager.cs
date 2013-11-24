@@ -18,13 +18,20 @@ namespace Virulent_dev.Graphics
         GraphicsDeviceManager graphicsDeviceManager;
         GraphicsDevice graphicsDevice;
         SpriteBatch spriteBatch;
-        RecycleArray<SpriteElement> spriteList;
+        RecycleArray<SpriteElement> guiSprites;
+        RecycleArray<SpriteElement> worldSprites;
+
+        Camera cam1;
 
         public GraphicsManager(GraphicsDeviceManager gdm)
         {
             graphicsDeviceManager = gdm;
-            spriteList = new RecycleArray<SpriteElement>(SpriteElement.CopyMembers, SpriteElement.CreateNewCopy);
-            spriteList.SetDataMode(true);
+            guiSprites = new RecycleArray<SpriteElement>(SpriteElement.CopyMembers, SpriteElement.CreateNewCopy);
+            guiSprites.SetDataMode(true);
+            worldSprites = new RecycleArray<SpriteElement>(SpriteElement.CopyMembers, SpriteElement.CreateNewCopy);
+            worldSprites.SetDataMode(true);
+
+            cam1 = new Camera();
         }
 
         public void LoadContent(ContentManager content)
@@ -36,18 +43,40 @@ namespace Virulent_dev.Graphics
 
         public void DrawAll(GameTime gameTime)
         {
-            spriteBatch.Begin();
-            for (int i = 0; i < spriteList.Size(); ++i)
+            //TODO: Multiple cameras
+            int numCameras = 1;
+            cam1.scale += ((float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds/1000.0))*0.01f;
+            cam1.rot += 0.01f;
+            cam1.CalcMatrix(graphicsDevice.Viewport);
+            for (int j = 0; j < numCameras; ++j)
             {
-                spriteList.ElementAt(i).Draw(graphicsDevice, spriteBatch);
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, cam1.matrix);
+                for (int i = 0; i < worldSprites.Size(); ++i)
+                {
+                    worldSprites.ElementAt(i).Draw(graphicsDevice, spriteBatch);
+                }
+                spriteBatch.End();
+            }
+
+            spriteBatch.Begin();
+            for (int i = 0; i < guiSprites.Size(); ++i)
+            {
+                guiSprites.ElementAt(i).Draw(graphicsDevice, spriteBatch);
             }
             spriteBatch.End();
-            spriteList.EmptyAll();
+
+            guiSprites.EmptyAll();
+            worldSprites.EmptyAll();
         }
 
-        public void Add(SpriteElement addedElement)
+        public void DrawUISprite(SpriteElement addedElement)
         {
-            spriteList.Add(addedElement);
+            guiSprites.Add(addedElement);
+        }
+
+        public void DrawWorldSprite(SpriteElement addedElement)
+        {
+            worldSprites.Add(addedElement);
         }
     }
 }

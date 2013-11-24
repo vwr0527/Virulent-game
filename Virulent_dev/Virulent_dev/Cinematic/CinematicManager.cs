@@ -47,8 +47,8 @@ namespace Virulent_dev.Cinematic
 
         public void Draw(GameTime gameTime, GraphicsManager graphics)
         {
-            graphics.Add(bg);
-            graphics.Add(thing);
+            graphics.DrawUISprite(bg);
+            graphics.DrawUISprite(thing);
         }
 
         public bool IsActive()

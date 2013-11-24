@@ -19,15 +19,16 @@ namespace Virulent_dev.World.Levels
         Entity e;
         TimeSpan respawnTime;
         TimeSpan prevSpawnTime;
+        Random rand = new Random();
 
         public override void LoadContent(ContentManager content)
         {
-            bg = new SpriteElement(content.Load<Texture2D>("test"));
-            bg.scale = 4;
+            bg = new SpriteElement(content.Load<Texture2D>("gradient"));
+            bg.scale = 5;
             bg.pos.X = 0.5f;
             bg.pos.Y = 0.5f;
 
-            respawnTime = new TimeSpan(0, 0, 3);
+            respawnTime = new TimeSpan(0, 0, 0, 0, 100);
             prevSpawnTime = new TimeSpan();
 
             e = new Entity();
@@ -37,12 +38,12 @@ namespace Virulent_dev.World.Levels
 
         public override void Draw(GameTime gameTime, GraphicsManager graphMan)
         {
-            graphMan.Add(bg);
+            graphMan.DrawWorldSprite(bg);
         }
 
         public override void Update(GameTime gameTime, InputManager inputMan)
         {
-            bg.rotation += gameTime.ElapsedGameTime.Milliseconds / 3000f;
+            //bg.rotation += gameTime.ElapsedGameTime.Milliseconds / 3000f;
 
             if (gameTime.TotalGameTime - prevSpawnTime >= respawnTime)
             {
@@ -60,26 +61,9 @@ namespace Virulent_dev.World.Levels
         {
             if (numPendingSpawns == 0) return null;
 
-            if (numPendingSpawns == 4)
-            {
-                e.pos.X = 0.1f;
-                e.pos.Y = 0.1f;
-            }
-            if (numPendingSpawns == 3)
-            {
-                e.pos.X = 0.9f;
-                e.pos.Y = 0.1f;
-            }
-            if (numPendingSpawns == 2)
-            {
-                e.pos.X = 0.1f;
-                e.pos.Y = 0.9f;
-            }
-            if (numPendingSpawns == 1)
-            {
-                e.pos.X = 0.9f;
-                e.pos.Y = 0.9f;
-            }
+            e.pos.X = (float)rand.NextDouble();
+            e.pos.Y = (float)rand.NextDouble();
+
             --numPendingSpawns;
             return e;
         }

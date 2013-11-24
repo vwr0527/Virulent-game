@@ -11,6 +11,9 @@ namespace Virulent_dev.World
 {
     class State
     {
+        public virtual void Init(Entity e)
+        {
+        }
         public virtual void Update(Entity e, GameTime gameTime, InputManager inputMan)
         {
         }
