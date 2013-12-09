@@ -14,6 +14,10 @@ namespace Virulent_dev.World
     {
         protected int numPendingSpawns = 0;
 
+        public virtual void Init()
+        {
+        }
+
         public virtual void LoadContent(ContentManager content)
         {
         }
@@ -46,6 +50,11 @@ namespace Virulent_dev.World
         public virtual bool Failure()
         {
             return false;
+        }
+
+        public virtual string GetNextLevel()
+        {
+            return "";
         }
     }
 }

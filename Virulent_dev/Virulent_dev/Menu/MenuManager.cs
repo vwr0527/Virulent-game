@@ -9,28 +9,35 @@ using System.Diagnostics;
 
 using Virulent_dev.Graphics;
 using Virulent_dev.Input;
+using Virulent_dev.World;
 
 namespace Virulent_dev.Menu
 {
     class MenuManager
     {
-        private MainMenu rootMenu;
+        private MenuPage rootMenu;
+        private TitleMenu titleMenu;
+        private MainMenu inGameMenu;
         private MenuPage currentMenu;
         private bool active = true;
         private bool quit = false;
         private bool save = false;
 
         private SpriteElement darken;
+        private bool inTitle = true;
 
         public MenuManager()
         {
-            rootMenu = new MainMenu();
+            titleMenu = new TitleMenu();
+            inGameMenu = new MainMenu(titleMenu);
+            rootMenu = titleMenu;
             currentMenu = rootMenu;
         }
 
         public void LoadContent(ContentManager content)
         {
-            rootMenu.LoadContent(content);
+            inGameMenu.LoadContent(content);
+            titleMenu.LoadContent(content);
 
             darken = new SpriteElement(content.Load<Texture2D>("white"));
             darken.pos.X = 0.5f;
@@ -39,14 +46,14 @@ namespace Virulent_dev.Menu
             darken.scale = 100f;
         }
 
-        public void Update(GameTime gameTime, InputManager inputMan)
+        public void Update(GameTime gameTime, InputManager inputMan, WorldManager worldMan)
         {
             if (currentMenu.SwitchingPages())
             {
                 currentMenu = currentMenu.GetNextPage();
             }
 
-            currentMenu.Update(gameTime, inputMan);
+            currentMenu.Update(gameTime, inputMan, worldMan);
 
             if (currentMenu.SaveGame())
             {
@@ -66,7 +73,7 @@ namespace Virulent_dev.Menu
 
         public void Draw(GameTime gameTime, GraphicsManager graphMan)
         {
-            graphMan.DrawUISprite(darken);
+            if (!inTitle) graphMan.DrawUISprite(darken);
             currentMenu.Draw(gameTime, graphMan);
         }
 
@@ -101,6 +108,19 @@ namespace Virulent_dev.Menu
         public bool QuitGame()
         {
             return quit;
+        }
+
+        public void SetInTitleScreen(bool isInTitleScreen)
+        {
+            inTitle = isInTitleScreen;
+            if (inTitle)
+            {
+                rootMenu = titleMenu;
+            }
+            else
+            {
+                rootMenu = inGameMenu;
+            }
         }
     }
 }

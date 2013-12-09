@@ -2,15 +2,6 @@
 <XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
   <Asset Type="Pipeline:BuildItemCollection">
     <Item>
-      <Source>SpriteFont1.spritefont</Source>
-      <Name>SpriteFont1</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\SpriteFont1.xnb</Output>
-      <Time>2013-05-20T03:39:21.789807-05:00</Time>
-    </Item>
-    <Item>
       <Source>test.png</Source>
       <Name>test</Name>
       <Importer>TextureImporter</Importer>
@@ -36,24 +27,6 @@
       <Options>None</Options>
       <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\placeholder_cinematic_background.xnb</Output>
       <Time>2013-10-20T23:53:15.434774-05:00</Time>
-    </Item>
-    <Item>
-      <Source>Hyperspace.spritefont</Source>
-      <Name>Hyperspace</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\Hyperspace.xnb</Output>
-      <Time>2013-10-31T00:51:32.5729547-05:00</Time>
-    </Item>
-    <Item>
-      <Source>SquaredDisplay.spritefont</Source>
-      <Name>SquaredDisplay</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\SquaredDisplay.xnb</Output>
-      <Time>2013-10-31T00:53:57.5642478-05:00</Time>
     </Item>
     <Item>
       <Source>cursor.png</Source>
@@ -90,6 +63,69 @@
       <Options>None</Options>
       <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\gradient.xnb</Output>
       <Time>2013-11-23T15:05:25.2739348-06:00</Time>
+    </Item>
+    <Item>
+      <Source>geardisk.png</Source>
+      <Name>geardisk</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\geardisk.xnb</Output>
+      <Time>2013-12-07T22:52:19.058602-06:00</Time>
+    </Item>
+    <Item>
+      <Source>grid.png</Source>
+      <Name>grid</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\grid.xnb</Output>
+      <Time>2013-12-07T23:14:40.8793498-06:00</Time>
+    </Item>
+    <Item>
+      <Source>Arial.spritefont</Source>
+      <Name>Arial</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\Arial.xnb</Output>
+      <Time>2013-12-08T13:32:36.7533577-06:00</Time>
+    </Item>
+    <Item>
+      <Source>Segoe.spritefont</Source>
+      <Name>Segoe</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\Segoe.xnb</Output>
+      <Time>2013-12-08T13:32:59.4006531-06:00</Time>
+    </Item>
+    <Item>
+      <Source>SegoeBig.spritefont</Source>
+      <Name>SegoeBig</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\SegoeBig.xnb</Output>
+      <Time>2013-12-08T13:34:18.3641696-06:00</Time>
+    </Item>
+    <Item>
+      <Source>Abstract.spritefont</Source>
+      <Name>Abstract</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\Abstract.xnb</Output>
+      <Time>2013-12-08T14:24:27.3092714-06:00</Time>
+    </Item>
+    <Item>
+      <Source>large9.spritefont</Source>
+      <Name>large9</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\large9.xnb</Output>
+      <Time>2013-12-08T14:26:54.8887124-06:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

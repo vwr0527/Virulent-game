@@ -25,8 +25,10 @@ namespace Virulent_dev.World
         public WorldManager()
         {
             levels = new Dictionary<string, Level>();
-            levels.Add("pretty particles", new PrettyParticlesLevel());
-            currentLevel = levels["pretty particles"];
+            levels.Add("title", new TitleLevel());
+            levels.Add("tutorial", new TutorialLevel());
+            currentLevel = levels["title"];
+            //currentLevel = levels["tutorial"];
             entMan = new EntityManager();
         }
 
@@ -48,6 +50,10 @@ namespace Virulent_dev.World
                 Entity toSpawn = currentLevel.SpawnNext();
                 toSpawn.Init();
                 entMan.AddEnt(toSpawn);
+            }
+            if (currentLevel.Victory())
+            {
+                currentLevel = levels[currentLevel.GetNextLevel()];
             }
         }
 
@@ -91,6 +97,21 @@ namespace Virulent_dev.World
         public bool IsPaused()
         {
             return paused;
+        }
+
+        public void LoadLevel(String levelName)
+        {
+            if (levels.ContainsKey(levelName))
+            {
+                entMan.RemoveAllEnts();
+                currentLevel = levels[levelName];
+                currentLevel.Init();
+            }
+        }
+
+        public bool IsInTitleScreen()
+        {
+            return currentLevel == levels["title"];
         }
     }
 }

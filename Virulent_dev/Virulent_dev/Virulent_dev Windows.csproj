@@ -73,6 +73,7 @@
     <Compile Include="Graphics\GraphicsManager.cs" />
     <Compile Include="Graphics\SpriteElement.cs" />
     <Compile Include="Input\InputManager.cs" />
+    <Compile Include="Menu\TitleMenu.cs" />
     <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="Menu\MenuManager.cs" />
     <Compile Include="Menu\MenuPage.cs" />
@@ -83,7 +84,10 @@
     <Compile Include="util\Cell.cs" />
     <Compile Include="util\RecycleArray.cs" />
     <Compile Include="VirulentGame.cs" />
-    <Compile Include="World\Levels\PrettyParticlesLevel.cs" />
+    <Compile Include="World\Levels\TitleLevel.cs" />
+    <Compile Include="World\Levels\TutorialLevel.cs" />
+    <Compile Include="World\States\Ball.cs" />
+    <Compile Include="World\States\GearDisk.cs" />
     <Compile Include="World\States\Particle.cs" />
     <Compile Include="World\Entity.cs" />
     <Compile Include="World\EntityManager.cs" />

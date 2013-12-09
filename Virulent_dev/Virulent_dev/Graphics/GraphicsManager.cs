@@ -22,6 +22,8 @@ namespace Virulent_dev.Graphics
         RecycleArray<SpriteElement> worldSprites;
 
         Camera cam1;
+        Viewport test;
+        Viewport test2;
 
         public GraphicsManager(GraphicsDeviceManager gdm)
         {
@@ -33,9 +35,10 @@ namespace Virulent_dev.Graphics
 
             cam1 = new Camera();
         }
-
         public void LoadContent(ContentManager content)
         {
+            test = new Viewport(0, 0, 800, 240);
+            test2 = new Viewport(0, 0, 400, 480);
             graphicsDevice = graphicsDeviceManager.GraphicsDevice;
             spriteBatch = new SpriteBatch(graphicsDevice);
             SpriteElement.LoadDefaultFont(content);
@@ -43,17 +46,17 @@ namespace Virulent_dev.Graphics
 
         public void DrawAll(GameTime gameTime)
         {
+            graphicsDevice.Clear(Color.Black);
             //TODO: Multiple cameras
             int numCameras = 1;
-            cam1.scale += ((float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds/1000.0))*0.01f;
-            cam1.rot += 0.01f;
+            //graphicsDevice.Viewport = test2;
             cam1.CalcMatrix(graphicsDevice.Viewport);
             for (int j = 0; j < numCameras; ++j)
             {
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, cam1.matrix);
                 for (int i = 0; i < worldSprites.Size(); ++i)
                 {
-                    worldSprites.ElementAt(i).Draw(graphicsDevice, spriteBatch);
+                    worldSprites.ElementAt(i).DrawWorld(graphicsDevice, spriteBatch);
                 }
                 spriteBatch.End();
             }
@@ -61,7 +64,7 @@ namespace Virulent_dev.Graphics
             spriteBatch.Begin();
             for (int i = 0; i < guiSprites.Size(); ++i)
             {
-                guiSprites.ElementAt(i).Draw(graphicsDevice, spriteBatch);
+                guiSprites.ElementAt(i).DrawGUIStretched(graphicsDevice, spriteBatch);
             }
             spriteBatch.End();
 
@@ -77,6 +80,11 @@ namespace Virulent_dev.Graphics
         public void DrawWorldSprite(SpriteElement addedElement)
         {
             worldSprites.Add(addedElement);
+        }
+
+        public Camera GetCamera(int whichCamera)
+        {
+            return cam1;
         }
     }
 }

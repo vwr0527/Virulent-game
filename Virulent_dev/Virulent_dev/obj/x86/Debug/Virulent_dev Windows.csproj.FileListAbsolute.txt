@@ -11,7 +11,6 @@ D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\obj\x86\Debug\Re
 D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\obj\x86\Debug\Virulent_dev.exe
 D:\Projects\VisualStudio\Virulent_dev\Virulent_dev\Virulent_dev\obj\x86\Debug\Virulent_dev.pdb
-C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\SpriteFont1.xnb
 C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Virulent_dev.exe
 C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Virulent_dev.pdb
 C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
@@ -21,9 +20,14 @@ C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\D
 C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\obj\x86\Debug\Virulent_dev Windows.csprojResolveAssemblyReference.cache
 C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\placeholder_button_test.xnb
 C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\placeholder_cinematic_background.xnb
-C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\Hyperspace.xnb
-C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\SquaredDisplay.xnb
 C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\cursor.xnb
 C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\white.xnb
 C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\dot.xnb
 C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\gradient.xnb
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\geardisk.xnb
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\grid.xnb
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\Arial.xnb
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\Segoe.xnb
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\SegoeBig.xnb
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\Abstract.xnb
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\large9.xnb

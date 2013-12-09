@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Content;
 
 using Virulent_dev.Graphics;
 using Virulent_dev.Input;
+using Virulent_dev.World;
 
 namespace Virulent_dev.Menu
 {
@@ -22,16 +23,16 @@ namespace Virulent_dev.Menu
         private SpriteElement cursor;
         private int cursorpos;
 
-        private MenuPage mainMenu;
+        private MenuPage backPage;
 
-        public StartGamePage(MainMenu putMainMenuHere)
+        public StartGamePage(MenuPage putMainMenuHere)
         {
-            mainMenu = putMainMenuHere;
+            backPage = putMainMenuHere;
         }
 
         public override void LoadContent(ContentManager content)
         {
-            SpriteFont font = content.Load<SpriteFont>("SquaredDisplay");
+            SpriteFont font = content.Load<SpriteFont>("large9");
             el_page1 = new SpriteElement(new StringBuilder("Tutorial"), font);
             el_page2 = new SpriteElement(new StringBuilder("New Game"), font);
             el_page3 = new SpriteElement(new StringBuilder("Load Game"), font);
@@ -39,69 +40,77 @@ namespace Virulent_dev.Menu
             el_page5 = new SpriteElement(new StringBuilder("Back"), font);
             cursor = new SpriteElement(content.Load<Texture2D>("cursor"));
             el_page1.pos.X = 0.5f;
-            el_page1.pos.Y = 0.3f;
+            el_page1.pos.Y = 0.4f;
             el_page2.pos.X = 0.5f;
-            el_page2.pos.Y = 0.425f;
+            el_page2.pos.Y = 0.45f;
             el_page3.pos.X = 0.5f;
-            el_page3.pos.Y = 0.55f;
+            el_page3.pos.Y = 0.5f;
             el_page4.pos.X = 0.5f;
-            el_page4.pos.Y = 0.675f;
+            el_page4.pos.Y = 0.55f;
             el_page5.pos.X = 0.5f;
-            el_page5.pos.Y = 0.8f;
+            el_page5.pos.Y = 0.6f;
+            el_page1.scale = 0.5f;
+            el_page2.scale = 0.5f;
+            el_page3.scale = 0.5f;
+            el_page4.scale = 0.5f;
+            el_page5.scale = 0.5f;
             cursor.pos.X = 0.35f;
             cursor.pos.Y = 0.4f;
             cursor.scale = 0.5f;
             cursorpos = 0;
         }
 
-        public override void Update(GameTime gameTime, InputManager inputMan)
+        public override void Update(GameTime gameTime, InputManager inputMan, WorldManager worldMan)
         {
-            if (inputMan.StartPressed()) exitmenu = true;
+            if (inputMan.StartPressed() && !worldMan.IsInTitleScreen()) exitmenu = true;
+            if (inputMan.StartPressed() && worldMan.IsInTitleScreen()) switching = true;
             if (inputMan.DownPressed()) cursorpos += 1;
             if (inputMan.UpPressed()) cursorpos -= 1;
-            if (cursorpos > 4) cursorpos = 4;
-            if (cursorpos < 0) cursorpos = 0;
+            if (cursorpos > 4) cursorpos = 0;
+            if (cursorpos < 0) cursorpos = 4;
 
-            cursor.pos.Y = 0.3f + ((float)cursorpos) * 0.125f;
+            cursor.pos.Y = 0.4f + ((float)cursorpos) * 0.05f;
             cursor.pos.X = 0.35f + ((float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / 100.0) * 0.005f);
 
-            el_page1.scale = 1f;
-            el_page2.scale = 1f;
-            el_page3.scale = 1f;
-            el_page4.scale = 1f;
-            el_page5.scale = 1f;
+            el_page1.scale = .5f;
+            el_page2.scale = .5f;
+            el_page3.scale = .5f;
+            el_page4.scale = .5f;
+            el_page5.scale = .5f;
 
             if (cursorpos == 0)
             {
-                el_page1.scale = 1.1f;
+                el_page1.scale = 0.6f;
                 if (inputMan.EnterPressed())
                 {
+                    worldMan.LoadLevel("tutorial");
+                    exitmenu = true;
                 }
             }
             else if (cursorpos == 1)
             {
-                el_page2.scale = 1.1f;
+                el_page2.scale = 0.6f;
                 if (inputMan.EnterPressed())
                 {
                 }
             }
             else if (cursorpos == 2)
             {
-                el_page3.scale = 1.1f;
+                el_page3.scale = 0.6f;
                 if (inputMan.EnterPressed())
                 {
                 }
             }
             else if (cursorpos == 3)
             {
-                el_page4.scale = 1.1f;
+                el_page4.scale = 0.6f;
                 if (inputMan.EnterPressed())
                 {
                 }
             }
             else if (cursorpos == 4)
             {
-                el_page5.scale = 1.1f;
+                el_page5.scale = 0.6f;
                 if (inputMan.EnterPressed())
                 {
                     switching = true;
@@ -121,7 +130,7 @@ namespace Virulent_dev.Menu
 
         public override MenuPage GetNextPage()
         {
-            return mainMenu;
+            return backPage;
         }
     }
 }

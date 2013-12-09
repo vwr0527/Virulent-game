@@ -54,5 +54,13 @@ namespace Virulent_dev.World
         {
             Entity added = entList.Add(entity);
         }
+
+        public void RemoveAllEnts()
+        {
+            for (int i = 0; i < entList.Capacity(); ++i)
+            {
+                entList.ElementAt(i).dead = true;
+            }
+        }
     }
 }

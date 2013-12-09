@@ -24,7 +24,7 @@ namespace Virulent_dev.Graphics
         public static SpriteFont defaultFont;
         public static void LoadDefaultFont(ContentManager content)
         {
-            defaultFont = content.Load<SpriteFont>("SpriteFont1");
+            defaultFont = content.Load<SpriteFont>("Segoe");
         }
 
 
@@ -45,7 +45,7 @@ namespace Virulent_dev.Graphics
             else
                 orig = Vector2.Zero;
 
-            scale = 1;
+            scale = 1.0f;
             col = Color.White;
             pos = new Vector2(0, 0);
             transformedPos = new Vector2(0, 0);
@@ -81,18 +81,49 @@ namespace Virulent_dev.Graphics
             CopyMembers(subject, target);
             return subject;
         }
-        public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
+        public void DrawGUIStretched(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
             Vector2 transformedPos = new Vector2(
             pos.X * graphicsDevice.Viewport.Width,
             pos.Y * graphicsDevice.Viewport.Height);
+            Vector2 scaleVec = new Vector2(1, 1);
+            scaleVec.X = scale * graphicsDevice.Viewport.Width / 800f;
+            scaleVec.Y = scale * graphicsDevice.Viewport.Height / 480f;
+            Draw(graphicsDevice, spriteBatch, transformedPos, scaleVec);
+        }
+        public void DrawGUIUnstretchedFixedHeight(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
+        {
+            Vector2 transformedPos = new Vector2(
+            pos.X * graphicsDevice.Viewport.Width,
+            pos.Y * graphicsDevice.Viewport.Height);
+            Vector2 scaleVec = new Vector2(1, 1);
+            scaleVec.X = scaleVec.Y = scale * graphicsDevice.Viewport.Height / 480f;
+            Draw(graphicsDevice, spriteBatch, transformedPos, scaleVec);
+        }
+        public void DrawGUIUnstretchedFixedWidth(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
+        {
+            Vector2 transformedPos = new Vector2(
+            pos.X * graphicsDevice.Viewport.Width,
+            pos.Y * graphicsDevice.Viewport.Height);
+            Vector2 scaleVec = new Vector2(1, 1);
+            scaleVec.X = scaleVec.Y = scale * graphicsDevice.Viewport.Width / 800f;
+            Draw(graphicsDevice, spriteBatch, transformedPos, scaleVec);
+        }
+        public void DrawWorld(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
+        {
+            Vector2 transformedPos = new Vector2(pos.X, pos.Y);
+            Vector2 scaleVec = new Vector2(scale, scale);
+            Draw(graphicsDevice, spriteBatch, transformedPos, scaleVec);
+        }
+        private void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, Vector2 transformedPos, Vector2 scaleVec)
+        {
             if (texture != null)
             {
-                spriteBatch.Draw(texture, transformedPos, null, col, rotation, orig, scale, SpriteEffects.None, 0);
+                spriteBatch.Draw(texture, transformedPos, null, col, rotation, orig, scaleVec, SpriteEffects.None, 0);
             }
             if (text != null && font != null)
             {
-                spriteBatch.DrawString(font, text, transformedPos, col, rotation, orig, scale, SpriteEffects.None, 0);
+                spriteBatch.DrawString(font, text, transformedPos, col, rotation, orig, scaleVec, SpriteEffects.None, 0);
             }
         }
     }

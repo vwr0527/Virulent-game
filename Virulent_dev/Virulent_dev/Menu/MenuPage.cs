@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 
 using Virulent_dev.Input;
 using Virulent_dev.Graphics;
+using Virulent_dev.World;
 
 namespace Virulent_dev.Menu
 {
@@ -21,7 +22,7 @@ namespace Virulent_dev.Menu
         {
         }
 
-        public virtual void Update(GameTime gameTime, InputManager inputMan)
+        public virtual void Update(GameTime gameTime, InputManager inputMan, WorldManager worldMan)
         {
         }
 

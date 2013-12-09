@@ -25,16 +25,21 @@ namespace Virulent_dev.World.States
 
         public override void Init(Entity e)
         {
-            e.sprite.col = new Color(255, 0, 0) * 0.1f;
+            e.sprite.col = new Color(255, 0, 0) * 0.0f;
         }
 
         public override void Update(Entity e, GameTime gameTime, InputManager inputMan)
         {
             e.vel.X += 0.002f * (float)(rand.NextDouble() - 0.5) * (float)(gameTime.ElapsedGameTime.Milliseconds);
             e.vel.Y += 0.002f * (float)(rand.NextDouble() - 0.5) * (float)(gameTime.ElapsedGameTime.Milliseconds);
+            e.vel *= 0.1f;
             e.pos += e.vel * (float)(gameTime.ElapsedGameTime.Milliseconds) * 0.001f;
             e.age += gameTime.ElapsedGameTime;
-            e.sprite.col = new Color(255, 0, 0) * 0.1f;
+            float halfwayPeak = (float)(e.age.TotalMilliseconds / (maxAge.TotalMilliseconds/2));
+            if (halfwayPeak > 1.0f) halfwayPeak = 1.0f - (halfwayPeak - 1.0f);
+            float transparency = halfwayPeak;
+
+            e.sprite.col = new Color(255, 0, 0) * transparency;
             if (e.age > maxAge) e.dead = true;
         }
     }

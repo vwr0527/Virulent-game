@@ -69,9 +69,10 @@ namespace Virulent_dev
             }
             else
             {
+                menu.SetInTitleScreen(world.IsInTitleScreen());
                 if (menu.IsActive())
                 {
-                    menu.Update(gameTime, input);
+                    menu.Update(gameTime, input, world);
                     world.Pause();
                 }
                 else
@@ -80,7 +81,7 @@ namespace Virulent_dev
                     if (input.StartPressed())
                     {
                         menu.ResetRoot();
-                        menu.Update(gameTime, input);
+                        menu.Update(gameTime, input, world);
                         menu.Activate();
                     }
                 }
