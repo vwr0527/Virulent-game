@@ -23,12 +23,12 @@ namespace Virulent_dev.World.States
             maxAge = new TimeSpan(0, 0, 10);
         }
 
-        public override void Init(Entity e)
+        public override void InitEntity(Entity e)
         {
             e.sprite.col = new Color(255, 0, 0) * 0.0f;
         }
 
-        public override void Update(Entity e, GameTime gameTime, InputManager inputMan)
+        public override void UpdateEntity(Entity e, GameTime gameTime, InputManager inputMan)
         {
             e.vel.X += 0.002f * (float)(rand.NextDouble() - 0.5) * (float)(gameTime.ElapsedGameTime.Milliseconds);
             e.vel.Y += 0.002f * (float)(rand.NextDouble() - 0.5) * (float)(gameTime.ElapsedGameTime.Milliseconds);

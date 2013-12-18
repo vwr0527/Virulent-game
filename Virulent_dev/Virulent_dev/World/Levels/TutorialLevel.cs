@@ -21,6 +21,13 @@ namespace Virulent_dev.World.Levels
         TimeSpan prevSpawnTime;
         Random rand = new Random();
 
+        int numPendingEntities = 0;
+
+        public override void Init(GameTime gameTime)
+        {
+            prevSpawnTime = gameTime.TotalGameTime - respawnTime;
+        }
+
         public override void LoadContent(ContentManager content)
         {
             bg = new SpriteElement(content.Load<Texture2D>("gradient"));
@@ -32,8 +39,11 @@ namespace Virulent_dev.World.Levels
             prevSpawnTime = new TimeSpan();
 
             e = new Entity();
-            e.state = new Ball();
-            e.sprite = new SpriteElement(content.Load<Texture2D>("dot"));
+            e.state = new Player();
+            e.sprite = new SpriteElement(content.Load<Texture2D>("char/head"));
+            e.sprite.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/body"));
+            e.sprite.linkedSprite.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/pelvis"));
+            e.sprite.linkedSprite.linkedSprite.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/legrt"));
         }
 
         public override void Draw(GameTime gameTime, GraphicsManager graphMan)
@@ -49,21 +59,18 @@ namespace Virulent_dev.World.Levels
             if (gameTime.TotalGameTime - prevSpawnTime >= respawnTime)
             {
                 prevSpawnTime = gameTime.TotalGameTime;
-                SpawnThings();
+                numPendingEntities += 1;
             }
         }
 
-        private void SpawnThings()
+        public override bool EntityPending()
         {
-            numPendingSpawns += 1;
+            return numPendingEntities > 0;
         }
 
-        public override Entity SpawnNext()
+        public override Entity GetNextEntity()
         {
-            if (numPendingSpawns == 0) return null;
-            e.pos.X = 0f;
-            e.pos.Y = 0f;
-            --numPendingSpawns;
+            --numPendingEntities;
             return e;
         }
     }

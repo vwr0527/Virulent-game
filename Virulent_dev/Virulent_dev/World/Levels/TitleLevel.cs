@@ -17,12 +17,19 @@ namespace Virulent_dev.World.Levels
     {
         SpriteElement bg;
         SpriteElement grid;
-        Entity[] rings;
         Random rand = new Random();
+        int numPendingEntities = 0;
 
-        public override void Init()
+        Entity[] rings = new Entity[10];
+
+        public override void Init(GameTime gameTime)
         {
-            numPendingSpawns = 10;
+            numPendingEntities = 10;
+        }
+
+        public override bool EntityPending()
+        {
+            return numPendingEntities != 0;
         }
 
         public override void LoadContent(ContentManager content)
@@ -38,10 +45,18 @@ namespace Virulent_dev.World.Levels
             grid.col = new Color(0, 200, 100) * 0.5f;
 
             rings = new Entity[10];
-            numPendingSpawns = 10;
-
+            //spawnMan.AddLoadState(new GearDisk());
+            //spawnMan.LoadContent(content);
             for (int i = 0; i < 10; ++i)
             {
+                /*
+                int index = spawnMan.CreateSpawn("geardisk", new Vector2(0, 0),
+                    new Vector2((((float)(11 - i)) * 0.1f), (float)(rand.NextDouble() * 0.0005)),
+                    0, 0.00025f - (float)(rand.NextDouble() * 0.0005));
+                SpriteElement se = spawnMan.GetSpriteAt(index);
+                se.col = new Color(255, 0, 0) * (((float)(11 - i)) * 0.1f);
+                se.scale = ((float)(11 - i)) * 0.1f;
+                 * */
                 rings[i] = new Entity();
                 rings[i].state = new GearDisk();
                 rings[i].sprite = new SpriteElement(content.Load<Texture2D>("geardisk"));
@@ -50,6 +65,7 @@ namespace Virulent_dev.World.Levels
                 rings[i].sprite.col = new Color(255,0,0) * (((float)(11 - i)) * 0.1f);
                 rings[i].vel.X = (((float)(11 - i)) * 0.1f);
                 rings[i].vel.Y = (float)(rand.NextDouble() * 0.0005);
+                ++numPendingEntities;
             }
             //entities in levels are merely references to be copied.
         }
@@ -68,10 +84,14 @@ namespace Virulent_dev.World.Levels
             bg.rotation += gameTime.ElapsedGameTime.Milliseconds / 10000f;
         }
 
-        public override Entity SpawnNext()
+        public override void CatchPrevEntity(Entity actualSpawned)
         {
-            --numPendingSpawns;
-            return rings[numPendingSpawns];
+        }
+
+        public override Entity GetNextEntity()
+        {
+            --numPendingEntities;
+            return rings[numPendingEntities];
         }
     }
 }

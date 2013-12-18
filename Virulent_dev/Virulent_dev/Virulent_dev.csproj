@@ -79,8 +79,11 @@
     <Compile Include="World\Level.cs" />
     <Compile Include="World\Levels\TitleLevel.cs" />
     <Compile Include="World\Levels\TutorialLevel.cs" />
+    <Compile Include="World\SpawnManager.cs" />
+    <Compile Include="World\SpawnPoint.cs" />
     <Compile Include="World\State.cs" />
     <Compile Include="World\States\Ball.cs" />
+    <Compile Include="World\States\Player.cs" />
     <Compile Include="World\States\GearDisk.cs" />
     <Compile Include="World\States\Particle.cs" />
     <Compile Include="World\WorldManager.cs" />

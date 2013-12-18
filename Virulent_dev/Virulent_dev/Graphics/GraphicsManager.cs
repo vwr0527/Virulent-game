@@ -28,9 +28,9 @@ namespace Virulent_dev.Graphics
         public GraphicsManager(GraphicsDeviceManager gdm)
         {
             graphicsDeviceManager = gdm;
-            guiSprites = new RecycleArray<SpriteElement>(SpriteElement.CopyMembers, SpriteElement.CreateNewCopy);
+            guiSprites = new RecycleArray<SpriteElement>(SpriteElement.CopyMembers, SpriteElement.CreateCopy);
             guiSprites.SetDataMode(true);
-            worldSprites = new RecycleArray<SpriteElement>(SpriteElement.CopyMembers, SpriteElement.CreateNewCopy);
+            worldSprites = new RecycleArray<SpriteElement>(SpriteElement.CopyMembers, SpriteElement.CreateCopy);
             worldSprites.SetDataMode(true);
 
             cam1 = new Camera();

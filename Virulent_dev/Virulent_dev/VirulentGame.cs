@@ -85,15 +85,7 @@ namespace Virulent_dev
                         menu.Activate();
                     }
                 }
-
-                if (world.IsPaused())
-                {
-                    world.PausedUpdate(gameTime, input);
-                }
-                else
-                {
-                    world.Update(gameTime, input);
-                }
+                world.Update(gameTime, input);
             }
 
             if (menu.SaveGame() || world.SaveGame())

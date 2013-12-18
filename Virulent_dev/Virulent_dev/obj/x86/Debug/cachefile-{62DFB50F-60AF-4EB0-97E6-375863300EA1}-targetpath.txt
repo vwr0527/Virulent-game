@@ -12,3 +12,7 @@ Content\Segoe.xnb
 Content\SegoeBig.xnb
 Content\Abstract.xnb
 Content\large9.xnb
+Content\char\head.xnb
+Content\char\legrt.xnb
+Content\char\body.xnb
+Content\char\pelvis.xnb

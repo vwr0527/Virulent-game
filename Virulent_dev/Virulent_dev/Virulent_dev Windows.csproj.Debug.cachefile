@@ -1,8 +1,6 @@
 Content\test.xnb
 Content\placeholder_button_test.xnb
 Content\placeholder_cinematic_background.xnb
-Content\Hyperspace.xnb
-Content\SquaredDisplay.xnb
 Content\cursor.xnb
 Content\white.xnb
 Content\dot.xnb
@@ -14,3 +12,7 @@ Content\Segoe.xnb
 Content\SegoeBig.xnb
 Content\Abstract.xnb
 Content\large9.xnb
+Content\char\head.xnb
+Content\char\legrt.xnb
+Content\char\body.xnb
+Content\char\pelvis.xnb

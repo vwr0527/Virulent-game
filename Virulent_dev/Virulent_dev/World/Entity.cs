@@ -26,19 +26,47 @@ namespace Virulent_dev.World
         public void Init()
         {
             if (state != null)
-                state.Init(this);
+                state.InitEntity(this);
         }
 
         public void Update(GameTime gameTime, InputManager inputMan)
         {
             if (state != null)
-                state.Update(this, gameTime, inputMan);
+                state.UpdateEntity(this, gameTime, inputMan);
         }
 
         public void Draw(GameTime gameTime, GraphicsManager graphMan)
         {
-            sprite.pos = pos;
-            graphMan.DrawWorldSprite(sprite);
+            if (sprite != null)
+            {
+                state.PositionSprites(this, gameTime);
+                recursiveDrawSprite(sprite, graphMan);
+            }
+        }
+
+        private void recursiveDrawSprite(SpriteElement sprite, GraphicsManager graphMan)
+        {
+            if (sprite != null)
+            {
+                graphMan.DrawWorldSprite(sprite);
+                recursiveDrawSprite(sprite.linkedSprite, graphMan);
+            }
+        }
+
+        //sprite copy is performed by EntityManager
+
+        public static void CopyMembers(Entity a, Entity b)
+        {
+            CopyAllExceptSprite(a, b);
+            //SpriteElement.CopyMembers(a.sprite, b.sprite);
+        }
+
+        public static Entity CreateCopy(Entity b)
+        {
+            Entity a = new Entity();
+            CopyAllExceptSprite(a, b);
+            //a.sprite = SpriteElement.CreateNewCopy(b.sprite);
+            return a;
         }
 
         private static void CopyAllExceptSprite(Entity a, Entity b)
@@ -52,18 +80,9 @@ namespace Virulent_dev.World
             a.age = b.age;
         }
 
-        public static void CopyMembers(Entity a, Entity b)
+        internal void PositionSprites()
         {
-            CopyAllExceptSprite(a, b);
-            SpriteElement.CopyMembers(a.sprite, b.sprite);
-        }
-
-        public static Entity CreateCopy(Entity b)
-        {
-            Entity a = new Entity();
-            CopyAllExceptSprite(a, b);
-            a.sprite = SpriteElement.CreateNewCopy(b.sprite);
-            return a;
+            throw new NotImplementedException();
         }
     }
 }

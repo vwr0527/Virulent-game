@@ -18,6 +18,7 @@ namespace Virulent_dev.World
         private bool paused = false;
         private bool save = false;
         private bool demo = true;
+        private bool init = true;
         private Level currentLevel;
         private Dictionary<String, Level> levels;
         private EntityManager entMan;
@@ -28,40 +29,44 @@ namespace Virulent_dev.World
             levels.Add("title", new TitleLevel());
             levels.Add("tutorial", new TutorialLevel());
             currentLevel = levels["title"];
-            //currentLevel = levels["tutorial"];
             entMan = new EntityManager();
         }
 
         public void LoadContent(ContentManager content)
         {
-            foreach (KeyValuePair<String, Level> kvp in levels)
+            foreach (Level level in levels.Values)
             {
-                kvp.Value.LoadContent(content);
+                level.LoadContent(content);
             }
             entMan.LoadContent(content);
         }
 
         public void Update(GameTime gameTime, InputManager inputMan)
         {
+            if (init)
+            {
+                currentLevel.Init(gameTime);
+                init = false;
+            }
+            while (currentLevel.EntityPending())
+            {
+                entMan.AddEnt(currentLevel.GetNextEntity());
+            }
             currentLevel.Update(gameTime, inputMan);
             entMan.Update(gameTime, inputMan);
-            while (currentLevel.NumPendingSpawns() > 0)
+            if (currentLevel.EndLevel())
             {
-                Entity toSpawn = currentLevel.SpawnNext();
-                toSpawn.Init();
-                entMan.AddEnt(toSpawn);
-            }
-            if (currentLevel.Victory())
-            {
-                currentLevel = levels[currentLevel.GetNextLevel()];
+                LoadLevel(currentLevel.GetNextLevel());
             }
         }
 
-        public void PausedUpdate(GameTime gameTime, InputManager inputMan)
+        public void LoadLevel(String levelName)
         {
-            if (demo)
+            if (levels.ContainsKey(levelName))
             {
-                Update(gameTime, inputMan);
+                entMan.RemoveAllEnts();
+                currentLevel = levels[levelName];
+                init = true;
             }
         }
 
@@ -81,6 +86,21 @@ namespace Virulent_dev.World
             paused = false;
         }
 
+        public bool IsPaused()
+        {
+            return paused;
+        }
+
+        public bool IsInTitleScreen()
+        {
+            return currentLevel == levels["title"];
+        }
+
+        public bool IsPlayingDemo()
+        {
+            return demo;
+        }
+
         public bool SaveGame()
         {
             if (save)
@@ -92,26 +112,6 @@ namespace Virulent_dev.World
             {
                 return false;
             }
-        }
-
-        public bool IsPaused()
-        {
-            return paused;
-        }
-
-        public void LoadLevel(String levelName)
-        {
-            if (levels.ContainsKey(levelName))
-            {
-                entMan.RemoveAllEnts();
-                currentLevel = levels[levelName];
-                currentLevel.Init();
-            }
-        }
-
-        public bool IsInTitleScreen()
-        {
-            return currentLevel == levels["title"];
         }
     }
 }

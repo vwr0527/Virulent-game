@@ -7,17 +7,21 @@ using Microsoft.Xna.Framework;
 
 using Virulent_dev.Input;
 using Virulent_dev.Graphics;
+using System.Diagnostics;
 
 namespace Virulent_dev.World
 {
     class EntityManager
     {
         RecycleArray<Entity> entList;
+        RecycleArray<SpriteElement> spriteList;
 
         public EntityManager()
         {
             entList = new RecycleArray<Entity>(Entity.CopyMembers, Entity.CreateCopy);
+            spriteList = new RecycleArray<SpriteElement>(SpriteElement.CopyMembers, SpriteElement.CreateCopy);
             entList.SetDataMode(false);
+            spriteList.SetDataMode(false);
         }
 
         public void LoadContent(ContentManager content)
@@ -28,14 +32,26 @@ namespace Virulent_dev.World
         {
             for (int i = 0; i < entList.Capacity(); ++i)
             {
-                if (entList.ElementAt(i).dead)
+                Entity cur = entList.ElementAt(i);
+                if (cur.dead)
                 {
+                    recursiveDeleteSprite(cur.sprite);
+                    cur.sprite = null;
                     entList.DeleteElementAt(i);
                 }
                 else
                 {
-                    entList.ElementAt(i).Update(gameTime, inputMan);
+                    cur.Update(gameTime, inputMan);
                 }
+            }
+        }
+
+        private void recursiveDeleteSprite(SpriteElement spriteElement)
+        {
+            if (spriteElement != null)
+            {
+                recursiveDeleteSprite(spriteElement.linkedSprite);
+                spriteList.DeleteElement(spriteElement);
             }
         }
 
@@ -43,16 +59,42 @@ namespace Virulent_dev.World
         {
             for (int i = 0; i < entList.Capacity(); ++i)
             {
-                if (!entList.ElementAt(i).dead)
+                Entity cur = entList.ElementAt(i);
+                if (!cur.dead)
                 {
-                    entList.ElementAt(i).Draw(gameTime, graphMan);
+                    cur.Draw(gameTime, graphMan);
+                    //Debug.WriteLine("Entity number " + i + " has " + count + " sprites");
                 }
             }
+            //Debug.WriteLine(spriteList.Size());
         }
 
-        public void AddEnt(Entity entity)
+        public Entity AddEnt(Entity entityToAdd)
         {
-            Entity added = entList.Add(entity);
+            Entity added = entList.Add(entityToAdd);
+            SpriteElement b = entityToAdd.sprite;
+            SpriteElement a;
+            //int i = 0;
+            if (b != null)
+            {
+                added.sprite = spriteList.Add(b);
+                a = added.sprite;
+                //Debug.WriteLine("ADDING" + i);
+                //Debug.WriteLine(spriteList.Size());
+                //Debug.WriteLine(a.GetHashCode());
+                while (b.linkedSprite != null)
+                {
+                    //Debug.WriteLine("ADDING" + ++i);
+                    a.linkedSprite = spriteList.Add(b.linkedSprite);
+                    //Debug.WriteLine(spriteList.Size());
+                    //Debug.WriteLine(a.linkedSprite.GetHashCode());
+                    b = b.linkedSprite;
+                    a = a.linkedSprite;
+                }
+                a.linkedSprite = null;
+            }
+            added.Init();
+            return added;
         }
 
         public void RemoveAllEnts()
@@ -61,6 +103,7 @@ namespace Virulent_dev.World
             {
                 entList.ElementAt(i).dead = true;
             }
+            spriteList.EmptyAll();
         }
     }
 }

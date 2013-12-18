@@ -12,9 +12,7 @@ namespace Virulent_dev.World
 {
     class Level
     {
-        protected int numPendingSpawns = 0;
-
-        public virtual void Init()
+        public virtual void Init(GameTime gameTime)
         {
         }
 
@@ -30,31 +28,28 @@ namespace Virulent_dev.World
         {
         }
 
-        public virtual int NumPendingSpawns()
-        {
-            return numPendingSpawns;
-        }
-
-        //must return a existing member of the class
-        //do not create a new entity to return here
-        public virtual Entity SpawnNext()
-        {
-            return null;
-        }
-
-        public virtual bool Victory()
+        public virtual bool EntityPending()
         {
             return false;
         }
 
-        public virtual bool Failure()
+        public virtual Entity GetNextEntity()
+        {
+            return null;
+        }
+
+        public virtual void CatchPrevEntity(Entity actualSpawned)
+        {
+        }
+
+        public virtual bool EndLevel()
         {
             return false;
         }
 
         public virtual string GetNextLevel()
         {
-            return "";
+            return null;
         }
     }
 }

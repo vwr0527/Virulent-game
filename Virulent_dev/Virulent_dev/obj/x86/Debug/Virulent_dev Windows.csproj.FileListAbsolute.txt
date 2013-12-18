@@ -31,3 +31,7 @@ C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\D
 C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\SegoeBig.xnb
 C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\Abstract.xnb
 C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\large9.xnb
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\char\head.xnb
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\char\legrt.xnb
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\char\body.xnb
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\char\pelvis.xnb

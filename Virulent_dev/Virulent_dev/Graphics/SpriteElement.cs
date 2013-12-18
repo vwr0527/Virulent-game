@@ -22,13 +22,24 @@ namespace Virulent_dev.Graphics
         public float scale;
         public float rotation;
         public static SpriteFont defaultFont;
+        public SpriteElement linkedSprite;
         public static void LoadDefaultFont(ContentManager content)
         {
             defaultFont = content.Load<SpriteFont>("Segoe");
         }
-
-
+        
         public SpriteElement() { }
+        public SpriteElement(SpriteElement spriteCopy)
+        {
+            col = spriteCopy.col;
+            font = spriteCopy.font;
+            text = spriteCopy.text;
+            rotation = spriteCopy.rotation;
+            scale = spriteCopy.scale;
+            texture = spriteCopy.texture;
+            transformedPos = spriteCopy.transformedPos;
+            orig = spriteCopy.orig;
+        }
         public SpriteElement(Texture2D textureSource) : this(textureSource, null, null) { }
         public SpriteElement(StringBuilder textSource) : this(null, textSource, defaultFont) { }
         public SpriteElement(StringBuilder textSource, SpriteFont fontSource) : this(null, textSource, fontSource) { }
@@ -75,7 +86,7 @@ namespace Virulent_dev.Graphics
             else
                 subject.orig = Vector2.Zero;
         }
-        public static SpriteElement CreateNewCopy(SpriteElement target)
+        public static SpriteElement CreateCopy(SpriteElement target)
         {
             SpriteElement subject = new SpriteElement();
             CopyMembers(subject, target);

@@ -127,6 +127,42 @@
       <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\large9.xnb</Output>
       <Time>2013-12-08T14:26:54.8887124-06:00</Time>
     </Item>
+    <Item>
+      <Source>char\head.png</Source>
+      <Name>char\head</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\char\head.xnb</Output>
+      <Time>2013-12-17T17:22:59.2971745-06:00</Time>
+    </Item>
+    <Item>
+      <Source>char\legrt.png</Source>
+      <Name>char\legrt</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\char\legrt.xnb</Output>
+      <Time>2013-12-17T17:32:57.4253855-06:00</Time>
+    </Item>
+    <Item>
+      <Source>char\body.png</Source>
+      <Name>char\body</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\char\body.xnb</Output>
+      <Time>2013-12-17T17:33:02.4896751-06:00</Time>
+    </Item>
+    <Item>
+      <Source>char\pelvis.png</Source>
+      <Name>char\pelvis</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\char\pelvis.xnb</Output>
+      <Time>2013-12-17T17:37:54.8353964-06:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{62DFB50F-60AF-4EB0-97E6-375863300EA1}</ContentProjectGUID>

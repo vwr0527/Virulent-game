@@ -7,7 +7,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Virulent_dev.Menu</RootNamespace>
+    <RootNamespace>Virulent_dev</RootNamespace>
     <AssemblyName>Virulent_dev</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -86,6 +86,8 @@
     <Compile Include="VirulentGame.cs" />
     <Compile Include="World\Levels\TitleLevel.cs" />
     <Compile Include="World\Levels\TutorialLevel.cs" />
+    <Compile Include="World\SpawnPoint.cs" />
+    <Compile Include="World\SpawnManager.cs" />
     <Compile Include="World\States\Ball.cs" />
     <Compile Include="World\States\GearDisk.cs" />
     <Compile Include="World\States\Particle.cs" />
@@ -93,6 +95,7 @@
     <Compile Include="World\EntityManager.cs" />
     <Compile Include="World\Level.cs" />
     <Compile Include="World\State.cs" />
+    <Compile Include="World\States\Player.cs" />
     <Compile Include="World\WorldManager.cs" />
   </ItemGroup>
   <ItemGroup>

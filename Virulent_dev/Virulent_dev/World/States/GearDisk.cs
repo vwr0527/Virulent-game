@@ -18,11 +18,21 @@ namespace Virulent_dev.World.States
         {
         }
 
-        public override void Init(Entity e)
+        public override void LoadContent(ContentManager content)
+        {
+            sprite = new SpriteElement(content.Load<Texture2D>("geardisk"));
+        }
+
+        public override string GetUniqueName()
+        {
+            return "geardisk";
+        }
+
+        public override void InitEntity(Entity e)
         {
         }
 
-        public override void Update(Entity e, GameTime gameTime, InputManager inputMan)
+        public override void UpdateEntity(Entity e, GameTime gameTime, InputManager inputMan)
         {
             e.rot += e.rotvel * gameTime.ElapsedGameTime.Milliseconds;
             e.age += gameTime.ElapsedGameTime;

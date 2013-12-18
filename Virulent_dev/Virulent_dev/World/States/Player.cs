@@ -12,12 +12,12 @@ using Virulent_dev.Input;
 
 namespace Virulent_dev.World.States
 {
-    class Ball : State
+    class Player : State
     {
         Random rand;
         TimeSpan maxAge;
 
-        public Ball()
+        public Player()
         {
             rand = new Random();
             maxAge = new TimeSpan(0, 0, 30);
@@ -26,7 +26,8 @@ namespace Virulent_dev.World.States
         public override void InitEntity(Entity e)
         {
             e.sprite.col = new Color(0, 255, 0);
-            e.sprite.scale = 1.5f;
+            e.sprite.scale = 1f;
+            e.sprite.linkedSprite.scale = 0.1f;
         }
 
         public override void UpdateEntity(Entity e, GameTime gameTime, InputManager inputMan)
@@ -43,6 +44,32 @@ namespace Virulent_dev.World.States
             e.sprite.col = new Color(0, 255, 0);
             e.sprite.scale = 1.5f;
             if (e.age > maxAge) e.dead = true;
+        }
+
+        public override void PositionSprites(Entity e, GameTime gameTime)
+        {
+            base.PositionSprites(e, gameTime);
+
+            SpriteElement head = e.sprite;
+            SpriteElement body = head.linkedSprite;
+            SpriteElement pelvis = body.linkedSprite;
+            SpriteElement legrt = pelvis.linkedSprite;
+            head.pos.Y -= 15;
+            head.pos.X -= 2;
+            head.scale = 0.5f;
+
+            body.scale = 0.4f;
+            body.col = Color.Green;
+
+            pelvis.pos.Y += 12f;
+            pelvis.pos.X += 1f;
+            pelvis.scale = 0.4f;
+            pelvis.col = Color.Pink;
+
+            legrt.pos.Y += 23f;
+            legrt.pos.X -= 3f;
+            legrt.scale = 0.4f;
+            legrt.col = Color.Red;
         }
     }
 }
