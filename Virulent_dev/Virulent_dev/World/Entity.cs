@@ -23,6 +23,12 @@ namespace Virulent_dev.World
         public State state;
         public SpriteElement sprite = new SpriteElement();
 
+        public void LoadContent(ContentManager content)
+        {
+            if (state != null)
+                state.LoadEntityContent(this, content);
+        }
+
         public void Init()
         {
             if (state != null)

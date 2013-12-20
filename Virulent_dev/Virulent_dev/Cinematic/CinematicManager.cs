@@ -43,6 +43,14 @@ namespace Virulent_dev.Cinematic
             val = 1.0f - speed;
             thing.pos.X = val - 0.5f;
             bg.col = new Color(val, val, val);
+
+            if (gameTime.TotalGameTime.Seconds > 3)
+            {
+                float fadeout = 1.0f - (((float)gameTime.TotalGameTime.TotalMilliseconds - 4000f) / 2000f);
+                bg.col = new Color(fadeout, fadeout, fadeout);
+                thing.col = new Color(fadeout, fadeout, fadeout);
+            }
+            if (gameTime.TotalGameTime.Seconds > 5) active = false;
         }
 
         public void Draw(GameTime gameTime, GraphicsManager graphics)

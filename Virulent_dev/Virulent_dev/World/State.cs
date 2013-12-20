@@ -10,32 +10,10 @@ using Virulent_dev.Graphics;
 
 namespace Virulent_dev.World
 {
-    //states now also contain a spriteelement.
-    //the spriteelement should not be used to
-    //fill the entity's sprite field.
-
-    //states hold on to the sprite information just
-    //so they don't have to load it again with
-    //loadcontent. they're holding onto it for
-    //other spawnpoints that may want to use it down
-    //the road. To prevent co-editing of the
-    //sprite field, state only gives copies of
-    //the sprite.
     class State
     {
-        protected SpriteElement sprite;
-
-        public virtual void LoadContent(ContentManager content)
+        public virtual void LoadEntityContent(Entity e, ContentManager content)
         {
-        }
-        public SpriteElement GetSprite()
-        {
-            SpriteElement spriteCopy = new SpriteElement(sprite);
-            return spriteCopy;
-        }
-        public virtual string GetUniqueName()
-        {
-            return "";
         }
         public virtual void InitEntity(Entity e)
         {

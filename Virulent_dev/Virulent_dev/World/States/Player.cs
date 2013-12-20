@@ -23,6 +23,19 @@ namespace Virulent_dev.World.States
             maxAge = new TimeSpan(0, 0, 30);
         }
 
+        public override void LoadEntityContent(Entity e, ContentManager content)
+        {
+            e.sprite = new SpriteElement(content.Load<Texture2D>("char/head"));
+            SpriteElement cur = e.sprite;
+            cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/body"));
+            cur = cur.linkedSprite;
+            cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/pelvis"));
+            cur = cur.linkedSprite;
+            cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/legrt"));
+            cur = cur.linkedSprite;
+            cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/legrt"));
+        }
+
         public override void InitEntity(Entity e)
         {
             e.sprite.col = new Color(0, 255, 0);
@@ -48,28 +61,35 @@ namespace Virulent_dev.World.States
 
         public override void PositionSprites(Entity e, GameTime gameTime)
         {
-            base.PositionSprites(e, gameTime);
-
             SpriteElement head = e.sprite;
             SpriteElement body = head.linkedSprite;
             SpriteElement pelvis = body.linkedSprite;
             SpriteElement legrt = pelvis.linkedSprite;
-            head.pos.Y -= 15;
-            head.pos.X -= 2;
+            SpriteElement legrc = legrt.linkedSprite;
+
+            head.pos.Y = e.pos.Y - 15;
+            head.pos.X = e.pos.X - 2;
             head.scale = 0.5f;
+            head.col = new Color(0.0f,1f, 1.0f);
 
             body.scale = 0.4f;
-            body.col = Color.Green;
+            body.pos = e.pos;
+            body.col = new Color(0.2f, 1f, .5f);
 
-            pelvis.pos.Y += 12f;
-            pelvis.pos.X += 1f;
+            pelvis.pos.Y = e.pos.Y + 12f;
+            pelvis.pos.X = e.pos.X + 1f;
             pelvis.scale = 0.4f;
-            pelvis.col = Color.Pink;
+            pelvis.col = new Color(0.0f, 1f, 1.0f);
 
-            legrt.pos.Y += 23f;
-            legrt.pos.X -= 3f;
-            legrt.scale = 0.4f;
-            legrt.col = Color.Red;
+            legrt.pos.Y = e.pos.Y + 23f;
+            legrt.pos.X = e.pos.X - 3f;
+            legrt.scale = 0.45f;
+            legrt.col = new Color(0.0f, 1f, 1.0f);
+
+            legrc.pos.Y = e.pos.Y + 38f;
+            legrc.pos.X = e.pos.X - 5f;
+            legrc.scale = 0.5f;
+            legrc.col = new Color(0.0f, 1f, 1.0f);
         }
     }
 }

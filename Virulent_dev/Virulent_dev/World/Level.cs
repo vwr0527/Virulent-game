@@ -51,5 +51,15 @@ namespace Virulent_dev.World
         {
             return null;
         }
+
+        public virtual bool BlockPending()
+        {
+            return false;
+        }
+
+        public virtual Block GetNextBlock()
+        {
+            return null;
+        }
     }
 }

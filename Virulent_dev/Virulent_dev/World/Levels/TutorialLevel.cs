@@ -16,20 +16,29 @@ namespace Virulent_dev.World.Levels
     class TutorialLevel : Level
     {
         SpriteElement bg;
+        Block brick;
         Entity e;
         TimeSpan respawnTime;
         TimeSpan prevSpawnTime;
         Random rand = new Random();
 
         int numPendingEntities = 0;
+        int numPendingBlocks = 1;
 
         public override void Init(GameTime gameTime)
         {
             prevSpawnTime = gameTime.TotalGameTime - respawnTime;
+            numPendingBlocks = 1;
         }
 
         public override void LoadContent(ContentManager content)
         {
+            brick = new Block("platforms/platform1");
+            brick.LoadContent(content);
+            brick.SetPosition(new Vector2(0, 150));
+            brick.SetScale(0.4f);
+            brick.SetColor(new Color(1.0f, 0.1f, 0.0f));
+
             bg = new SpriteElement(content.Load<Texture2D>("gradient"));
             bg.scale = 5;
             bg.pos.X = 0.5f;
@@ -40,10 +49,7 @@ namespace Virulent_dev.World.Levels
 
             e = new Entity();
             e.state = new Player();
-            e.sprite = new SpriteElement(content.Load<Texture2D>("char/head"));
-            e.sprite.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/body"));
-            e.sprite.linkedSprite.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/pelvis"));
-            e.sprite.linkedSprite.linkedSprite.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/legrt"));
+            e.LoadContent(content);
         }
 
         public override void Draw(GameTime gameTime, GraphicsManager graphMan)
@@ -72,6 +78,17 @@ namespace Virulent_dev.World.Levels
         {
             --numPendingEntities;
             return e;
+        }
+
+        public override bool BlockPending()
+        {
+            return numPendingBlocks > 0;
+        }
+
+        public override Block GetNextBlock()
+        {
+            --numPendingBlocks;
+            return brick;
         }
     }
 }

@@ -22,6 +22,7 @@ namespace Virulent_dev.World
         private Level currentLevel;
         private Dictionary<String, Level> levels;
         private EntityManager entMan;
+        private BlockManager blockMan;
 
         public WorldManager()
         {
@@ -29,7 +30,9 @@ namespace Virulent_dev.World
             levels.Add("title", new TitleLevel());
             levels.Add("tutorial", new TutorialLevel());
             currentLevel = levels["title"];
+
             entMan = new EntityManager();
+            blockMan = new BlockManager();
         }
 
         public void LoadContent(ContentManager content)
@@ -48,10 +51,17 @@ namespace Virulent_dev.World
                 currentLevel.Init(gameTime);
                 init = false;
             }
+
+            while (currentLevel.BlockPending())
+            {
+                blockMan.AddBlock(currentLevel.GetNextBlock());
+            }
+
             while (currentLevel.EntityPending())
             {
                 entMan.AddEnt(currentLevel.GetNextEntity());
             }
+
             currentLevel.Update(gameTime, inputMan);
             entMan.Update(gameTime, inputMan);
             if (currentLevel.EndLevel())
@@ -65,6 +75,7 @@ namespace Virulent_dev.World
             if (levels.ContainsKey(levelName))
             {
                 entMan.RemoveAllEnts();
+                blockMan.RemoveAllBlocks();
                 currentLevel = levels[levelName];
                 init = true;
             }
@@ -74,6 +85,7 @@ namespace Virulent_dev.World
         {
             currentLevel.Draw(gameTime, graphMan);
             entMan.Draw(gameTime, graphMan);
+            blockMan.Draw(gameTime, graphMan);
         }
 
         public void Pause()

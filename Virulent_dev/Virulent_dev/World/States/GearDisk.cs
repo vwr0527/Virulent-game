@@ -18,14 +18,9 @@ namespace Virulent_dev.World.States
         {
         }
 
-        public override void LoadContent(ContentManager content)
+        public override void LoadEntityContent(Entity e, ContentManager content)
         {
-            sprite = new SpriteElement(content.Load<Texture2D>("geardisk"));
-        }
-
-        public override string GetUniqueName()
-        {
-            return "geardisk";
+            e.sprite = new SpriteElement(content.Load<Texture2D>("geardisk"));
         }
 
         public override void InitEntity(Entity e)

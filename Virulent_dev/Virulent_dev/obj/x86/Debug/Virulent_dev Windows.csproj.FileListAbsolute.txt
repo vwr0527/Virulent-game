@@ -35,3 +35,4 @@ C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\D
 C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\char\legrt.xnb
 C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\char\body.xnb
 C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\char\pelvis.xnb
+C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\platforms\platform1.xnb

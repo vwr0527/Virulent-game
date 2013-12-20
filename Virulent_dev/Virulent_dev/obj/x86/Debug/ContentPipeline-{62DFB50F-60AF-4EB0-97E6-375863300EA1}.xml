@@ -163,6 +163,15 @@
       <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\char\pelvis.xnb</Output>
       <Time>2013-12-17T17:37:54.8353964-06:00</Time>
     </Item>
+    <Item>
+      <Source>platforms\platform1.png</Source>
+      <Name>platforms\platform1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\User\Documents\GitHub\Virulent-game\Virulent_dev\Virulent_dev\bin\x86\Debug\Content\platforms\platform1.xnb</Output>
+      <Time>2013-12-19T18:13:31.1108416-06:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{62DFB50F-60AF-4EB0-97E6-375863300EA1}</ContentProjectGUID>
