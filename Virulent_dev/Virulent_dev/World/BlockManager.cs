@@ -29,6 +29,17 @@ namespace Virulent_dev.World
             }
         }
 
+        public void ProcessCollisions(Entity e)
+        {
+            foreach (Block b in blockList)
+            {
+                if (b.DidCollide(e.pos, e.vel))
+                {
+                    e.CollideBlock(b);
+                }
+            }
+        }
+
         public void RemoveAllBlocks()
         {
             blockList.Clear();

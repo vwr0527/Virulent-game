@@ -28,7 +28,7 @@ namespace Virulent_dev.World
         {
         }
 
-        public void Update(GameTime gameTime, InputManager inputMan)
+        public void Update(GameTime gameTime, BlockManager blockMan, InputManager inputMan)
         {
             for (int i = 0; i < entList.Capacity(); ++i)
             {
@@ -42,6 +42,7 @@ namespace Virulent_dev.World
                 else
                 {
                     cur.Update(gameTime, inputMan);
+                    blockMan.ProcessCollisions(cur);
                 }
             }
         }

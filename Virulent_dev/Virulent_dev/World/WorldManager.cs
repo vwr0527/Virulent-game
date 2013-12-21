@@ -63,7 +63,7 @@ namespace Virulent_dev.World
             }
 
             currentLevel.Update(gameTime, inputMan);
-            entMan.Update(gameTime, inputMan);
+            entMan.Update(gameTime, blockMan, inputMan);
             if (currentLevel.EndLevel())
             {
                 LoadLevel(currentLevel.GetNextLevel());

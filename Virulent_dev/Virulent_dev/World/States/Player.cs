@@ -91,5 +91,10 @@ namespace Virulent_dev.World.States
             legrc.scale = 0.5f;
             legrc.col = new Color(0.0f, 1f, 1.0f);
         }
+        public override void CollideBlock(Entity e, Block b)
+        {
+            base.CollideBlock(e, b);
+            e.vel.Y *= -0.9f;
+        }
     }
 }

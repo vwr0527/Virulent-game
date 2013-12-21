@@ -32,5 +32,10 @@ namespace Virulent_dev.World
                 s = s.linkedSprite;
             }
         }
+
+        public virtual void CollideBlock(Entity e, Block b)
+        {
+            e.pos = b.PushOut(e.pos, e.vel);
+        }
     }
 }

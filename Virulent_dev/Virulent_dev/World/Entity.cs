@@ -86,9 +86,10 @@ namespace Virulent_dev.World
             a.age = b.age;
         }
 
-        internal void PositionSprites()
+        public void CollideBlock(Block b)
         {
-            throw new NotImplementedException();
+            if (state != null)
+                state.CollideBlock(this, b);
         }
     }
 }
