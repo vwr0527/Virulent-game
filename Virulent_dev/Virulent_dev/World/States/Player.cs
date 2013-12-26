@@ -34,6 +34,30 @@ namespace Virulent_dev.World.States
             cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/legrt"));
             cur = cur.linkedSprite;
             cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/legrt"));
+            cur = cur.linkedSprite;
+            cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/legrt"));
+            cur = cur.linkedSprite;
+            cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/legrt"));
+            cur = cur.linkedSprite;
+            cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/legrt"));
+            cur = cur.linkedSprite;
+            cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/legrt"));
+            cur = cur.linkedSprite;
+            cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/legrt"));
+            cur = cur.linkedSprite;
+            cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/legrt"));
+            cur = cur.linkedSprite;
+            cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/legrt"));
+            cur = cur.linkedSprite;
+            cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/legrt"));
+            cur = cur.linkedSprite;
+            cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/shoulder"));
+            cur = cur.linkedSprite;
+            cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/shoulder"));
+            cur = cur.linkedSprite;
+            cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/shoulder"));
+            cur = cur.linkedSprite;
+            cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/shoulder"));
         }
 
         public override void InitEntity(Entity e)
@@ -66,6 +90,18 @@ namespace Virulent_dev.World.States
             SpriteElement pelvis = body.linkedSprite;
             SpriteElement legrt = pelvis.linkedSprite;
             SpriteElement legrc = legrt.linkedSprite;
+            SpriteElement footr = legrc.linkedSprite;
+            SpriteElement leglt = footr.linkedSprite;
+            SpriteElement leglc = leglt.linkedSprite;
+            SpriteElement footl = leglc.linkedSprite;
+            SpriteElement armul = footl.linkedSprite;
+            SpriteElement armll = armul.linkedSprite;
+            SpriteElement armur = armll.linkedSprite;
+            SpriteElement armlr = armur.linkedSprite;
+            SpriteElement shoulderr = armlr.linkedSprite;
+            SpriteElement shoulderl = shoulderr.linkedSprite;
+            SpriteElement handr = shoulderl.linkedSprite;
+            SpriteElement handl = handr.linkedSprite;
 
             head.pos.Y = e.pos.Y - 15;
             head.pos.X = e.pos.X - 2;
@@ -90,6 +126,78 @@ namespace Virulent_dev.World.States
             legrc.pos.X = e.pos.X - 5f;
             legrc.scale = 0.5f;
             legrc.col = new Color(0.0f, 1f, 1.0f);
+
+            footr.pos.Y = e.pos.Y + 46f;
+            footr.pos.X = e.pos.X - 5f;
+            footr.rotation = 1.6f;
+            footr.scale = 0.42f;
+            footr.col = new Color(0.0f, 1f, 1.0f);
+
+            leglt.pos.Y = e.pos.Y + 23f;
+            leglt.pos.X = e.pos.X + 5f;
+            leglt.scale = 0.45f;
+            leglt.rotation = -0.15f;
+            leglt.col = new Color(0.0f, 1f, 1.0f);
+
+            leglc.pos.Y = e.pos.Y + 38f;
+            leglc.pos.X = e.pos.X + 6f;
+            leglc.scale = 0.5f;
+            leglc.rotation = -0.15f;
+            leglc.col = new Color(0.0f, 1f, 1.0f);
+
+            footl.pos.Y = e.pos.Y + 46f;
+            footl.pos.X = e.pos.X + 8f;
+            footl.rotation = 1.6f;
+            footl.scale = 0.42f;
+            footl.col = new Color(0.0f, 1f, 1.0f);
+
+            shoulderr.pos.Y = e.pos.Y - 5f;
+            shoulderr.pos.X = e.pos.X - 8f;
+            shoulderr.rotation = -0.3f;
+            shoulderr.scale = 0.33f;
+            shoulderr.col = new Color(0.2f, 1f, .5f);
+
+            armur.pos.Y = e.pos.Y + 2f;
+            armur.pos.X = e.pos.X - 9f;
+            armur.rotation = 0.1f;
+            armur.scale = 0.36f;
+            armur.col = new Color(0.0f, 1f, 1.0f);
+
+            armlr.pos.Y = e.pos.Y + 13f;
+            armlr.pos.X = e.pos.X - 11f;
+            armlr.rotation = 0.0f;
+            armlr.scale = 0.31f;
+            armlr.col = new Color(0.0f, 1f, 1.0f);
+
+            handl.pos.Y = e.pos.Y + 19f;
+            handl.pos.X = e.pos.X - 12f;
+            handl.rotation = 1.6f;
+            handl.scale = 0.22f;
+            handl.col = new Color(0.0f, 1f, 1.0f);
+
+            shoulderl.pos.Y = e.pos.Y - 5f;
+            shoulderl.pos.X = e.pos.X + 8f;
+            shoulderl.rotation = 0.2f;
+            shoulderl.scale = 0.33f;
+            shoulderl.col = new Color(0.2f, 1f, .5f);
+
+            armul.pos.Y = e.pos.Y + 2f;
+            armul.pos.X = e.pos.X + 11f;
+            armul.rotation = -0.3f;
+            armul.scale = 0.36f;
+            armul.col = new Color(0.0f, 1f, 1.0f);
+
+            armll.pos.Y = e.pos.Y + 13f;
+            armll.pos.X = e.pos.X + 13f;
+            armll.rotation = -0.3f;
+            armll.scale = 0.31f;
+            armll.col = new Color(0.0f, 1f, 1.0f);
+
+            handr.pos.Y = e.pos.Y + 19f;
+            handr.pos.X = e.pos.X + 13f;
+            handr.rotation = 1.3f;
+            handr.scale = 0.22f;
+            handr.col = new Color(0.0f, 1f, 1.0f);
         }
         public override void CollideBlock(Entity e, Block b)
         {

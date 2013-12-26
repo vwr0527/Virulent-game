@@ -44,7 +44,7 @@ namespace Virulent_dev.World.Levels
             bg.pos.X = 0.5f;
             bg.pos.Y = 0.5f;
 
-            respawnTime = new TimeSpan(0, 0, 0, 0, 1000);
+            respawnTime = new TimeSpan(0, 0, 0, 5, 0);
             prevSpawnTime = new TimeSpan();
 
             e = new Entity();

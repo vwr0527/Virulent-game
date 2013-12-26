@@ -20,6 +20,10 @@ namespace Virulent_dev.World
         {
         }
 
+        public void UnloadContent()
+        {
+        }
+
         public virtual void Draw(GameTime gameTime, GraphicsManager graphMan)
         {
         }
@@ -42,7 +46,7 @@ namespace Virulent_dev.World
         {
         }
 
-        public virtual bool EndLevel()
+        public virtual bool LevelEnded()
         {
             return false;
         }

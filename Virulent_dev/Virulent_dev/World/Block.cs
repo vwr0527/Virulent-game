@@ -14,10 +14,12 @@ namespace Virulent_dev.World
     {
         private SpriteElement sprite;
         private string textureName;
+        private Collider collider;
         private Rectangle collisionBox;
         public Block(string nameOfTexture)
         {
             textureName = nameOfTexture;
+            collider = new Collider();
             collisionBox.Location = new Point(-160, -50);
             collisionBox.Width = 320;
             collisionBox.Height = 100;

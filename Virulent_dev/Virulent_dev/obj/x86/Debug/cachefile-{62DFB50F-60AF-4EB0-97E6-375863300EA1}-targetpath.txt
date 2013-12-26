@@ -17,3 +17,4 @@ Content\char\legrt.xnb
 Content\char\body.xnb
 Content\char\pelvis.xnb
 Content\platforms\platform1.xnb
+Content\char\shoulder.xnb
