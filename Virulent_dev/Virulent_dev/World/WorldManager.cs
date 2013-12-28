@@ -82,7 +82,6 @@ namespace Virulent_dev.World
                 entMan.RemoveAllEnts();
                 blockMan.RemoveAllBlocks();
                 collideMan.RemoveAllBlocks();
-                currentLevel.UnloadContent();
                 currentLevel = levels[levelName];
                 init = true;
             }

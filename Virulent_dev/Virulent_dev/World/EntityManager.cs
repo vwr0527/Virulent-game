@@ -33,7 +33,7 @@ namespace Virulent_dev.World
                 {
                     recursiveDeleteSprite(cur.sprite);
                     cur.sprite = null;
-                    entList.DeleteElementAt(i);
+                    entList.EmptyElementAt(i);
                 }
                 else
                 {
@@ -48,7 +48,7 @@ namespace Virulent_dev.World
             if (spriteElement != null)
             {
                 recursiveDeleteSprite(spriteElement.linkedSprite);
-                spriteList.DeleteElement(spriteElement);
+                spriteList.EmptyElement(spriteElement);
             }
         }
 
@@ -92,6 +92,12 @@ namespace Virulent_dev.World
                 entList.ElementAt(i).dead = true;
             }
             spriteList.EmptyAll();
+        }
+
+        public void DeleteAll()
+        {
+            entList.DeleteAll();
+            spriteList.DeleteAll();
         }
     }
 }

@@ -43,7 +43,7 @@ namespace Virulent_dev.World
         public void RemoveAllBlocks()
         {
             blockList.Clear();
-            //blockList.TrimExcess();
+            blockList.TrimExcess();
         }
     }
 }

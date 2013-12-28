@@ -14,6 +14,7 @@ namespace Virulent_dev.World
         public Collider()
         {
             pts = new LinkedList<Vector2>();
+            cur = pts.First;
         }
     }
 }

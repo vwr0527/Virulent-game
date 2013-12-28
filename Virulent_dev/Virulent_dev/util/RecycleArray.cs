@@ -23,7 +23,7 @@ namespace Virulent_dev
         int num_active = 0;
         int current_index = 0;
         Action<T, T> CopyMembers;
-        Func<T, T> CreateCopyMethod;
+        Func<T, T> CreateCopyMethod;                //only need this because you can't create a new T
         bool set_data_instead_of_copy = false;
 
         public RecycleArray(Action<T,T> copyMethod, Func<T, T> createCopyMethod)
@@ -108,7 +108,15 @@ namespace Virulent_dev
             current_index = 0;
         }
 
-        public void DeleteElementAt(int index)
+        public void DeleteAll()
+        {
+            cellList.Clear();
+            cellList.TrimExcess();
+            num_active = 0;
+            current_index = 0;
+        }
+
+        public void EmptyElementAt(int index)
         {
             if (cellList[index].IsActive())
             {
@@ -117,7 +125,7 @@ namespace Virulent_dev
             }
         }
 
-        public void DeleteElement(T data)
+        public void EmptyElement(T data)
         {
             for (int i = 0; i < max_index; ++i)
             {
