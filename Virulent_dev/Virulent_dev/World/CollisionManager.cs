@@ -102,10 +102,8 @@ namespace Virulent_dev.World
                 //now it has the info it needs. it can do collision detection
                 foreach (Block b in collideAgainstBlocks)
                 {
-                    if (b.DidCollide(e.entity.pos, e.entity.vel))
-                    {
-                        e.entity.CollideBlock(b);
-                    }
+                    b.OnCollide(e.entity);
+                    e.entity.CollideBlock(b);
                 }
                 foreach (Entity entCollide in collideAgainstEnts)
                 {

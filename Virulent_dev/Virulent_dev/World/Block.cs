@@ -15,14 +15,13 @@ namespace Virulent_dev.World
         private SpriteElement sprite;
         private string textureName;
         private Collider collider;
-        private Rectangle collisionBox;
         public Block(string nameOfTexture)
         {
             textureName = nameOfTexture;
             collider = new Collider();
-            collisionBox.Location = new Point(-160, -50);
-            collisionBox.Width = 320;
-            collisionBox.Height = 100;
+            collider.rect.Location = new Point(-160, -50);
+            collider.rect.Width = 320;
+            collider.rect.Height = 100;
         }
 
         public void LoadContent(ContentManager content)
@@ -32,37 +31,35 @@ namespace Virulent_dev.World
 
         public void Draw(GameTime gameTime, GraphicsManager graphMan)
         {
-            sprite.pos.X = collisionBox.Center.X;
-            sprite.pos.Y = collisionBox.Center.Y;
+            sprite.pos.X = collider.rect.Center.X;
+            sprite.pos.Y = collider.rect.Center.Y;
             graphMan.DrawWorldSprite(sprite);
         }
 
         public void SetPosition(Vector2 pos)
         {
-            collisionBox.Location = new Point((int)pos.X - 160, (int)pos.Y - 50);
+            collider.rect.Location = new Point((int)pos.X - 160, (int)pos.Y - 50);
         }
         public void SetScale(float scale)
         {
             sprite.scale = scale;
-            Point oldPos = collisionBox.Center;
-            collisionBox.Width = (int)((float)collisionBox.Width * scale);
-            collisionBox.Height = (int)((float)collisionBox.Height * scale);
-            collisionBox.Location = new Point(oldPos.X - (collisionBox.Width / 2), oldPos.Y - (collisionBox.Height / 2));
-
+            Point oldPos = collider.rect.Center;
+            collider.rect.Width = (int)((float)collider.rect.Width * scale);
+            collider.rect.Height = (int)((float)collider.rect.Height * scale);
+            collider.rect.Location = new Point(oldPos.X - (collider.rect.Width / 2), oldPos.Y - (collider.rect.Height / 2));
         }
         public void SetColor(Color col)
         {
             sprite.col = col;
         }
 
-        public bool DidCollide(Vector2 pos, Vector2 vel)
+        public void OnCollide(Entity e)
         {
-            return collisionBox.Contains(new Point((int)pos.X, (int)pos.Y));
         }
 
-        public Vector2 PushOut(Vector2 pos, Vector2 vel)
+        public Collider GetCollider()
         {
-            return new Vector2(pos.X, collisionBox.Top);
+            return collider;
         }
     }
 }

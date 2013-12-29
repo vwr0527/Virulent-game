@@ -59,6 +59,12 @@ namespace Virulent_dev.World
             }
         }
 
+        public void CollideBlock(Block b)
+        {
+            if (state != null)
+                state.CollideBlock(this, b);
+        }
+
         //sprite copy is performed by EntityManager
 
         public static void CopyMembers(Entity a, Entity b)
@@ -84,12 +90,6 @@ namespace Virulent_dev.World
             a.rot = b.rot;
             a.rotvel = b.rotvel;
             a.age = b.age;
-        }
-
-        public void CollideBlock(Block b)
-        {
-            if (state != null)
-                state.CollideBlock(this, b);
         }
     }
 }

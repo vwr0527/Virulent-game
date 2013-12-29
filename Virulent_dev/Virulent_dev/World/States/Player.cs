@@ -16,11 +16,14 @@ namespace Virulent_dev.World.States
     {
         Random rand;
         TimeSpan maxAge;
+        Collider collider;
 
         public Player()
         {
             rand = new Random();
             maxAge = new TimeSpan(0, 0, 30);
+            collider = new Collider();
+            collider.rect = new Rectangle(-15, -50, 30, 100);
         }
 
         public override void LoadEntityContent(Entity e, ContentManager content)
@@ -35,13 +38,13 @@ namespace Virulent_dev.World.States
             cur = cur.linkedSprite;
             cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/legrt"));
             cur = cur.linkedSprite;
-            cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/legrt"));
+            cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/head")); //footl
             cur = cur.linkedSprite;
             cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/legrt"));
             cur = cur.linkedSprite;
             cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/legrt"));
             cur = cur.linkedSprite;
-            cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/legrt"));
+            cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/head")); //footr
             cur = cur.linkedSprite;
             cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/legrt"));
             cur = cur.linkedSprite;
@@ -81,6 +84,18 @@ namespace Virulent_dev.World.States
             e.sprite.col = new Color(0, 255, 0);
             e.sprite.scale = 1.5f;
             if (e.age > maxAge) e.dead = true;
+        }
+
+        public override void CollideBlock(Entity e, Block b)
+        {
+            collider.pos = e.pos;
+            collider.vel = e.vel;
+
+            if (b.GetCollider().DidCollide(collider))
+            {
+                e.vel.Y *= -0.9f;
+                e.pos += b.GetCollider().PushOut(collider);
+            }
         }
 
         public override void PositionSprites(Entity e, GameTime gameTime)
@@ -129,8 +144,8 @@ namespace Virulent_dev.World.States
 
             footr.pos.Y = e.pos.Y + 46f;
             footr.pos.X = e.pos.X - 5f;
-            footr.rotation = 1.6f;
-            footr.scale = 0.42f;
+            footr.rotation = 3.14f;
+            footr.scale = 0.4f;
             footr.col = new Color(0.0f, 1f, 1.0f);
 
             leglt.pos.Y = e.pos.Y + 23f;
@@ -147,8 +162,8 @@ namespace Virulent_dev.World.States
 
             footl.pos.Y = e.pos.Y + 46f;
             footl.pos.X = e.pos.X + 8f;
-            footl.rotation = 1.6f;
-            footl.scale = 0.42f;
+            footl.rotation = 3.14f;
+            footl.scale = 0.4f;
             footl.col = new Color(0.0f, 1f, 1.0f);
 
             shoulderr.pos.Y = e.pos.Y - 5f;
@@ -198,11 +213,6 @@ namespace Virulent_dev.World.States
             handr.rotation = 1.3f;
             handr.scale = 0.22f;
             handr.col = new Color(0.0f, 1f, 1.0f);
-        }
-        public override void CollideBlock(Entity e, Block b)
-        {
-            base.CollideBlock(e, b);
-            e.vel.Y *= -0.9f;
         }
     }
 }
