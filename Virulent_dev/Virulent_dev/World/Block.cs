@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 using Virulent_dev.Graphics;
+using Virulent_dev.World.Collision;
+using System.Diagnostics;
 
 namespace Virulent_dev.World
 {

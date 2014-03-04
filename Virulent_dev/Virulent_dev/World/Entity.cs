@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 
 using Virulent_dev.Input;
 using Virulent_dev.Graphics;
-using System.Diagnostics;
+using Virulent_dev.World.Collision;
 
 namespace Virulent_dev.World
 {
@@ -59,10 +60,24 @@ namespace Virulent_dev.World
             }
         }
 
+        public Collider GetCollider()
+        {
+            if (state != null)
+                return state.GetCollider(this);
+            else
+                return null;
+        }
+
         public void CollideBlock(Block b)
         {
             if (state != null)
                 state.CollideBlock(this, b);
+        }
+
+        public void CollideEntity(Entity e)
+        {
+            if (state != null)
+                state.CollideEntity(this, e);
         }
 
         //sprite copy is performed by EntityManager

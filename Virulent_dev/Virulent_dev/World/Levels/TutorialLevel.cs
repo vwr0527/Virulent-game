@@ -16,7 +16,7 @@ namespace Virulent_dev.World.Levels
     class TutorialLevel : Level
     {
         SpriteElement bg;
-        Block brick;
+        Block []brick;
         Entity e;
         TimeSpan respawnTime;
         TimeSpan prevSpawnTime;
@@ -28,16 +28,29 @@ namespace Virulent_dev.World.Levels
         public override void Init(GameTime gameTime)
         {
             prevSpawnTime = gameTime.TotalGameTime - respawnTime;
-            numPendingBlocks = 1;
+            numPendingBlocks = 3;
         }
 
         public override void LoadContent(ContentManager content)
         {
-            brick = new Block("platforms/platform1");
-            brick.LoadContent(content);
-            brick.SetPosition(new Vector2(0, 150));
-            brick.SetScale(0.4f);
-            brick.SetColor(new Color(1.0f, 0.1f, 0.0f));
+            brick = new Block[3];
+            brick[0] = new Block("platforms/platform1");
+            brick[0].LoadContent(content);
+            brick[0].SetPosition(new Vector2(0, 150));
+            brick[0].SetScale(0.4f);
+            brick[0].SetColor(new Color(1.0f, 0.1f, 0.0f));
+
+            brick[1] = new Block("platforms/platform1");
+            brick[1].LoadContent(content);
+            brick[1].SetPosition(new Vector2(-100, 0));
+            brick[1].SetScale(0.4f);
+            brick[1].SetColor(new Color(0.0f, 0.5f, 1.0f));
+
+            brick[2] = new Block("platforms/platform1");
+            brick[2].LoadContent(content);
+            brick[2].SetPosition(new Vector2(100, 0));
+            brick[2].SetScale(0.4f);
+            brick[2].SetColor(new Color(1.0f, 0.1f, 1.0f));
 
             bg = new SpriteElement(content.Load<Texture2D>("gradient"));
             bg.scale = 5;
@@ -88,7 +101,7 @@ namespace Virulent_dev.World.Levels
         public override Block GetNextBlock()
         {
             --numPendingBlocks;
-            return brick;
+            return brick[numPendingBlocks];
         }
     }
 }

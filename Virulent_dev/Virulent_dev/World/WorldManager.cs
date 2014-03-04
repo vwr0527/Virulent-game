@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Content;
 using Virulent_dev.Graphics;
 using Virulent_dev.Input;
 using Virulent_dev.World.Levels;
+using Virulent_dev.World.Collision;
 
 namespace Virulent_dev.World
 {
@@ -57,12 +58,17 @@ namespace Virulent_dev.World
             {
                 Block addedBlock = currentLevel.GetNextBlock();
                 blockMan.AddBlock(addedBlock);
-                collideMan.AddBlock(addedBlock);
+
+                if (addedBlock.GetCollider() != null)
+                    collideMan.AddBlock(addedBlock);
             }
 
             while (currentLevel.EntityPending())
             {
-                entMan.AddEnt(currentLevel.GetNextEntity());
+                Entity addedEnt = currentLevel.GetNextEntity();
+                entMan.AddEnt(addedEnt);
+
+                //the equivilent collideMan.AddEnt is in entMan.Update
             }
 
             currentLevel.Update(gameTime, inputMan);

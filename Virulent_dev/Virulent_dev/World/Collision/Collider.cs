@@ -5,7 +5,7 @@ using System.Text;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 
-namespace Virulent_dev.World
+namespace Virulent_dev.World.Collision
 {
     class Collider
     {
@@ -45,6 +45,11 @@ namespace Virulent_dev.World
         public Vector2 PushOut(Collider other)
         {
             return new Vector2(0, ((float)rect.Top + pos.Y)-((float)other.rect.Bottom + other.pos.Y));
+        }
+
+        private bool IsLeft(Vector2 a, Vector2 b, Vector2 c)
+        {
+            return (b.X - a.X) * (c.Y - a.Y) > (b.Y - a.Y) * (c.X - a.X);
         }
     }
 }

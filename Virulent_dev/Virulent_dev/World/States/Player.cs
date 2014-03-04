@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using System.Diagnostics;
 
 using Virulent_dev.Input;
+using Virulent_dev.World.Collision;
 
 namespace Virulent_dev.World.States
 {
@@ -23,7 +24,7 @@ namespace Virulent_dev.World.States
             rand = new Random();
             maxAge = new TimeSpan(0, 0, 30);
             collider = new Collider();
-            collider.rect = new Rectangle(-15, -50, 30, 100);
+            collider.rect = new Rectangle(-15, -15, 30, 65);
         }
 
         public override void LoadEntityContent(Entity e, ContentManager content)
@@ -86,16 +87,18 @@ namespace Virulent_dev.World.States
             if (e.age > maxAge) e.dead = true;
         }
 
-        public override void CollideBlock(Entity e, Block b)
+        public override Collider GetCollider(Entity e)
         {
             collider.pos = e.pos;
             collider.vel = e.vel;
+            return collider;
+        }
 
-            if (b.GetCollider().DidCollide(collider))
-            {
-                e.vel.Y *= -0.9f;
-                e.pos += b.GetCollider().PushOut(collider);
-            }
+        public override void CollideBlock(Entity e, Block b)
+        {
+            e.vel.Y *= -0.9f;
+            e.pos += b.GetCollider().PushOut(collider);
+            b.OnCollide(e);
         }
 
         public override void PositionSprites(Entity e, GameTime gameTime)

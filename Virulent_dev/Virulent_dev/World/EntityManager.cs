@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 
 using Virulent_dev.Input;
 using Virulent_dev.Graphics;
-using System.Diagnostics;
+using Virulent_dev.World.Collision;
 
 namespace Virulent_dev.World
 {
@@ -24,7 +25,8 @@ namespace Virulent_dev.World
             spriteList.SetDataMode(false);
         }
 
-        public void Update(GameTime gameTime, InputManager inputMan, CollisionManager collideMan)
+        //Also communicates latest entity info to collisionMan
+        public void Update(GameTime gameTime, InputManager inputMan, CollisionManager collisionMan)
         {
             for (int i = 0; i < entList.Capacity(); ++i)
             {
@@ -38,7 +40,8 @@ namespace Virulent_dev.World
                 else
                 {
                     cur.Update(gameTime, inputMan);
-                    collideMan.AddEnt(cur);
+                    if (cur.GetCollider() != null)
+                        collisionMan.AddEnt(cur);
                 }
             }
         }

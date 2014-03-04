@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Content;
 
 using Virulent_dev.Input;
 using Virulent_dev.Graphics;
+using Virulent_dev.World.Collision;
 
 namespace Virulent_dev.World
 {
@@ -33,7 +34,16 @@ namespace Virulent_dev.World
             }
         }
 
+        public virtual Collider GetCollider(Entity e)
+        {
+            return null;
+        }
+
         public virtual void CollideBlock(Entity e, Block b)
+        {
+        }
+
+        public virtual void CollideEntity(Entity e, Entity other)
         {
         }
     }
