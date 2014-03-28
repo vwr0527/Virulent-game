@@ -25,6 +25,10 @@ namespace Virulent_dev.World.States
             maxAge = new TimeSpan(0, 0, 30);
             collider = new Collider();
             collider.rect = new Rectangle(-15, -15, 30, 65);
+            collider.AddVert(-15, -15);
+            collider.AddVert(15, -15);
+            collider.AddVert(15, 15);
+            collider.AddVert(-15, 15);
         }
 
         public override void LoadEntityContent(Entity e, ContentManager content)
@@ -89,8 +93,8 @@ namespace Virulent_dev.World.States
 
         public override Collider GetCollider(Entity e)
         {
+            collider.ppos = e.ppos;
             collider.pos = e.pos;
-            collider.vel = e.vel;
             return collider;
         }
 
@@ -216,6 +220,14 @@ namespace Virulent_dev.World.States
             handr.rotation = 1.3f;
             handr.scale = 0.22f;
             handr.col = new Color(0.0f, 1f, 1.0f);
+        }
+
+        public override void DrawPoly(Entity e, GraphicsManager graphMan, GameTime gameTime)
+        {
+            graphMan.AddPolyPoint(e.pos.X, e.pos.Y, Color.Red);
+            graphMan.AddPolyPoint(e.pos.X + 12, e.pos.Y + 30, Color.Red);
+            graphMan.AddPolyPoint(e.pos.X - 12, e.pos.Y + 35, Color.Red);
+            graphMan.AddPolyPoint(e.pos.X - 15, e.pos.Y - 18, Color.Red);
         }
     }
 }

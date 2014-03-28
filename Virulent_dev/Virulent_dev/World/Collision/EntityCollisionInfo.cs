@@ -12,6 +12,7 @@ namespace Virulent_dev.World.Collision
     {
         public List<Square> squares;
         public Entity entity;
+        public Collider collider;
 
         public EntityCollisionInfo()
         {

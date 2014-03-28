@@ -14,6 +14,7 @@ namespace Virulent_dev.World
 {
     class Entity
     {
+        public Vector2 ppos = new Vector2();
         public Vector2 pos = new Vector2();
         public Vector2 vel = new Vector2();
         public float rot;
@@ -39,7 +40,10 @@ namespace Virulent_dev.World
         public void Update(GameTime gameTime, InputManager inputMan)
         {
             if (state != null)
+            {
+                ppos = pos;
                 state.UpdateEntity(this, gameTime, inputMan);
+            }
         }
 
         public void Draw(GameTime gameTime, GraphicsManager graphMan)
@@ -48,6 +52,7 @@ namespace Virulent_dev.World
             {
                 state.PositionSprites(this, gameTime);
                 recursiveDrawSprite(sprite, graphMan);
+                state.DrawPoly(this, graphMan, gameTime);
             }
         }
 

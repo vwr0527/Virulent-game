@@ -25,6 +25,8 @@ namespace Virulent_dev.Graphics
         Viewport test;
         Viewport test2;
 
+        PolyManager poly;
+
         public GraphicsManager(GraphicsDeviceManager gdm)
         {
             graphicsDeviceManager = gdm;
@@ -34,6 +36,7 @@ namespace Virulent_dev.Graphics
             worldSprites.SetDataMode(true);
 
             cam1 = new Camera();
+            poly = new PolyManager();
         }
         public void LoadContent(ContentManager content)
         {
@@ -42,6 +45,7 @@ namespace Virulent_dev.Graphics
             graphicsDevice = graphicsDeviceManager.GraphicsDevice;
             spriteBatch = new SpriteBatch(graphicsDevice);
             SpriteElement.LoadDefaultFont(content);
+            poly.Initialize(graphicsDevice);
         }
 
         public void DrawAll(GameTime gameTime)
@@ -68,6 +72,9 @@ namespace Virulent_dev.Graphics
             }
             spriteBatch.End();
 
+            poly.Draw(gameTime, graphicsDevice);
+
+            poly.Update(gameTime);
             guiSprites.EmptyAll();
             worldSprites.EmptyAll();
         }
@@ -80,6 +87,11 @@ namespace Virulent_dev.Graphics
         public void DrawWorldSprite(SpriteElement addedElement)
         {
             worldSprites.Add(addedElement);
+        }
+
+        public void AddPolyPoint(float x, float y, Color c)
+        {
+            poly.AddPoint(x + graphicsDevice.Viewport.Width / 2, y + graphicsDevice.Viewport.Height / 2, c);
         }
 
         public Camera GetCamera(int whichCamera)

@@ -9,16 +9,16 @@ namespace Virulent_dev.World.Collision
 {
     class Collider
     {
-        public LinkedList<Vector2> pts;
-        public LinkedListNode<Vector2> cur;
+        public ColliderVert head;
+        public ColliderVert cur;
         public Rectangle rect;
         public Vector2 pos;
-        public Vector2 vel;
+        public Vector2 ppos;
 
         public Collider()
         {
-            pts = new LinkedList<Vector2>();
-            cur = pts.First;
+            head = new ColliderVert();
+            cur = head;
         }
 
         public bool DidCollide(Collider other)
@@ -45,6 +45,13 @@ namespace Virulent_dev.World.Collision
         public Vector2 PushOut(Collider other)
         {
             return new Vector2(0, ((float)rect.Top + pos.Y)-((float)other.rect.Bottom + other.pos.Y));
+        }
+
+        public void AddVert(float x, float y)
+        {
+            cur.next = new ColliderVert();
+            cur = cur.next;
+            cur.pos = new Vector2(x, y);
         }
 
         private bool IsLeft(Vector2 a, Vector2 b, Vector2 c)

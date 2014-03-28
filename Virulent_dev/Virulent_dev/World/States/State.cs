@@ -34,6 +34,10 @@ namespace Virulent_dev.World
             }
         }
 
+        public virtual void DrawPoly(Entity e, GraphicsManager graphMan, GameTime gameTime)
+        {
+        }
+
         public virtual Collider GetCollider(Entity e)
         {
             return null;

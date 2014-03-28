@@ -20,6 +20,9 @@ namespace Virulent_dev.World.Collision
         List<Entity> eliminateEnts;
         List<Block> eliminateBlocks;
 
+        CollisionVertsHolder colliderVerts;
+        List<Collider> colliderList;
+
         public CollisionManager()
         {
             sqrMan = new SquareManager();
@@ -31,6 +34,9 @@ namespace Virulent_dev.World.Collision
             collideAgainstBlocks = new List<Block>();
             eliminateEnts = new List<Entity>();
             eliminateBlocks = new List<Block>();
+
+            colliderVerts = new CollisionVertsHolder();
+            colliderList = new List<Collider>();
         }
 
         //only called on worldmanager loadlevel()
@@ -74,7 +80,7 @@ namespace Virulent_dev.World.Collision
             {
                 EntityCollisionInfo e = entsqrs.ElementAt(i);
 
-                //  Add other entities and block occupying the same space
+                //  Add other entities and block occupying the same square to "collideAgainst..." lists
                 AddToCollideAgainst(e);
 
                 //Collide against the things you added
@@ -122,7 +128,7 @@ namespace Virulent_dev.World.Collision
         }
 
         //////////////////////////////////////////////////////
-        //  Add other entities and block occupying the same space
+        //  Add other entities and block occupying the same square
         //////////////////////////////////////////////////////
         private void AddToCollideAgainst(EntityCollisionInfo e) 
         {

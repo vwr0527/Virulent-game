@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Graphics\Camera.cs" />
+    <Compile Include="Graphics\PolyManager.cs" />
     <Compile Include="Menu\MenuPage.cs" />
     <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="Menu\StartGamePage.cs" />
@@ -77,7 +78,9 @@
     <Compile Include="World\Block.cs" />
     <Compile Include="World\BlockManager.cs" />
     <Compile Include="World\Collision\Collider.cs" />
+    <Compile Include="World\Collision\ColliderVert.cs" />
     <Compile Include="World\Collision\CollisionManager.cs" />
+    <Compile Include="World\Collision\CollisionVertsHolder.cs" />
     <Compile Include="World\Collision\EntityCollisionInfo.cs" />
     <Compile Include="World\Collision\Square.cs" />
     <Compile Include="World\Collision\SquareManager.cs" />

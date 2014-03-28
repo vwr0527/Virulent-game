@@ -71,6 +71,7 @@
     <Compile Include="Graphics\Camera.cs" />
     <Compile Include="Graphics\GraphicElement.cs" />
     <Compile Include="Graphics\GraphicsManager.cs" />
+    <Compile Include="Graphics\PolyManager.cs" />
     <Compile Include="Graphics\SpriteElement.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Menu\TitleMenu.cs" />
@@ -85,6 +86,8 @@
     <Compile Include="util\RecycleArray.cs" />
     <Compile Include="VirulentGame.cs" />
     <Compile Include="World\BlockManager.cs" />
+    <Compile Include="World\Collision\ColliderVert.cs" />
+    <Compile Include="World\Collision\CollisionVertsHolder.cs" />
     <Compile Include="World\Collision\EntityCollisionInfo.cs" />
     <Compile Include="World\Collision\Square.cs" />
     <Compile Include="World\Collision\Collider.cs" />
