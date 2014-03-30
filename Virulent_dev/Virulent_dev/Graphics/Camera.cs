@@ -20,18 +20,22 @@ namespace Virulent_dev.Graphics
             int viewwidth = view.Width / 2;
             int viewheight = view.Height / 2;
 
-            //asdf++;
             /*
             matrix = Matrix.Identity;
             matrix = Matrix.CreateTranslation(pos.X + viewwidth, pos.Y + viewheight, 0) * matrix;
             matrix = Matrix.CreateRotationZ(rot) * matrix;
             matrix = Matrix.CreateScale(scale) * matrix;
+             *
+            Matrix.CreateTranslation(-pos.X, -pos.Y, 0) *
+            Matrix.CreateTranslation(viewwidth / scale, viewheight / scale, 0);
              * */
+            //asdf++;
             if (asdf > 100) asdf = 0;
-            matrix = Matrix.Identity;
-            matrix = Matrix.CreateScale(scale) * matrix;
-            matrix = Matrix.CreateTranslation(-pos.X + (viewwidth / scale), -pos.Y + (viewheight / scale), 0) * matrix;
-            matrix = Matrix.CreateRotationZ(rot) * matrix;
+            matrix =
+            Matrix.CreateTranslation(-pos.X, -pos.Y, 0) *
+            Matrix.CreateScale(scale) *
+            Matrix.CreateRotationZ(rot) *
+            Matrix.CreateTranslation(viewwidth, viewheight, 0);
         }
     }
 }

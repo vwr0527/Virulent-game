@@ -56,7 +56,11 @@ namespace Virulent_dev.Graphics
             cam1.pos.Y = (float)Math.Sin((double)(gameTime.TotalGameTime.TotalMilliseconds * 0.0023f)) * (6f);
             cam1.pos.X += (float)Math.Cos((double)(gameTime.TotalGameTime.TotalMilliseconds * 0.000312f)) * (38f);
             cam1.pos.Y += (float)Math.Cos((double)(gameTime.TotalGameTime.TotalMilliseconds * 0.0004f)) * (43f);
-            */
+            cam1.rot += 0.01f;
+            cam1.pos.X += 100;
+            cam1.pos.Y += 100;
+            Debug.WriteLine(cam1.rot);
+             */
             graphicsDevice.Clear(Color.Black);
             //TODO: Multiple cameras
             int numCameras = 1;

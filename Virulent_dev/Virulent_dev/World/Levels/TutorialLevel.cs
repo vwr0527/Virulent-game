@@ -67,7 +67,7 @@ namespace Virulent_dev.World.Levels
 
         public override void Draw(GameTime gameTime, GraphicsManager graphMan)
         {
-            graphMan.GetCamera(1).rot = 0;
+            //graphMan.GetCamera(1).rot = 0;
             graphMan.DrawWorldSprite(bg);
         }
 

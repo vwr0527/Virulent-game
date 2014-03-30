@@ -36,10 +36,12 @@ namespace Virulent_dev.Graphics
         {
             //gd.Clear(Color.CornflowerBlue);
             basicEffect.Projection = Matrix.CreateOrthographicOffCenter
-               (-(gd.Viewport.Width / cam1.scale / 2), (gd.Viewport.Width / cam1.scale / 2),     // left, right
-                (gd.Viewport.Height / cam1.scale / 2), -(gd.Viewport.Height / cam1.scale / 2),    // bottom, top
+               (-(gd.Viewport.Width / 2), (gd.Viewport.Width / 2),     // left, right
+                (gd.Viewport.Height / 2), -(gd.Viewport.Height / 2),    // bottom, top
                 0, 1000);
-            basicEffect.World = Matrix.CreateTranslation(new Vector3(-cam1.pos.X - gd.Viewport.Width / 2, -cam1.pos.Y - gd.Viewport.Height / 2, 0));
+            basicEffect.World = Matrix.CreateScale(cam1.scale);
+            basicEffect.World = Matrix.CreateTranslation(-cam1.pos.X - gd.Viewport.Width / 2, -cam1.pos.Y - gd.Viewport.Height / 2, 0) * basicEffect.World;
+            basicEffect.World = basicEffect.World * Matrix.CreateRotationZ(cam1.rot);
 
             if (numVerts > 0)
             {
