@@ -27,15 +27,19 @@ namespace Virulent_dev.Graphics
             basicEffect.Projection = Matrix.CreateOrthographicOffCenter
                (0, graphicsDevice.Viewport.Width,     // left, right
                 graphicsDevice.Viewport.Height, 0,    // bottom, top
-                0, 1);                                         // near, far plane
-
+                0, 1000);                                        
 
             vertices = new VertexPositionColor[65535]; //why this number? why not?
         }
         
-        public void Draw(GameTime gameTime, GraphicsDevice gd)
+        public void Draw(GameTime gameTime, GraphicsDevice gd, int numCameras, Camera cam1)
         {
             //gd.Clear(Color.CornflowerBlue);
+            basicEffect.Projection = Matrix.CreateOrthographicOffCenter
+               (-(gd.Viewport.Width / cam1.scale / 2), (gd.Viewport.Width / cam1.scale / 2),     // left, right
+                (gd.Viewport.Height / cam1.scale / 2), -(gd.Viewport.Height / cam1.scale / 2),    // bottom, top
+                0, 1000);
+            basicEffect.World = Matrix.CreateTranslation(new Vector3(-cam1.pos.X - gd.Viewport.Width / 2, -cam1.pos.Y - gd.Viewport.Height / 2, 0));
 
             if (numVerts > 0)
             {

@@ -50,6 +50,13 @@ namespace Virulent_dev.Graphics
 
         public void DrawAll(GameTime gameTime)
         {
+            /*
+            cam1.scale = 1.0f - (float)Math.Sin((double)(gameTime.TotalGameTime.TotalMilliseconds * 0.01f)) * (0.1f);
+            cam1.pos.X = (float)Math.Sin((double)(gameTime.TotalGameTime.TotalMilliseconds * 0.0073f)) * (9f);
+            cam1.pos.Y = (float)Math.Sin((double)(gameTime.TotalGameTime.TotalMilliseconds * 0.0023f)) * (6f);
+            cam1.pos.X += (float)Math.Cos((double)(gameTime.TotalGameTime.TotalMilliseconds * 0.000312f)) * (38f);
+            cam1.pos.Y += (float)Math.Cos((double)(gameTime.TotalGameTime.TotalMilliseconds * 0.0004f)) * (43f);
+            */
             graphicsDevice.Clear(Color.Black);
             //TODO: Multiple cameras
             int numCameras = 1;
@@ -72,7 +79,7 @@ namespace Virulent_dev.Graphics
             }
             spriteBatch.End();
 
-            poly.Draw(gameTime, graphicsDevice);
+            poly.Draw(gameTime, graphicsDevice, numCameras, cam1);
 
             poly.Update(gameTime);
             guiSprites.EmptyAll();
