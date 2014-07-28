@@ -186,18 +186,14 @@ namespace Virulent_dev.World.Collision
         private void DoNaiveCollision(EntityCollisionInfo e)
         {
             Collider entityCollider = e.entity.GetCollider();
-            //Debug.WriteLine("----------------");
-            //Debug.WriteLine(entityCollider.pos);
             foreach (Entity e2 in collideAgainstEnts)
             {
-                if (!e2.GetCollider().DidCollide(entityCollider))
+                if (!EntityEntityCollision(e2.GetCollider(), entityCollider)) //needs to collide both ways. e2->e1 and e1->e2. find smallest collidetime
                 {
                     eliminateEnts.Add(e2);
                 }
             }
-            //Debug.WriteLine(entityCollider.pos);
             entityCollider = e.entity.GetCollider(); //unknown why this fixes weird bug
-            //Debug.WriteLine(entityCollider.pos);
             foreach (Block b in collideAgainstBlocks)
             {
                 if (!b.GetCollider().DidCollide(entityCollider))
@@ -214,6 +210,11 @@ namespace Virulent_dev.World.Collision
                 collideAgainstBlocks.Remove(b);
             }
 
+        }
+
+        private bool EntityEntityCollision(Collider otherCollider, Collider entityCollider)
+        {
+            return otherCollider.DidCollide(entityCollider);
         }
 
         //TODO:

@@ -100,9 +100,10 @@ namespace Virulent_dev.Graphics
             worldSprites.Add(addedElement);
         }
 
-        public void AddPolyPoint(float x, float y, Color c)
+        public void AddLine(float x1, float y1, Color c1, float x2, float y2, Color c2)
         {
-            poly.AddPoint(x + graphicsDevice.Viewport.Width / 2, y + graphicsDevice.Viewport.Height / 2, c);
+            poly.AddLine(x1 + graphicsDevice.Viewport.Width / 2, y1 + graphicsDevice.Viewport.Height / 2, c1,
+                x2 + graphicsDevice.Viewport.Width / 2, y2 + graphicsDevice.Viewport.Height / 2, c2);
         }
 
         public Camera GetCamera(int whichCamera)

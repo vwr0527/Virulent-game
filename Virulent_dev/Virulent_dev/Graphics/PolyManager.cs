@@ -10,9 +10,9 @@ namespace Virulent_dev.Graphics
 {
     class PolyManager
     {
-        int curIndex = 0;
-        int numShapes = 0;
+        int numLines = 0;
         int numVerts = 0;
+        const int MAX_LINES = 65536;
         BasicEffect basicEffect;
         VertexPositionColor[] vertices;
 
@@ -27,14 +27,13 @@ namespace Virulent_dev.Graphics
             basicEffect.Projection = Matrix.CreateOrthographicOffCenter
                (0, graphicsDevice.Viewport.Width,     // left, right
                 graphicsDevice.Viewport.Height, 0,    // bottom, top
-                0, 1000);                                        
+                0, 1000);
 
-            vertices = new VertexPositionColor[65535]; //why this number? why not?
+            vertices = new VertexPositionColor[MAX_LINES];
         }
         
         public void Draw(GameTime gameTime, GraphicsDevice gd, int numCameras, Camera cam1)
         {
-            //gd.Clear(Color.CornflowerBlue);
             basicEffect.Projection = Matrix.CreateOrthographicOffCenter
                (-(gd.Viewport.Width / 2), (gd.Viewport.Width / 2),     // left, right
                 (gd.Viewport.Height / 2), -(gd.Viewport.Height / 2),    // bottom, top
@@ -43,30 +42,36 @@ namespace Virulent_dev.Graphics
             basicEffect.World = Matrix.CreateTranslation(-cam1.pos.X - gd.Viewport.Width / 2, -cam1.pos.Y - gd.Viewport.Height / 2, 0) * basicEffect.World;
             basicEffect.World = basicEffect.World * Matrix.CreateRotationZ(cam1.rot);
 
-            if (numVerts > 0)
+            if (numLines > 0)
             {
                 basicEffect.CurrentTechnique.Passes[0].Apply();
                 gd.DrawUserPrimitives<VertexPositionColor>(PrimitiveType.LineList, vertices, 0, numVerts);
             }
 
-            Debug.WriteLine("numverts = " + numVerts);
+            Debug.WriteLine("num lines = " + numLines);
         }
 
         public void Update(GameTime gameTime)
         {
             numVerts = 0;
+            numLines = 0;
         }
 
         public void StartShape()
         {
         }
 
-        public void AddPoint(float x, float y, Color col)
+        public void AddLine(float x1, float y1, Color col1, float x2, float y2, Color col2)
         {
-            vertices[numVerts].Position.X = x;
-            vertices[numVerts].Position.Y = y;
-            vertices[numVerts].Color = col;
+            vertices[numVerts].Position.X = x1;
+            vertices[numVerts].Position.Y = y1;
+            vertices[numVerts].Color = col1;
             ++numVerts;
+            vertices[numVerts].Position.X = x2;
+            vertices[numVerts].Position.Y = y2;
+            vertices[numVerts].Color = col2;
+            ++numVerts;
+            ++numLines;
         }
 
         public void EndShape()

@@ -224,10 +224,14 @@ namespace Virulent_dev.World.States
 
         public override void DrawPoly(Entity e, GraphicsManager graphMan, GameTime gameTime)
         {
-            graphMan.AddPolyPoint(e.pos.X, e.pos.Y, Color.Red);
-            graphMan.AddPolyPoint(e.pos.X + 12, e.pos.Y + 30, Color.Red);
-            graphMan.AddPolyPoint(e.pos.X - 12, e.pos.Y + 35, Color.Red);
-            graphMan.AddPolyPoint(e.pos.X - 15, e.pos.Y - 18, Color.Red);
+            graphMan.AddLine(e.pos.X, e.pos.Y, Color.Red, e.pos.X + 12, e.pos.Y + 30, Color.Red);
+
+            graphMan.AddLine(e.pos.X + 12, e.pos.Y + 30, Color.Red, e.pos.X - 12, e.pos.Y + 35, Color.Red);
+
+            graphMan.AddLine(e.pos.X - 12, e.pos.Y + 35, Color.Red, e.pos.X - 15, e.pos.Y - 18, Color.Red);
+
+            graphMan.AddLine(e.pos.X - 15, e.pos.Y - 18, Color.Red, e.pos.X, e.pos.Y, Color.Red);
+
         }
     }
 }

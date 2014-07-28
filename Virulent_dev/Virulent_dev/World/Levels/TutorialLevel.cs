@@ -27,7 +27,7 @@ namespace Virulent_dev.World.Levels
 
         public override void Init(GameTime gameTime)
         {
-            prevSpawnTime = gameTime.TotalGameTime - respawnTime;
+            prevSpawnTime = gameTime.TotalGameTime;// -respawnTime;
             numPendingBlocks = 3;
         }
 
