@@ -14,6 +14,7 @@ namespace Virulent_dev.World
 {
     class EntityManager
     {
+        //this should not manage spriteelements like this
         RecycleArray<Entity> entList;
         RecycleArray<SpriteElement> spriteList;
 

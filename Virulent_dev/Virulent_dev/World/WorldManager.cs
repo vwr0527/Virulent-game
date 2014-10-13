@@ -38,6 +38,7 @@ namespace Virulent_dev.World
             collideMan = new CollisionManager();
         }
 
+        //not quite done yet... need to load only the level we're currently on.
         public void LoadContent(ContentManager content)
         {
             foreach (Level level in levels.Values)
@@ -46,6 +47,7 @@ namespace Virulent_dev.World
             }
         }
 
+        //
         public void Update(GameTime gameTime, InputManager inputMan)
         {
             if (init)
@@ -67,12 +69,11 @@ namespace Virulent_dev.World
             {
                 Entity addedEnt = currentLevel.GetNextEntity();
                 entMan.AddEnt(addedEnt);
-
-                //the equivilent collideMan.AddEnt is in entMan.Update
             }
 
             currentLevel.Update(gameTime, inputMan);
             entMan.Update(gameTime, inputMan, collideMan);
+            //blockMan.Update(); //currently does nothing. here for consistancy. should collideman remember level blocks for more than a frame?
             collideMan.Update(gameTime);
 
             if (currentLevel.LevelEnded())

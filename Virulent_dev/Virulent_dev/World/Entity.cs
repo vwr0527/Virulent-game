@@ -51,17 +51,8 @@ namespace Virulent_dev.World
             if (sprite != null)
             {
                 state.PositionSprites(this, gameTime);
-                recursiveDrawSprite(sprite, graphMan);
-                state.DrawPoly(this, graphMan, gameTime);
-            }
-        }
-
-        private void recursiveDrawSprite(SpriteElement sprite, GraphicsManager graphMan)
-        {
-            if (sprite != null)
-            {
                 graphMan.DrawWorldSprite(sprite);
-                recursiveDrawSprite(sprite.linkedSprite, graphMan);
+                state.DrawPoly(this, graphMan, gameTime);
             }
         }
 

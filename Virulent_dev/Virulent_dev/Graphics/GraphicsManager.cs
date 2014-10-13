@@ -98,7 +98,18 @@ namespace Virulent_dev.Graphics
         public void DrawWorldSprite(SpriteElement addedElement)
         {
             worldSprites.Add(addedElement);
+            recursiveDrawSprite(addedElement.linkedSprite);
         }
+
+        private void recursiveDrawSprite(SpriteElement addedElement)
+        {
+            if (addedElement != null)
+            {
+                worldSprites.Add(addedElement);
+                recursiveDrawSprite(addedElement.linkedSprite);
+            }
+        }
+
 
         public void AddLine(float x1, float y1, Color c1, float x2, float y2, Color c2)
         {

@@ -1,1 +1,4 @@
-﻿
+﻿current mess we're in: State needs to die.
+I will move every state object into their respective entities. Player is no longer a state, it needs to be an entity.
+
+after level load, it loads all the blocks of that level into worldmanager
