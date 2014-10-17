@@ -86,7 +86,7 @@ namespace Virulent_dev.World.Collision
                 //Collide against the things you added
 
                 //first eliminate all non-"likely" collisions (collisions that will happen if nothing ever stops and goes thru eachother)
-                DoNaiveCollision(e);
+                DoNaiveElimination(e);
 
                 //then eliminate collisions that will not happen (because of prior collisions with other objects)
                 DoAdvancedElimination();
@@ -183,7 +183,7 @@ namespace Virulent_dev.World.Collision
         //another entity or or block, or has intersected another
         //entity or block to get here. If it has collided, don't
         //do anything; if it hasn't, then remove it from the "to collide" list.
-        private void DoNaiveCollision(EntityCollisionInfo e)
+        private void DoNaiveElimination(EntityCollisionInfo e)
         {
             Collider entityCollider = e.entity.GetCollider();
             foreach (Entity e2 in collideAgainstEnts)

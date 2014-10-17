@@ -1,4 +1,12 @@
 ﻿current mess we're in: State needs to die.
 I will move every state object into their respective entities. Player is no longer a state, it needs to be an entity.
 
+Though this creates the problem that each type of entity will need it's own list.
+The solution is that entity needs to be a single type. No child classes. It has to be configureable enough to become any entity.
+Another solution: Break up "state" into logical sub-chunks, but keep the same general idea (entity component)
+
 after level load, it loads all the blocks of that level into worldmanager
+
+collisionmanager needs to 'add to collision list' rather than eliminate.
+
+RecycleArray = bad. make sure you have confidence in it first.
