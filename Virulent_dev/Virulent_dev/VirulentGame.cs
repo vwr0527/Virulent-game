@@ -41,9 +41,12 @@ namespace Virulent_dev
             cinema = new CinematicManager();
         }
 
+        private TimeSpan delay;
+        private TimeSpan prevdelay;
         protected override void Initialize()
         {
             base.Initialize();
+            delay = new TimeSpan(0, 0, 0, 0, 0);
         }
 
         protected override void LoadContent()
@@ -58,8 +61,18 @@ namespace Virulent_dev
         {
         }
 
+
         protected override void Update(GameTime gameTime)
         {
+            if (!(gameTime.TotalGameTime - prevdelay >= delay))
+            {
+                return;
+            }
+            else
+            {
+                prevdelay = gameTime.TotalGameTime;
+            }
+
             input.Update(gameTime);
 
             if (cinema.IsActive())

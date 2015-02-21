@@ -75,12 +75,11 @@
     <Compile Include="Graphics\SpriteElement.cs" />
     <Compile Include="Storage\StorageManager.cs" />
     <Compile Include="util\RecycleArray.cs" />
+    <Compile Include="util\Triangle.cs" />
     <Compile Include="World\Block.cs" />
     <Compile Include="World\BlockManager.cs" />
     <Compile Include="World\Collision\Collider.cs" />
-    <Compile Include="World\Collision\ColliderVert.cs" />
     <Compile Include="World\Collision\CollisionManager.cs" />
-    <Compile Include="World\Collision\CollisionVertsHolder.cs" />
     <Compile Include="World\Collision\EntityCollisionInfo.cs" />
     <Compile Include="World\Collision\Square.cs" />
     <Compile Include="World\Collision\SquareManager.cs" />

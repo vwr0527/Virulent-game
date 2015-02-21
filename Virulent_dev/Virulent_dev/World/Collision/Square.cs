@@ -7,6 +7,8 @@ namespace Virulent_dev.World.Collision
 {
     class Square
     {
+        public int row = 0;
+        public int col = 0;
         public List<Entity> ents;
         public List<Block> blocks;
 

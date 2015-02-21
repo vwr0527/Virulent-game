@@ -27,7 +27,8 @@ namespace Virulent_dev.World.Levels
 
         public override void Init(GameTime gameTime)
         {
-            prevSpawnTime = gameTime.TotalGameTime;// -respawnTime;
+            respawnTime = new TimeSpan(0, 0, 0, 100, 0);
+            prevSpawnTime = gameTime.TotalGameTime - respawnTime;
             numPendingBlocks = 3;
         }
 
@@ -36,19 +37,19 @@ namespace Virulent_dev.World.Levels
             brick = new Block[3];
             brick[0] = new Block("platforms/platform1");
             brick[0].LoadContent(content);
-            brick[0].SetPosition(new Vector2(0, 150));
+            brick[0].SetPosition(0, 150);
             brick[0].SetScale(0.4f);
             brick[0].SetColor(new Color(1.0f, 0.1f, 0.0f));
 
             brick[1] = new Block("platforms/platform1");
             brick[1].LoadContent(content);
-            brick[1].SetPosition(new Vector2(-100, 0));
+            brick[1].SetPosition(-100, 0);
             brick[1].SetScale(0.4f);
             brick[1].SetColor(new Color(0.0f, 0.5f, 1.0f));
 
             brick[2] = new Block("platforms/platform1");
             brick[2].LoadContent(content);
-            brick[2].SetPosition(new Vector2(100, 0));
+            brick[2].SetPosition(100, 0);
             brick[2].SetScale(0.4f);
             brick[2].SetColor(new Color(1.0f, 0.1f, 1.0f));
 
@@ -57,7 +58,6 @@ namespace Virulent_dev.World.Levels
             bg.pos.X = 0.5f;
             bg.pos.Y = 0.5f;
 
-            respawnTime = new TimeSpan(0, 0, 0, 5, 0);
             prevSpawnTime = new TimeSpan();
 
             e = new Entity();

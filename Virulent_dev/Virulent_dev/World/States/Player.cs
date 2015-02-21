@@ -24,7 +24,7 @@ namespace Virulent_dev.World.States
             rand = new Random();
             maxAge = new TimeSpan(0, 0, 30);
             collider = new Collider();
-            collider.rect = new Rectangle(-15, -15, 30, 65);
+            //collider.rect = new Rectangle(-15, -15, 30, 65);
             collider.AddVert(-15, -15);
             collider.AddVert(15, -15);
             collider.AddVert(15, 15);
@@ -100,8 +100,8 @@ namespace Virulent_dev.World.States
 
         public override void CollideBlock(Entity e, Block b)
         {
-            e.vel.Y *= -0.9f;
-            e.pos += b.GetCollider().PushOut(collider);
+            e.vel.Y *= -0.2f;
+            e.pos += ((e.ppos - e.pos) * e.GetCollider().DoCollide(b.GetCollider())) + ((e.ppos - e.pos)/(e.ppos - e.pos).Length()); //this is the second time it was called per loop. unnecessary. find a way to pass the data to here. get the normal of the collision too. (instead of the normal of ppos-pos)
             b.OnCollide(e);
         }
 
@@ -224,13 +224,15 @@ namespace Virulent_dev.World.States
 
         public override void DrawPoly(Entity e, GraphicsManager graphMan, GameTime gameTime)
         {
-            graphMan.AddLine(e.pos.X, e.pos.Y, Color.Red, e.pos.X + 12, e.pos.Y + 30, Color.Red);
+            /*graphMan.AddLine(e.pos.X, e.pos.Y, Color.Red, e.pos.X + 12, e.pos.Y + 30, Color.Red);
 
             graphMan.AddLine(e.pos.X + 12, e.pos.Y + 30, Color.Red, e.pos.X - 12, e.pos.Y + 35, Color.Red);
 
             graphMan.AddLine(e.pos.X - 12, e.pos.Y + 35, Color.Red, e.pos.X - 15, e.pos.Y - 18, Color.Red);
 
-            graphMan.AddLine(e.pos.X - 15, e.pos.Y - 18, Color.Red, e.pos.X, e.pos.Y, Color.Red);
+            graphMan.AddLine(e.pos.X - 15, e.pos.Y - 18, Color.Red, e.pos.X, e.pos.Y, Color.Red);*/
+
+            collider.Draw(graphMan);
 
         }
     }

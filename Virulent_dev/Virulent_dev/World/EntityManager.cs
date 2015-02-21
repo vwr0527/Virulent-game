@@ -34,8 +34,10 @@ namespace Virulent_dev.World
                 Entity cur = entList.ElementAt(i);
                 if (cur.dead)
                 {
+                    ///////////why is sprite stuff here? ///////////////
                     recursiveDeleteSprite(cur.sprite);
                     cur.sprite = null;
+
                     entList.EmptyElementAt(i);
                 }
                 else

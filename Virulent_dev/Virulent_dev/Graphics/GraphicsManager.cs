@@ -61,6 +61,7 @@ namespace Virulent_dev.Graphics
             cam1.pos.Y += 100;
             Debug.WriteLine(cam1.rot);
              */
+
             graphicsDevice.Clear(Color.Black);
             //TODO: Multiple cameras
             int numCameras = 1;

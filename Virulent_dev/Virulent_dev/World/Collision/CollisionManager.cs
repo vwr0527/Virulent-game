@@ -20,7 +20,6 @@ namespace Virulent_dev.World.Collision
         List<Entity> eliminateEnts;
         List<Block> eliminateBlocks;
 
-        CollisionVertsHolder colliderVerts;
         List<Collider> colliderList;
 
         public CollisionManager()
@@ -35,7 +34,6 @@ namespace Virulent_dev.World.Collision
             eliminateEnts = new List<Entity>();
             eliminateBlocks = new List<Block>();
 
-            colliderVerts = new CollisionVertsHolder();
             colliderList = new List<Collider>();
         }
 
@@ -196,7 +194,7 @@ namespace Virulent_dev.World.Collision
             entityCollider = e.entity.GetCollider(); //unknown why this fixes weird bug
             foreach (Block b in collideAgainstBlocks)
             {
-                if (!b.GetCollider().DidCollide(entityCollider))
+                if (b.GetCollider().DoCollide(entityCollider) >= 1)
                 {
                     eliminateBlocks.Add(b);
                 }
@@ -214,7 +212,7 @@ namespace Virulent_dev.World.Collision
 
         private bool EntityEntityCollision(Collider otherCollider, Collider entityCollider)
         {
-            return otherCollider.DidCollide(entityCollider);
+            return false;// otherCollider.DoCollide(entityCollider);
         }
 
         //TODO:
