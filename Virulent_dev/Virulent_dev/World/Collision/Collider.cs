@@ -22,7 +22,8 @@ namespace Virulent_dev.World.Collision
         public float miny;
 
         //unit tangent vector
-        public Vector2 pushOut;
+        private Vector2 pushOut = new Vector2();
+        private float soonestCollisionTime = 1;
 
         public Collider()
         {
@@ -51,19 +52,16 @@ namespace Virulent_dev.World.Collision
             //then repeat the process going from other Collider to this one.
             //We find the lowest amount of time spent outside for collisions both ways.
             //That amount of time is your soonest collision time.
-            float soonestCollisionTime = 1;
-            float collisionTimeAB = collideOneWay(this, other);
-            float collisionTimeBA = collideOneWay(other, this);
-
-            if (collisionTimeAB < soonestCollisionTime) soonestCollisionTime = collisionTimeAB;
-            if (collisionTimeBA < soonestCollisionTime) soonestCollisionTime = collisionTimeBA;
+            soonestCollisionTime = 1;
+            pushOut *= -1;
+            collideOneWay(this, other);
+            pushOut *= -1;
+            collideOneWay(other, this);
 
             return soonestCollisionTime;
         }
-        private float collideOneWay(Collider a, Collider b)
+        private void collideOneWay(Collider a, Collider b)
         {
-            float soonestCollisionTime = 1f;
-
             for (int i = 0; i < a.pts.Count; ++i)
             {
                 Vector2 lineStart = a.ppos;
@@ -90,14 +88,11 @@ namespace Virulent_dev.World.Collision
                         pushOut = wallStart - wallEnd;
                         pushOut.Normalize();
                         float temp = pushOut.X;
-                        pushOut.X = pushOut.Y;
+                        pushOut.X = -pushOut.Y;
                         pushOut.Y = temp;
                     }
                 }
             }
-
-
-            return soonestCollisionTime;
         }
 
         public void Draw(Graphics.GraphicsManager graphMan)
@@ -122,6 +117,14 @@ namespace Virulent_dev.World.Collision
                     graphMan.AddLine(p1.X + pos.X, p1.Y + pos.Y, Color.Red, p2.X + pos.X, p2.Y + pos.Y, Color.Blue);
                 }
             }
+        }
+
+        public static void DoTest(Graphics.GraphicsManager graphMan)
+        {
+            graphMan.AddLine(33f, 44f, Color.Blue, 100f, 100f, Color.White);
+            graphMan.AddLine(50f, -50f, Color.White, 70, 80f, Color.Red);
+            float t = get_line_intersection_t2(33, 44, 100, 100, 50, -50, 70, 80);
+            graphMan.AddLine(33f, 44f, Color.Blue, ((100 - 33) * t) + 33f, ((100 - 44) * t) + 44f, Color.Blue);
         }
 
         public void AddVert(float x, float y)
@@ -208,6 +211,23 @@ namespace Virulent_dev.World.Collision
         }
 
         private float get_line_intersection_t(float p0_x, float p0_y, float p1_x, float p1_y,
+            float p2_x, float p2_y, float p3_x, float p3_y)
+        {
+            float s1_x, s1_y, s2_x, s2_y;
+            s1_x = p1_x - p0_x; s1_y = p1_y - p0_y;
+            s2_x = p3_x - p2_x; s2_y = p3_y - p2_y;
+
+            float s, t;
+            s = (-s1_y * (p0_x - p2_x) + s1_x * (p0_y - p2_y)) / (-s2_x * s1_y + s1_x * s2_y);
+            t = (s2_x * (p0_y - p2_y) - s2_y * (p0_x - p2_x)) / (-s2_x * s1_y + s1_x * s2_y);
+
+            if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
+            {
+                return t;
+            }
+            return 1;
+        }
+        public static float get_line_intersection_t2(float p0_x, float p0_y, float p1_x, float p1_y,
             float p2_x, float p2_y, float p3_x, float p3_y)
         {
             float s1_x, s1_y, s2_x, s2_y;

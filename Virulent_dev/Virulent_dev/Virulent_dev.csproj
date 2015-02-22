@@ -80,6 +80,7 @@
     <Compile Include="World\Collision\Collider.cs" />
     <Compile Include="World\Collision\CollisionManager.cs" />
     <Compile Include="World\Collision\EntityCollisionInfo.cs" />
+    <Compile Include="World\Collision\EntitySquares.cs" />
     <Compile Include="World\Collision\Square.cs" />
     <Compile Include="World\Collision\SquareManager.cs" />
     <Compile Include="World\Entity.cs" />

@@ -24,11 +24,10 @@ namespace Virulent_dev.World.States
             rand = new Random();
             maxAge = new TimeSpan(0, 0, 30);
             collider = new Collider();
-            //collider.rect = new Rectangle(-15, -15, 30, 65);
-            collider.AddVert(-15, -15);
-            collider.AddVert(15, -15);
-            collider.AddVert(15, 15);
-            collider.AddVert(-15, 15);
+            collider.AddVert(0, -20);
+            collider.AddVert(15, 0);
+            collider.AddVert(0, 50);
+            collider.AddVert(-15, 0);
         }
 
         public override void LoadEntityContent(Entity e, ContentManager content)
@@ -77,17 +76,37 @@ namespace Virulent_dev.World.States
 
         public override void UpdateEntity(Entity e, GameTime gameTime, InputManager inputMan)
         {
-            e.vel.X += 0.002f * (float)(rand.NextDouble() - 0.5) * (float)(gameTime.ElapsedGameTime.Milliseconds);
+            e.vel.X += 0.005f * (float)(rand.NextDouble() - 0.5) * (float)(gameTime.ElapsedGameTime.Milliseconds);
             e.vel.Y += 0.005f * (float)(gameTime.ElapsedGameTime.Milliseconds);
+
+            if (inputMan.MoveLeftPressed())
+            {
+                e.vel.X -= 0.01f * (float)(gameTime.ElapsedGameTime.Milliseconds);
+            }
+            if (inputMan.MoveRightPressed())
+            {
+                e.vel.X += 0.01f * (float)(gameTime.ElapsedGameTime.Milliseconds);
+            }
+            if (inputMan.MoveUpPressed())
+            {
+                e.vel.Y -= 0.01f * (float)(gameTime.ElapsedGameTime.Milliseconds);
+            }
+            if (inputMan.MoveDownPressed())
+            {
+                e.vel.Y += 0.01f * (float)(gameTime.ElapsedGameTime.Milliseconds);
+            }
+
             e.pos += e.vel * (float)(gameTime.ElapsedGameTime.Milliseconds) * 0.1f;
             if (e.pos.Y > 200.0f)
             {
                 e.pos.Y = 200.0f;
-                e.vel.Y *= -0.99f;
+                e.vel.Y *= -0.5f;
             }
             e.age += gameTime.ElapsedGameTime;
             e.sprite.col = new Color(0, 255, 0);
             e.sprite.scale = 1.5f;
+            collider.ppos = e.ppos;
+            collider.pos = e.pos;
             if (e.age > maxAge) e.dead = true;
         }
 
@@ -100,9 +119,15 @@ namespace Virulent_dev.World.States
 
         public override void CollideBlock(Entity e, Block b, float collideTime, Vector2 pushOut)
         {
-            e.vel.Y *= -0.2f;
-            e.pos += ((e.ppos - e.pos) * collideTime) + pushOut;
+            e.vel.X = 0;
+            e.vel.Y = 0;
+            e.pos = e.ppos + ((e.pos - e.ppos) * collideTime);
+            e.pos += pushOut * 0.1f;
+
+            collider.pos = e.pos;
+            collider.ppos = e.ppos;
             b.OnCollide(e);
+            Debug.WriteLine(pushOut + " " + collideTime);
         }
 
         public override void PositionSprites(Entity e, GameTime gameTime)

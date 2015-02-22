@@ -12,27 +12,32 @@ namespace Virulent_dev.World.Collision
     class CollisionManager
     {
         SquareManager sqrMan;
-        RecycleArray<EntityCollisionInfo> entsqrs;
-        EntityCollisionInfo addedEntSqrTemp;
+        RecycleArray<EntitySquares> entsqrs;
+        EntitySquares addedEntSqrTemp;
 
         List<Entity> collideAgainstEnts;
         List<Block> collideAgainstBlocks;
-        List<Entity> eliminateEnts;
-        List<Block> eliminateBlocks;
+        RecycleArray<EntityCollisionInfo> collideEntsInfo;
+        RecycleArray<EntityCollisionInfo> collideBlocksInfo;
+        EntityCollisionInfo addedECITemp;
 
         List<Collider> colliderList;
 
         public CollisionManager()
         {
             sqrMan = new SquareManager();
-            entsqrs = new RecycleArray<EntityCollisionInfo>(EntityCollisionInfo.CopyMethod, EntityCollisionInfo.CreateCopyMethod);
+            entsqrs = new RecycleArray<EntitySquares>(EntitySquares.CopyMethod, EntitySquares.CreateCopyMethod);
             entsqrs.SetDataMode(false);
-            addedEntSqrTemp = new EntityCollisionInfo();
+            addedEntSqrTemp = new EntitySquares();
+            addedECITemp = new EntityCollisionInfo();
 
             collideAgainstEnts = new List<Entity>();
             collideAgainstBlocks = new List<Block>();
-            eliminateEnts = new List<Entity>();
-            eliminateBlocks = new List<Block>();
+
+            collideEntsInfo = new RecycleArray<EntityCollisionInfo>(EntityCollisionInfo.CopyMethod, EntityCollisionInfo.CreateCopyMethod);
+            collideEntsInfo.SetDataMode(false);
+            collideBlocksInfo = new RecycleArray<EntityCollisionInfo>(EntityCollisionInfo.CopyMethod, EntityCollisionInfo.CreateCopyMethod);
+            collideBlocksInfo.SetDataMode(false);
 
             colliderList = new List<Collider>();
         }
@@ -76,34 +81,31 @@ namespace Virulent_dev.World.Collision
             ///////////////////////////////////////////////////////////////////
             for(int i = 0, maxEnts = entsqrs.Size(); i < maxEnts; ++i)
             {
-                EntityCollisionInfo e = entsqrs.ElementAt(i);
+                EntitySquares e = entsqrs.ElementAt(i);
 
                 //  Add other entities and block occupying the same square to "collideAgainst..." lists
                 AddToCollideAgainst(e);
 
-                //Collide against the things you added
-
-                //first eliminate all non-"likely" collisions (collisions that will happen if nothing ever stops and goes thru eachother)
-                DoNaiveElimination(e);
-
-                //then eliminate collisions that will not happen (because of prior collisions with other objects)
-                DoAdvancedElimination();
-
-                //then, perform collision actions on the remaining colliders
-                foreach (Block b in collideAgainstBlocks)
+                //Calculate the EntityCollisionInfos for the things you added
+                DoCollisions(e);
+                //Apply the collision calculations
+                if(collideBlocksInfo.Size() > 1)Debug.WriteLine(collideBlocksInfo.Size());
+                for (int j = collideBlocksInfo.Size() - 1; j >= 0; --j)
                 {
-                    e.entity.CollideBlock(b, e.collideTime, e.pushOut);
+                    EntityCollisionInfo b = collideBlocksInfo.ElementAt(j);
+                    e.entity.CollideBlock(b.collideBlock, b.collideTime, b.pushOut);
                 }
-                foreach (Entity e2 in collideAgainstEnts)
+                for (int j = collideEntsInfo.Size() - 1; j >= 0; --j)
                 {
-                    e.entity.CollideEntity(e2, e.collideTime, e.pushOut);
+                    EntityCollisionInfo e2 = collideEntsInfo.ElementAt(j);
+                    e.entity.CollideEntity(e2.collideEnt, e2.collideTime, e2.pushOut);
                 }
 
                 //ready for the next entity to use
                 collideAgainstEnts.Clear();
                 collideAgainstBlocks.Clear();
-                eliminateEnts.Clear();
-                eliminateBlocks.Clear();
+                collideEntsInfo.EmptyAll();
+                collideBlocksInfo.EmptyAll();
 
                 ////////////////////////////////////////////////////////////////
 
@@ -123,12 +125,14 @@ namespace Virulent_dev.World.Collision
             collideAgainstBlocks.TrimExcess();
             collideAgainstEnts.Clear();
             collideAgainstEnts.TrimExcess();
+            collideEntsInfo.DeleteAll();
+            collideBlocksInfo.DeleteAll();
         }
 
         //////////////////////////////////////////////////////
         //  Add other entities and block occupying the same square
         //////////////////////////////////////////////////////
-        private void AddToCollideAgainst(EntityCollisionInfo e) 
+        private void AddToCollideAgainst(EntitySquares e) 
         {
             //
             //  for each square touching to the entity...
@@ -176,51 +180,45 @@ namespace Virulent_dev.World.Collision
             }
         }
 
-        //Works by getting rid of entities from the "to collide" list.
-        //Detects if it currently is overlapping
-        //another entity or or block, or has intersected another
-        //entity or block to get here. If it has collided, don't
-        //do anything; if it hasn't, then remove it from the "to collide" list.
-        private void DoNaiveElimination(EntityCollisionInfo e)
+        private void DoCollisions(EntitySquares e)
         {
             Collider entityCollider = e.entity.GetCollider();
             foreach (Entity e2 in collideAgainstEnts)
             {
-                if (!EntityEntityCollision(e2.GetCollider(), entityCollider)) //needs to collide both ways. e2->e1 and e1->e2. find smallest collidetime
+                float collideTime = e2.GetCollider().DoCollide(entityCollider);
+                if (EntityEntityCollision(e2.GetCollider(), entityCollider))
                 {
-                    eliminateEnts.Add(e2);
+                    addedECITemp.collideTime = collideTime;
+                    addedECITemp.pushOut = e2.GetCollider().GetPushOut();
+                    addedECITemp.collideEnt = e2;
+                    collideEntsInfo.Add(addedECITemp);
+                    addedECITemp.collideBlock = null;
+                    addedECITemp.collideEnt = null;
+                    addedECITemp.collideTime = 1;
+                    addedECITemp.pushOut = Vector2.Zero;
                 }
             }
             entityCollider = e.entity.GetCollider(); //unknown why this fixes weird bug
             foreach (Block b in collideAgainstBlocks)
             {
                 float collideTime = b.GetCollider().DoCollide(entityCollider);
-                if (collideTime >= 1)
+                if (collideTime < 1)
                 {
-                    e.collideTime = collideTime;
-                    eliminateBlocks.Add(b);
+                    addedECITemp.collideTime = collideTime;
+                    addedECITemp.pushOut = b.GetCollider().GetPushOut();
+                    addedECITemp.collideBlock = b;
+                    collideBlocksInfo.Add(addedECITemp);
+                    addedECITemp.collideBlock = null;
+                    addedECITemp.collideEnt = null;
+                    addedECITemp.collideTime = 1;
+                    addedECITemp.pushOut = Vector2.Zero;
                 }
             }
-            foreach (Entity e2 in eliminateEnts)
-            {
-                collideAgainstEnts.Remove(e2);
-            }
-            foreach (Block b in eliminateBlocks)
-            {
-                collideAgainstBlocks.Remove(b);
-            }
-
         }
 
         private bool EntityEntityCollision(Collider otherCollider, Collider entityCollider)
         {
             return false;// otherCollider.DoCollide(entityCollider);
-        }
-
-        //TODO:
-        //then eliminate collisions that will not happen (because of prior collisions with other objects)
-        private void DoAdvancedElimination()
-        {
         }
     }
 }

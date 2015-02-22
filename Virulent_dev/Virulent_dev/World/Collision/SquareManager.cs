@@ -45,7 +45,7 @@ namespace Virulent_dev.World.Collision
         }
 
         // TODO:
-        public void AddEntity(EntityCollisionInfo addedEntitySquare)
+        public void AddEntity(EntitySquares addedEntitySquare)
         {
             Square square = squares.ElementAt(0);
             if (square != null)

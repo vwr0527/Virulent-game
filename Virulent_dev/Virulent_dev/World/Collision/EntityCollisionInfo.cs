@@ -6,30 +6,24 @@ using Microsoft.Xna.Framework;
 
 namespace Virulent_dev.World.Collision
 {
-    //keeps track of which squares each entity is in
-    //and holds on to a collider that is associated
-    //with the same entity.
     class EntityCollisionInfo
     {
-        public List<Square> squares;
-        public Entity entity;
-        public Collider collider;
-        public float collideTime = 1;
         public Vector2 pushOut;
+        public float collideTime;
+        public Entity collideEnt;
+        public Block collideBlock;
 
         public EntityCollisionInfo()
         {
-            squares = new List<Square>();
+            pushOut = new Vector2();
+            collideTime = 1;
         }
         public static void CopyMethod(EntityCollisionInfo dst, EntityCollisionInfo src)
         {
-            dst.squares.Clear();
-            //Won't ever use this, because CopyMethod will only be used for AddEnt, and it will never start with any squares.
-            //for (int i = 0, max = src.squares.Count; i < max; ++i)
-            //{
-            //    dst.squares.Add(src.squares[i]);
-            //}
-            dst.entity = src.entity;
+            dst.pushOut = src.pushOut;
+            dst.collideTime = src.collideTime;
+            dst.collideBlock = src.collideBlock;
+            dst.collideEnt = src.collideEnt;
         }
         public static EntityCollisionInfo CreateCopyMethod(EntityCollisionInfo src)
         {

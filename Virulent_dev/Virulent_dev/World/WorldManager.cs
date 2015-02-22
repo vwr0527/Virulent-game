@@ -96,6 +96,7 @@ namespace Virulent_dev.World
 
         public void Draw(GameTime gameTime, GraphicsManager graphMan)
         {
+            //Collider.DoTest(graphMan);
             currentLevel.Draw(gameTime, graphMan);
             entMan.Draw(gameTime, graphMan);
             blockMan.Draw(gameTime, graphMan);

@@ -48,7 +48,7 @@ namespace Virulent_dev.Graphics
                 gd.DrawUserPrimitives<VertexPositionColor>(PrimitiveType.LineList, vertices, 0, numVerts);
             }
 
-            Debug.WriteLine("num lines = " + numLines);
+            //Debug.WriteLine("num lines = " + numLines);
         }
 
         public void Update(GameTime gameTime)

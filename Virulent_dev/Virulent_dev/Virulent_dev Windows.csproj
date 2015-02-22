@@ -87,6 +87,7 @@
     <Compile Include="VirulentGame.cs" />
     <Compile Include="World\BlockManager.cs" />
     <Compile Include="World\Collision\EntityCollisionInfo.cs" />
+    <Compile Include="World\Collision\EntitySquares.cs" />
     <Compile Include="World\Collision\Square.cs" />
     <Compile Include="World\Collision\Collider.cs" />
     <Compile Include="World\Collision\CollisionManager.cs" />
