@@ -98,10 +98,10 @@ namespace Virulent_dev.World.States
             return collider;
         }
 
-        public override void CollideBlock(Entity e, Block b)
+        public override void CollideBlock(Entity e, Block b, float collideTime, Vector2 pushOut)
         {
             e.vel.Y *= -0.2f;
-            e.pos += ((e.ppos - e.pos) * e.GetCollider().DoCollide(b.GetCollider())) + ((e.ppos - e.pos)/(e.ppos - e.pos).Length()); //this is the second time it was called per loop. unnecessary. find a way to pass the data to here. get the normal of the collision too. (instead of the normal of ppos-pos)
+            e.pos += ((e.ppos - e.pos) * collideTime) + pushOut;
             b.OnCollide(e);
         }
 

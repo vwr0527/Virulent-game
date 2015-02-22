@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace Virulent_dev.World.Collision
 {
@@ -13,6 +14,8 @@ namespace Virulent_dev.World.Collision
         public List<Square> squares;
         public Entity entity;
         public Collider collider;
+        public float collideTime = 1;
+        public Vector2 pushOut;
 
         public EntityCollisionInfo()
         {

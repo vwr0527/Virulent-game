@@ -92,11 +92,11 @@ namespace Virulent_dev.World.Collision
                 //then, perform collision actions on the remaining colliders
                 foreach (Block b in collideAgainstBlocks)
                 {
-                    e.entity.CollideBlock(b);
+                    e.entity.CollideBlock(b, e.collideTime, e.pushOut);
                 }
                 foreach (Entity e2 in collideAgainstEnts)
                 {
-                    e.entity.CollideEntity(e2);
+                    e.entity.CollideEntity(e2, e.collideTime, e.pushOut);
                 }
 
                 //ready for the next entity to use
@@ -194,8 +194,10 @@ namespace Virulent_dev.World.Collision
             entityCollider = e.entity.GetCollider(); //unknown why this fixes weird bug
             foreach (Block b in collideAgainstBlocks)
             {
-                if (b.GetCollider().DoCollide(entityCollider) >= 1)
+                float collideTime = b.GetCollider().DoCollide(entityCollider);
+                if (collideTime >= 1)
                 {
+                    e.collideTime = collideTime;
                     eliminateBlocks.Add(b);
                 }
             }

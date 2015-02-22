@@ -43,11 +43,11 @@ namespace Virulent_dev.World
             return null;
         }
 
-        public virtual void CollideBlock(Entity e, Block b)
+        public virtual void CollideBlock(Entity e, Block b, float collideTime, Vector2 pushOut)
         {
         }
 
-        public virtual void CollideEntity(Entity e, Entity other)
+        public virtual void CollideEntity(Entity e, Entity other, float collideTime, Vector2 pushOut)
         {
         }
     }

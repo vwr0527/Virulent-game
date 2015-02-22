@@ -21,6 +21,9 @@ namespace Virulent_dev.World.Collision
         public float minx;
         public float miny;
 
+        //unit tangent vector
+        public Vector2 pushOut;
+
         public Collider()
         {
             pts = new List<Vector2>();
@@ -84,6 +87,11 @@ namespace Virulent_dev.World.Collision
                     if (thisCollisionTime < soonestCollisionTime)
                     {
                         soonestCollisionTime = thisCollisionTime;
+                        pushOut = wallStart - wallEnd;
+                        pushOut.Normalize();
+                        float temp = pushOut.X;
+                        pushOut.X = pushOut.Y;
+                        pushOut.Y = temp;
                     }
                 }
             }
@@ -146,6 +154,11 @@ namespace Virulent_dev.World.Collision
         {
             prot = rot;
             rot += angle;
+        }
+
+        public Vector2 GetPushOut()
+        {
+            return pushOut;
         }
 
         private bool IsLeft(Vector2 a, Vector2 b, Vector2 c)

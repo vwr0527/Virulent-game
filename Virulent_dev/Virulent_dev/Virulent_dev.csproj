@@ -75,7 +75,6 @@
     <Compile Include="Graphics\SpriteElement.cs" />
     <Compile Include="Storage\StorageManager.cs" />
     <Compile Include="util\RecycleArray.cs" />
-    <Compile Include="util\Triangle.cs" />
     <Compile Include="World\Block.cs" />
     <Compile Include="World\BlockManager.cs" />
     <Compile Include="World\Collision\Collider.cs" />
