@@ -10,6 +10,7 @@ using System.Diagnostics;
 
 using Virulent_dev.Input;
 using Virulent_dev.World.Collision;
+using Virulent_dev.World.States.Animations;
 
 namespace Virulent_dev.World.States
 {
@@ -19,15 +20,19 @@ namespace Virulent_dev.World.States
         TimeSpan maxAge;
         Collider collider;
 
+        private Animator anim;
+
         public Player()
         {
             rand = new Random();
             maxAge = new TimeSpan(0, 0, 30);
             collider = new Collider();
             collider.AddVert(0, -20);
-            collider.AddVert(15, 0);
+            collider.AddVert(10, 0);
             collider.AddVert(0, 50);
-            collider.AddVert(-15, 0);
+            collider.AddVert(-10, 0);
+
+            anim = new Animator();
         }
 
         public override void LoadEntityContent(Entity e, ContentManager content)
@@ -65,6 +70,25 @@ namespace Virulent_dev.World.States
             cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/shoulder"));
             cur = cur.linkedSprite;
             cur.linkedSprite = new SpriteElement(content.Load<Texture2D>("char/shoulder"));
+
+            anim.CreatePose("standing");
+            anim.AddSpriteInfo(-2f, -15f, 0.5f, 0, 0, 1f, 1f);//head
+            anim.AddSpriteInfo(0, 0, 0.4f, 0, 0.2f, 1f, 0.5f);//body
+            anim.AddSpriteInfo(1f, 12f, 0.4f, 0, 0, 1f, 1f); //pelvis
+            anim.AddSpriteInfo(-3f, 23f, 0.45f, 0, 0, 1f, 1f); //leg right thigh
+            anim.AddSpriteInfo(-5f, 38f, 0.5f, 0, 0, 1f, 1f); //leg right calf
+            anim.AddSpriteInfo(-5f, 46f, 0.4f, 3.14f, 0, 1f, 1f); //foot right
+            anim.AddSpriteInfo(5f, 23f, 0.45f, -0.15f, 0, 1f, 1f); //leg left thigh
+            anim.AddSpriteInfo(6f, 38f, 0.5f, -0.15f, 0, 1f, 1f); //leg left calf
+            anim.AddSpriteInfo(8f, 46f, 0.4f, 3.14f, 0, 1f, 1f); //foot left
+            anim.AddSpriteInfo(-9f, 2f, 0.36f, 0.1f, 0f, 1f, 1f); //arm upper right
+            anim.AddSpriteInfo(-11f, 13f, 0.31f, 0f, 0f, 1f, 1f); //arm lower right
+            anim.AddSpriteInfo(11f, 2f, 0.36f, -0.3f, 0f, 1f, 1f); //arm upper left
+            anim.AddSpriteInfo(13f, 13f, 0.31f, -0.3f, 0f, 1f, 1f); //arm lower left
+            anim.AddSpriteInfo(-8f, -5f, 0.33f, -0.3f, 0.2f, 1f, 0.5f); //shoulder right
+            anim.AddSpriteInfo(8f, -5f, 0.33f, 0.2f, 0.2f, 1f, 0.5f); //shoulder left
+            anim.AddSpriteInfo(13f, 19f, 0.22f, 1.3f, 0f, 1f, 1f); //hand right
+            anim.AddSpriteInfo(-12f, 19f, 0.22f, 1.6f, 0f, 1f, 1f); //hand left
         }
 
         public override void InitEntity(Entity e)
@@ -132,133 +156,14 @@ namespace Virulent_dev.World.States
 
         public override void PositionSprites(Entity e, GameTime gameTime)
         {
-            SpriteElement head = e.sprite;
-            SpriteElement body = head.linkedSprite;
-            SpriteElement pelvis = body.linkedSprite;
-            SpriteElement legrt = pelvis.linkedSprite;
-            SpriteElement legrc = legrt.linkedSprite;
-            SpriteElement footr = legrc.linkedSprite;
-            SpriteElement leglt = footr.linkedSprite;
-            SpriteElement leglc = leglt.linkedSprite;
-            SpriteElement footl = leglc.linkedSprite;
-            SpriteElement armul = footl.linkedSprite;
-            SpriteElement armll = armul.linkedSprite;
-            SpriteElement armur = armll.linkedSprite;
-            SpriteElement armlr = armur.linkedSprite;
-            SpriteElement shoulderr = armlr.linkedSprite;
-            SpriteElement shoulderl = shoulderr.linkedSprite;
-            SpriteElement handr = shoulderl.linkedSprite;
-            SpriteElement handl = handr.linkedSprite;
-
-            head.pos.Y = e.pos.Y - 15;
-            head.pos.X = e.pos.X - 2;
-            head.scale = 0.5f;
-            head.col = new Color(0.0f,1f, 1.0f);
-
-            body.scale = 0.4f;
-            body.pos = e.pos;
-            body.col = new Color(0.2f, 1f, .5f);
-
-            pelvis.pos.Y = e.pos.Y + 12f;
-            pelvis.pos.X = e.pos.X + 1f;
-            pelvis.scale = 0.4f;
-            pelvis.col = new Color(0.0f, 1f, 1.0f);
-
-            legrt.pos.Y = e.pos.Y + 23f;
-            legrt.pos.X = e.pos.X - 3f;
-            legrt.scale = 0.45f;
-            legrt.col = new Color(0.0f, 1f, 1.0f);
-
-            legrc.pos.Y = e.pos.Y + 38f;
-            legrc.pos.X = e.pos.X - 5f;
-            legrc.scale = 0.5f;
-            legrc.col = new Color(0.0f, 1f, 1.0f);
-
-            footr.pos.Y = e.pos.Y + 46f;
-            footr.pos.X = e.pos.X - 5f;
-            footr.rotation = 3.14f;
-            footr.scale = 0.4f;
-            footr.col = new Color(0.0f, 1f, 1.0f);
-
-            leglt.pos.Y = e.pos.Y + 23f;
-            leglt.pos.X = e.pos.X + 5f;
-            leglt.scale = 0.45f;
-            leglt.rotation = -0.15f;
-            leglt.col = new Color(0.0f, 1f, 1.0f);
-
-            leglc.pos.Y = e.pos.Y + 38f;
-            leglc.pos.X = e.pos.X + 6f;
-            leglc.scale = 0.5f;
-            leglc.rotation = -0.15f;
-            leglc.col = new Color(0.0f, 1f, 1.0f);
-
-            footl.pos.Y = e.pos.Y + 46f;
-            footl.pos.X = e.pos.X + 8f;
-            footl.rotation = 3.14f;
-            footl.scale = 0.4f;
-            footl.col = new Color(0.0f, 1f, 1.0f);
-
-            shoulderr.pos.Y = e.pos.Y - 5f;
-            shoulderr.pos.X = e.pos.X - 8f;
-            shoulderr.rotation = -0.3f;
-            shoulderr.scale = 0.33f;
-            shoulderr.col = new Color(0.2f, 1f, .5f);
-
-            armur.pos.Y = e.pos.Y + 2f;
-            armur.pos.X = e.pos.X - 9f;
-            armur.rotation = 0.1f;
-            armur.scale = 0.36f;
-            armur.col = new Color(0.0f, 1f, 1.0f);
-
-            armlr.pos.Y = e.pos.Y + 13f;
-            armlr.pos.X = e.pos.X - 11f;
-            armlr.rotation = 0.0f;
-            armlr.scale = 0.31f;
-            armlr.col = new Color(0.0f, 1f, 1.0f);
-
-            handl.pos.Y = e.pos.Y + 19f;
-            handl.pos.X = e.pos.X - 12f;
-            handl.rotation = 1.6f;
-            handl.scale = 0.22f;
-            handl.col = new Color(0.0f, 1f, 1.0f);
-
-            shoulderl.pos.Y = e.pos.Y - 5f;
-            shoulderl.pos.X = e.pos.X + 8f;
-            shoulderl.rotation = 0.2f;
-            shoulderl.scale = 0.33f;
-            shoulderl.col = new Color(0.2f, 1f, .5f);
-
-            armul.pos.Y = e.pos.Y + 2f;
-            armul.pos.X = e.pos.X + 11f;
-            armul.rotation = -0.3f;
-            armul.scale = 0.36f;
-            armul.col = new Color(0.0f, 1f, 1.0f);
-
-            armll.pos.Y = e.pos.Y + 13f;
-            armll.pos.X = e.pos.X + 13f;
-            armll.rotation = -0.3f;
-            armll.scale = 0.31f;
-            armll.col = new Color(0.0f, 1f, 1.0f);
-
-            handr.pos.Y = e.pos.Y + 19f;
-            handr.pos.X = e.pos.X + 13f;
-            handr.rotation = 1.3f;
-            handr.scale = 0.22f;
-            handr.col = new Color(0.0f, 1f, 1.0f);
+            anim.DoPose(e);
         }
 
         public override void DrawPoly(Entity e, GraphicsManager graphMan, GameTime gameTime)
         {
-            /*graphMan.AddLine(e.pos.X, e.pos.Y, Color.Red, e.pos.X + 12, e.pos.Y + 30, Color.Red);
-
-            graphMan.AddLine(e.pos.X + 12, e.pos.Y + 30, Color.Red, e.pos.X - 12, e.pos.Y + 35, Color.Red);
-
-            graphMan.AddLine(e.pos.X - 12, e.pos.Y + 35, Color.Red, e.pos.X - 15, e.pos.Y - 18, Color.Red);
-
-            graphMan.AddLine(e.pos.X - 15, e.pos.Y - 18, Color.Red, e.pos.X, e.pos.Y, Color.Red);*/
-
             collider.Draw(graphMan);
-
+            Camera c = graphMan.GetCamera(0);
+            c.pos = e.pos;
         }
     }
 }

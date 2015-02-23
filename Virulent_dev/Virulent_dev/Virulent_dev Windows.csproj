@@ -95,6 +95,8 @@
     <Compile Include="World\Collision\SquareManager.cs" />
     <Compile Include="World\Levels\TitleLevel.cs" />
     <Compile Include="World\Levels\TutorialLevel.cs" />
+    <Compile Include="World\States\Animations\Animator.cs" />
+    <Compile Include="World\States\Animations\Pose.cs" />
     <Compile Include="World\States\Ball.cs" />
     <Compile Include="World\States\GearDisk.cs" />
     <Compile Include="World\States\Particle.cs" />
