@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Virulent_dev.Input;
 using Virulent_dev.Graphics;
 using Virulent_dev.World.Collision;
+using Virulent_dev.World.States.Animations;
 
 namespace Virulent_dev.World
 {
@@ -47,6 +48,7 @@ namespace Virulent_dev.World
                         collisionMan.AddEnt(cur);
                 }
             }
+            Pose.RunEditor(inputMan);
         }
 
         private void recursiveDeleteSprite(SpriteElement spriteElement)
@@ -68,6 +70,7 @@ namespace Virulent_dev.World
                     cur.Draw(gameTime, graphMan);
                 }
             }
+            Pose.DrawEditor(graphMan);
         }
 
         public Entity AddEnt(Entity entityToAdd)

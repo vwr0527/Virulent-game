@@ -47,5 +47,14 @@ namespace Virulent_dev.World.States.Animations
         {
             currentPose.Add(x, y, scale, rot, r, g, b);
         }
+
+        public void ImitatePose(Pose other)
+        {
+            currentPose.Imitate(other);
+        }
+        public void ImitateEditorPose()
+        {
+            currentPose.ImitateEditorPose();
+        }
     }
 }

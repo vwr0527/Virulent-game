@@ -4,12 +4,298 @@ using System.Linq;
 using System.Text;
 using Virulent_dev.Graphics;
 using Microsoft.Xna.Framework;
+using Virulent_dev.Input;
+using System.Diagnostics;
 
 namespace Virulent_dev.World.States.Animations
 {
     class Pose
     {
-        struct SEInfo
+        #region POSE_EDITOR
+        /// //////////////////////////////////////////////////////
+        ///                EDITOR STUFF Begin
+        /// //////////////////////////////////////////////////////
+        private static bool editor_active = false;
+        private static bool editor_pose_loaded = false;
+        private static Pose selectedPose;
+        private static bool editor_part_selected = false;
+        private static SEInfo selectedPart;
+        private static bool editor_option_selected = false;
+        private static int selectedOption = 0;
+        private static int editor_current_part_index = 0;
+        private static float editor_option_adjust_speed = 0.1f;
+        private static Vector2 pose_pos;
+        private static Vector2 pose_box;
+
+        public static void ActivateEditor()
+        {
+            editor_active = true;
+            selectedPose = new Pose();
+        }
+
+        public static void StopEditor()
+        {
+            editor_active = false;
+        }
+
+        public static void SelectPoseToEdit(Pose target)
+        {
+            if (!editor_active) return;
+
+            selectedPose.Imitate(target);
+            editor_pose_loaded = true;
+        }
+
+        public static void SetPosePos(Vector2 p, Vector2 b)
+        {
+            pose_pos = p;
+            pose_box = b;
+        }
+
+        public static void DrawEditor(GraphicsManager graphMan)
+        {
+            if (!editor_active) return;
+
+            if (editor_pose_loaded && !editor_part_selected)
+            {
+                drawPoseBox(graphMan, Color.Green);
+                drawPartBox(graphMan, Color.Purple, new Vector2(selectedPart.x, selectedPart.y));
+            }
+            if (editor_pose_loaded && editor_part_selected && !editor_option_selected)
+            {
+                drawPoseBox(graphMan, Color.DarkGreen);
+                Color col = Color.Blue;
+                switch (selectedOption)
+                {
+                    case 0: col = Color.LightBlue; break;
+                    case 1: col = Color.LightPink; break;
+                    case 2: col = Color.White; break;
+                    case 3: col = Color.Yellow; break;
+                    case 4: col = Color.Red; break;
+                    case 5: col = Color.Green; break;
+                    case 6: col = Color.Blue; break;
+                    default: break;
+                }
+                drawPartBox(graphMan, col, new Vector2(selectedPart.x, selectedPart.y));
+            }
+            if (editor_pose_loaded && editor_part_selected && editor_option_selected)
+            {
+                drawPoseBox(graphMan, Color.DarkBlue);
+                Color col = Color.Blue;
+                switch (selectedOption)
+                {
+                    case 0: col = Color.LightBlue; break;
+                    case 1: col = Color.LightPink; break;
+                    case 2: col = Color.White; break;
+                    case 3: col = Color.Yellow; break;
+                    case 4: col = Color.Red; break;
+                    case 5: col = Color.Green; break;
+                    case 6: col = Color.Blue; break;
+                    default: break;
+                }
+                drawPartBox(graphMan, col, new Vector2(selectedPart.x, selectedPart.y));
+            }
+        }
+
+        private static void drawPoseBox(GraphicsManager graphMan, Color col)
+        {
+            graphMan.AddLine(pose_pos.X - (pose_box.X / 2),
+                            pose_pos.Y - (pose_box.Y / 2), col,
+                            pose_pos.X + (pose_box.X / 2),
+                            pose_pos.Y - (pose_box.Y / 2), col);
+            graphMan.AddLine(pose_pos.X + (pose_box.X / 2),
+                            pose_pos.Y - (pose_box.Y / 2), col,
+                            pose_pos.X + (pose_box.X / 2),
+                            pose_pos.Y + (pose_box.Y / 2), col);
+            graphMan.AddLine(pose_pos.X + (pose_box.X / 2),
+                            pose_pos.Y + (pose_box.Y / 2), col,
+                            pose_pos.X - (pose_box.X / 2),
+                            pose_pos.Y + (pose_box.Y / 2), col);
+            graphMan.AddLine(pose_pos.X - (pose_box.X / 2),
+                            pose_pos.Y + (pose_box.Y / 2), col,
+                            pose_pos.X - (pose_box.X / 2),
+                            pose_pos.Y - (pose_box.Y / 2), col);
+        }
+
+        private static void drawPartBox(GraphicsManager graphMan, Color col, Vector2 offset)
+        {
+            graphMan.AddLine(offset.X + pose_pos.X - (pose_box.X / 16),
+                            offset.Y + pose_pos.Y - (pose_box.Y / 16), col,
+                            offset.X + pose_pos.X + (pose_box.X / 16),
+                            offset.Y + pose_pos.Y - (pose_box.Y / 16), col);
+            graphMan.AddLine(offset.X + pose_pos.X + (pose_box.X / 16),
+                            offset.Y + pose_pos.Y - (pose_box.Y / 16), col,
+                            offset.X + pose_pos.X + (pose_box.X / 16),
+                            offset.Y + pose_pos.Y + (pose_box.Y / 16), col);
+            graphMan.AddLine(offset.X + pose_pos.X + (pose_box.X / 16),
+                            offset.Y + pose_pos.Y + (pose_box.Y / 16), col,
+                            offset.X + pose_pos.X - (pose_box.X / 16),
+                            offset.Y + pose_pos.Y + (pose_box.Y / 16), col);
+            graphMan.AddLine(offset.X + pose_pos.X - (pose_box.X / 16),
+                            offset.Y + pose_pos.Y + (pose_box.Y / 16), col,
+                            offset.X + pose_pos.X - (pose_box.X / 16),
+                            offset.Y + pose_pos.Y - (pose_box.Y / 16), col);
+        }
+
+        public static void RunEditor(InputManager input)
+        {
+            //Debug.WriteLine("RunEditor running: " + editor_pose_loaded + " " + editor_part_selected + " " + editor_option_selected);
+            if (!editor_active) return;
+
+            //if a pose is selected, arrow key means change current selected part
+            if (editor_pose_loaded && !editor_part_selected)
+            {
+                if (input.DownPressed())
+                {
+                    ++editor_current_part_index;
+                    if (editor_current_part_index > selectedPose.sprites.Count - 1)
+                    {
+                        editor_current_part_index = 0;
+                    }
+                }
+                if (input.UpPressed())
+                {
+                    --editor_current_part_index;
+                    if (editor_current_part_index < 0)
+                    {
+                        editor_current_part_index = selectedPose.sprites.Count - 1;
+                    }
+                }
+                selectedPart = selectedPose.sprites[editor_current_part_index];
+                if (input.EnterPressed())
+                {
+                    editor_part_selected = true;
+                }
+                if (input.BackspacePressed()) editor_pose_loaded = false;
+            }
+            else
+            if (editor_pose_loaded && editor_part_selected && !editor_option_selected)
+            {
+                if (input.DownPressed())
+                {
+                    ++selectedOption;
+                    if (selectedOption > 6)
+                    {
+                        selectedOption = 0;
+                    }
+                }
+                if (input.UpPressed())
+                {
+                    --selectedOption;
+                    if (selectedOption < 0)
+                    {
+                        selectedOption = 6;
+                    }
+                }
+                if (input.EnterPressed())
+                {
+                    editor_option_selected = true;
+                }
+                if (input.BackspacePressed()) editor_part_selected = false;
+            }
+            else
+            if (editor_pose_loaded && editor_part_selected && editor_option_selected)
+            {
+                if ((!input.IsUpPressed()) && (!input.IsDownPressed())) editor_option_adjust_speed = 0.0f;
+                else
+                switch (selectedOption)
+                {
+                    default:
+                    case 0:
+                    if (input.IsDownPressed())
+                    {
+                        selectedPart.x += editor_option_adjust_speed;
+                        editor_option_adjust_speed += 0.1f;
+                    }
+                    if (input.IsUpPressed())
+                    {
+                        selectedPart.x -= editor_option_adjust_speed;
+                        editor_option_adjust_speed += 0.1f;
+                    }
+                    break;
+                    case 1:
+                    if (input.IsDownPressed())
+                    {
+                        selectedPart.y += editor_option_adjust_speed;
+                        editor_option_adjust_speed += 0.1f;
+                    }
+                    if (input.IsUpPressed())
+                    {
+                        selectedPart.y -= editor_option_adjust_speed;
+                        editor_option_adjust_speed += 0.1f;
+                    }
+                    break;
+                    case 2:
+                    if (input.IsDownPressed())
+                    {
+                        selectedPart.rot += editor_option_adjust_speed;
+                        editor_option_adjust_speed += 0.01f;
+                    }
+                    if (input.IsUpPressed())
+                    {
+                        selectedPart.rot -= editor_option_adjust_speed;
+                        editor_option_adjust_speed += 0.01f;
+                    }
+                    break;
+                    case 3:
+                    if (input.IsDownPressed())
+                    {
+                        selectedPart.scale += editor_option_adjust_speed;
+                        editor_option_adjust_speed += 0.01f;
+                    }
+                    if (input.IsUpPressed())
+                    {
+                        selectedPart.scale -= editor_option_adjust_speed;
+                        editor_option_adjust_speed += 0.01f;
+                    }
+                    break;
+                    case 4:
+                    if (input.IsDownPressed())
+                    {
+                        selectedPart.r += editor_option_adjust_speed;
+                        editor_option_adjust_speed += 0.01f;
+                    }
+                    if (input.IsUpPressed())
+                    {
+                        selectedPart.r -= editor_option_adjust_speed;
+                        editor_option_adjust_speed += 0.01f;
+                    }
+                    break;
+                    case 5:
+                    if (input.IsDownPressed())
+                    {
+                        selectedPart.g += editor_option_adjust_speed;
+                        editor_option_adjust_speed += 0.01f;
+                    }
+                    if (input.IsUpPressed())
+                    {
+                        selectedPart.g -= editor_option_adjust_speed;
+                        editor_option_adjust_speed += 0.01f;
+                    }
+                    break;
+                    case 6:
+                    if (input.IsDownPressed())
+                    {
+                        selectedPart.b += editor_option_adjust_speed;
+                        editor_option_adjust_speed += 0.01f;
+                    }
+                    if (input.IsUpPressed())
+                    {
+                        selectedPart.b -= editor_option_adjust_speed;
+                        editor_option_adjust_speed += 0.01f;
+                    }
+                    break;
+                }
+                selectedPose.sprites[editor_current_part_index] = selectedPart;
+                if (input.BackspacePressed()) editor_option_selected = false;
+            }
+        }
+
+        /// //////////////////////////////////////////////////////
+        ///                EDITOR STUFF End
+        /// //////////////////////////////////////////////////////
+        #endregion
+        public struct SEInfo
         {
             public float x;
             public float y;
@@ -68,13 +354,32 @@ namespace Virulent_dev.World.States.Animations
 
         public void PoseSpriteElement(SpriteElement s, int spriteNum, float x, float y, float rot)
         {
-            SEInfo spriteinfo = sprites[spriteNum];
+            if (spriteNum >= sprites.Count) return;
+            SEInfo spriteInfo = sprites[spriteNum];
 
-            s.pos.X = x + spriteinfo.x;
-            s.pos.Y = y + spriteinfo.y;
-            s.scale = spriteinfo.scale;
-            s.rotation = rot + spriteinfo.rot;
-            s.col = new Color(spriteinfo.r, spriteinfo.g, spriteinfo.b);
+            s.pos.X = x + spriteInfo.x;
+            s.pos.Y = y + spriteInfo.y;
+            s.scale = spriteInfo.scale;
+            s.rotation = rot + spriteInfo.rot;
+            s.col = new Color(spriteInfo.r, spriteInfo.g, spriteInfo.b);
+        }
+
+        public void Imitate(Pose other)
+        {
+            sprites.Clear();
+            foreach(SEInfo s in other.sprites)
+            {
+                Add(s.x,s.y,s.scale,s.rot,s.r,s.g,s.b);
+            }
+        }
+
+        public void ImitateEditorPose()
+        {
+            if (selectedPose.sprites.Count >= 1)
+            {
+                Debug.WriteLine(selectedPose.sprites[0].x);
+            }
+            Imitate(selectedPose);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Virulent_dev.World.States
         public Player()
         {
             rand = new Random();
-            maxAge = new TimeSpan(0, 0, 30);
+            maxAge = new TimeSpan(1, 1, 30);
             collider = new Collider();
             collider.AddVert(0, -20);
             collider.AddVert(10, 0);
@@ -89,6 +89,9 @@ namespace Virulent_dev.World.States
             anim.AddSpriteInfo(8f, -5f, 0.33f, 0.2f, 0.2f, 1f, 0.5f); //shoulder left
             anim.AddSpriteInfo(13f, 19f, 0.22f, 1.3f, 0f, 1f, 1f); //hand right
             anim.AddSpriteInfo(-12f, 19f, 0.22f, 1.6f, 0f, 1f, 1f); //hand left
+
+            Pose.ActivateEditor();
+            Pose.SelectPoseToEdit(anim.currentPose);
         }
 
         public override void InitEntity(Entity e)
@@ -132,6 +135,8 @@ namespace Virulent_dev.World.States
             collider.ppos = e.ppos;
             collider.pos = e.pos;
             if (e.age > maxAge) e.dead = true;
+
+            Pose.SetPosePos(e.pos, new Vector2(100, 100));
         }
 
         public override Collider GetCollider(Entity e)
@@ -151,17 +156,18 @@ namespace Virulent_dev.World.States
             collider.pos = e.pos;
             collider.ppos = e.ppos;
             b.OnCollide(e);
-            Debug.WriteLine(pushOut + " " + collideTime);
+            //Debug.WriteLine(pushOut + " " + collideTime);
         }
 
         public override void PositionSprites(Entity e, GameTime gameTime)
         {
+            anim.ImitateEditorPose();
             anim.DoPose(e);
         }
 
         public override void DrawPoly(Entity e, GraphicsManager graphMan, GameTime gameTime)
         {
-            collider.Draw(graphMan);
+            //collider.Draw(graphMan);
             Camera c = graphMan.GetCamera(0);
             c.pos = e.pos;
         }
