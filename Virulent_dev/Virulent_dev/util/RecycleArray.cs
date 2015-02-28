@@ -95,6 +95,7 @@ namespace Virulent_dev
             }
             //if reached here, add failed
             //TODO: Add error
+            System.Diagnostics.Debug.WriteLine("Hey error");
             return default(T);
         }
 
@@ -161,6 +162,7 @@ namespace Virulent_dev
                 if (!cellList[i].IsActive())
                 {
                     result = cellList[i].GetData();
+                    break;
                 }
             }
             return result;

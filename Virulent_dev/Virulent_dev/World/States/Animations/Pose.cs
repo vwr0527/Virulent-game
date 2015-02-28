@@ -26,6 +26,7 @@ namespace Virulent_dev.World.States.Animations
         private static float editor_option_adjust_speed = 0.1f;
         private static Vector2 pose_pos;
         private static Vector2 pose_box;
+        private static int num_part_options = 5;
 
         public static void ActivateEditor()
         {
@@ -63,37 +64,14 @@ namespace Virulent_dev.World.States.Animations
             }
             if (editor_pose_loaded && editor_part_selected && !editor_option_selected)
             {
-                drawPoseBox(graphMan, Color.DarkGreen);
+                drawPoseBox(graphMan, new Color(0,0.2f,0));
                 Color col = Color.Blue;
-                switch (selectedOption)
-                {
-                    case 0: col = Color.LightBlue; break;
-                    case 1: col = Color.LightPink; break;
-                    case 2: col = Color.White; break;
-                    case 3: col = Color.Yellow; break;
-                    case 4: col = Color.Red; break;
-                    case 5: col = Color.Green; break;
-                    case 6: col = Color.Blue; break;
-                    default: break;
-                }
-                drawPartBox(graphMan, col, new Vector2(selectedPart.x, selectedPart.y));
+                drawPartBox(graphMan, new Vector2(selectedPart.x, selectedPart.y));
             }
             if (editor_pose_loaded && editor_part_selected && editor_option_selected)
             {
                 drawPoseBox(graphMan, Color.DarkBlue);
-                Color col = Color.Blue;
-                switch (selectedOption)
-                {
-                    case 0: col = Color.LightBlue; break;
-                    case 1: col = Color.LightPink; break;
-                    case 2: col = Color.White; break;
-                    case 3: col = Color.Yellow; break;
-                    case 4: col = Color.Red; break;
-                    case 5: col = Color.Green; break;
-                    case 6: col = Color.Blue; break;
-                    default: break;
-                }
-                drawPartBox(graphMan, col, new Vector2(selectedPart.x, selectedPart.y));
+                drawPartBox(graphMan, new Vector2(selectedPart.x, selectedPart.y));
             }
         }
 
@@ -117,6 +95,25 @@ namespace Virulent_dev.World.States.Animations
                             pose_pos.Y - (pose_box.Y / 2), col);
         }
 
+        private static void drawPartBox(GraphicsManager graphMan, Vector2 offset)
+        {
+            Color col = Color.Blue;
+            float x = offset.X + pose_pos.X;
+            float y = offset.Y + pose_pos.Y;
+            float s = 0.5f;
+            float r = 0.0f;
+            switch (selectedOption)
+            {
+                case 0: col = Color.White; graphMan.DrawString(x, y, col, s, r, "xy"); break;
+                case 1: col = Color.Blue; graphMan.DrawString(x, y, col, s, r, "R"); break;
+                case 2: col = Color.Yellow; graphMan.DrawString(x, y, col, s, r, "S"); break;
+                case 3: col = Color.Red; graphMan.DrawString(x, y, col, s, r, "r"); break;
+                case 4: col = Color.Green; graphMan.DrawString(x, y, col, s, r, "g"); break;
+                case 5: col = Color.Blue; graphMan.DrawString(x, y, col, s, r, "b"); break;
+                default: break;
+            }
+            drawPartBox(graphMan, col, offset);
+        }
         private static void drawPartBox(GraphicsManager graphMan, Color col, Vector2 offset)
         {
             graphMan.AddLine(offset.X + pose_pos.X - (pose_box.X / 16),
@@ -166,7 +163,7 @@ namespace Virulent_dev.World.States.Animations
                 {
                     editor_part_selected = true;
                 }
-                if (input.BackspacePressed()) editor_pose_loaded = false;
+                //if (input.BackspacePressed()) editor_pose_loaded = false;
             }
             else
             if (editor_pose_loaded && editor_part_selected && !editor_option_selected)
@@ -174,7 +171,7 @@ namespace Virulent_dev.World.States.Animations
                 if (input.DownPressed())
                 {
                     ++selectedOption;
-                    if (selectedOption > 6)
+                    if (selectedOption > num_part_options)
                     {
                         selectedOption = 0;
                     }
@@ -184,7 +181,7 @@ namespace Virulent_dev.World.States.Animations
                     --selectedOption;
                     if (selectedOption < 0)
                     {
-                        selectedOption = 6;
+                        selectedOption = num_part_options;
                     }
                 }
                 if (input.EnterPressed())
@@ -196,24 +193,22 @@ namespace Virulent_dev.World.States.Animations
             else
             if (editor_pose_loaded && editor_part_selected && editor_option_selected)
             {
-                if ((!input.IsUpPressed()) && (!input.IsDownPressed())) editor_option_adjust_speed = 0.0f;
+                if ((!input.IsUpPressed()) && (!input.IsDownPressed()) && (!input.IsLeftPressed()) && (!input.IsRightPressed())) editor_option_adjust_speed = 0.0f;
                 else
                 switch (selectedOption)
                 {
                     default:
                     case 0:
-                    if (input.IsDownPressed())
-                    {
-                        selectedPart.x += editor_option_adjust_speed;
-                        editor_option_adjust_speed += 0.1f;
-                    }
-                    if (input.IsUpPressed())
+                    if (input.IsLeftPressed())
                     {
                         selectedPart.x -= editor_option_adjust_speed;
                         editor_option_adjust_speed += 0.1f;
                     }
-                    break;
-                    case 1:
+                    if (input.IsRightPressed())
+                    {
+                        selectedPart.x += editor_option_adjust_speed;
+                        editor_option_adjust_speed += 0.1f;
+                    }
                     if (input.IsDownPressed())
                     {
                         selectedPart.y += editor_option_adjust_speed;
@@ -225,61 +220,61 @@ namespace Virulent_dev.World.States.Animations
                         editor_option_adjust_speed += 0.1f;
                     }
                     break;
-                    case 2:
-                    if (input.IsDownPressed())
+                    case 1:
+                    if (input.IsDownPressed() || input.IsRightPressed())
                     {
                         selectedPart.rot += editor_option_adjust_speed;
                         editor_option_adjust_speed += 0.01f;
                     }
-                    if (input.IsUpPressed())
+                    if (input.IsUpPressed() || input.IsLeftPressed())
                     {
                         selectedPart.rot -= editor_option_adjust_speed;
                         editor_option_adjust_speed += 0.01f;
                     }
                     break;
-                    case 3:
-                    if (input.IsDownPressed())
+                    case 2:
+                    if (input.IsDownPressed() || input.IsRightPressed())
                     {
                         selectedPart.scale += editor_option_adjust_speed;
                         editor_option_adjust_speed += 0.01f;
                     }
-                    if (input.IsUpPressed())
+                    if (input.IsUpPressed() || input.IsLeftPressed())
                     {
                         selectedPart.scale -= editor_option_adjust_speed;
                         editor_option_adjust_speed += 0.01f;
                     }
                     break;
-                    case 4:
-                    if (input.IsDownPressed())
+                    case 3:
+                    if (input.IsDownPressed() || input.IsRightPressed())
                     {
                         selectedPart.r += editor_option_adjust_speed;
                         editor_option_adjust_speed += 0.01f;
                     }
-                    if (input.IsUpPressed())
+                    if (input.IsUpPressed() || input.IsLeftPressed())
                     {
                         selectedPart.r -= editor_option_adjust_speed;
                         editor_option_adjust_speed += 0.01f;
                     }
                     break;
-                    case 5:
-                    if (input.IsDownPressed())
+                    case 4:
+                    if (input.IsDownPressed() || input.IsRightPressed())
                     {
                         selectedPart.g += editor_option_adjust_speed;
                         editor_option_adjust_speed += 0.01f;
                     }
-                    if (input.IsUpPressed())
+                    if (input.IsUpPressed() || input.IsLeftPressed())
                     {
                         selectedPart.g -= editor_option_adjust_speed;
                         editor_option_adjust_speed += 0.01f;
                     }
                     break;
-                    case 6:
-                    if (input.IsDownPressed())
+                    case 5:
+                    if (input.IsDownPressed() || input.IsRightPressed())
                     {
                         selectedPart.b += editor_option_adjust_speed;
                         editor_option_adjust_speed += 0.01f;
                     }
-                    if (input.IsUpPressed())
+                    if (input.IsUpPressed() || input.IsLeftPressed())
                     {
                         selectedPart.b -= editor_option_adjust_speed;
                         editor_option_adjust_speed += 0.01f;
@@ -288,6 +283,21 @@ namespace Virulent_dev.World.States.Animations
                 }
                 selectedPose.sprites[editor_current_part_index] = selectedPart;
                 if (input.BackspacePressed()) editor_option_selected = false;
+                if (input.EnterPressed())
+                {
+                    for (int i = 0; i < selectedPose.sprites.Count; ++i)
+                    {
+                        Debug.WriteLine("anim.AddSpriteInfo(" + selectedPose.sprites[i].x
+                                                         + "," + selectedPose.sprites[i].y
+                                                         + "," + selectedPose.sprites[i].scale
+                                                         + "," + selectedPose.sprites[i].rot
+                                                         + "," + selectedPose.sprites[i].r
+                                                         + "," + selectedPose.sprites[i].g
+                                                         + "," + selectedPose.sprites[i].b
+                                                         + ");");
+                    }
+            //anim.AddSpriteInfo(-2f, -15f, 0.5f, 0, 0, 1f, 1f);//head
+                }
             }
         }
 
@@ -375,10 +385,6 @@ namespace Virulent_dev.World.States.Animations
 
         public void ImitateEditorPose()
         {
-            if (selectedPose.sprites.Count >= 1)
-            {
-                Debug.WriteLine(selectedPose.sprites[0].x);
-            }
             Imitate(selectedPose);
         }
     }

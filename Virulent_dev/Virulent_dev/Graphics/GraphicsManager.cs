@@ -31,9 +31,9 @@ namespace Virulent_dev.Graphics
         {
             graphicsDeviceManager = gdm;
             guiSprites = new RecycleArray<SpriteElement>(SpriteElement.CopyMembers, SpriteElement.CreateCopy);
-            guiSprites.SetDataMode(true);
+            guiSprites.SetDataMode(false);
             worldSprites = new RecycleArray<SpriteElement>(SpriteElement.CopyMembers, SpriteElement.CreateCopy);
-            worldSprites.SetDataMode(true);
+            worldSprites.SetDataMode(false); //changed these both to false. There really seems to be no point in having a set data mode anymore now...
 
             cam1 = new Camera();
             poly = new PolyManager();
@@ -111,6 +111,16 @@ namespace Virulent_dev.Graphics
             }
         }
 
+        public void DrawString(float x, float y, Color c, float scale, float rotation, string str)
+        {
+            SpriteElement temp = new SpriteElement(new StringBuilder(str), SpriteElement.defaultFont);
+            temp.pos.X = x;
+            temp.pos.Y = y;
+            temp.col = c;
+            temp.scale = scale;
+            temp.rotation = rotation;
+            worldSprites.Add(temp);
+        }
 
         public void AddLine(float x1, float y1, Color c1, float x2, float y2, Color c2)
         {

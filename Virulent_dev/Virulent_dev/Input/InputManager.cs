@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
+using System.Diagnostics;
 
 namespace Virulent_dev.Input
 {
@@ -69,6 +70,16 @@ namespace Virulent_dev.Input
         {
             return currentKeyState.IsKeyDown(Keys.Up);
         }
+
+        public bool IsLeftPressed()
+        {
+            return currentKeyState.IsKeyDown(Keys.Left);
+        }
+        public bool IsRightPressed()
+        {
+            return currentKeyState.IsKeyDown(Keys.Right);
+        }
+
         public bool EnterPressed()
         {
             return currentKeyState.IsKeyDown(Keys.Enter) && previousKeyState.IsKeyUp(Keys.Enter);
