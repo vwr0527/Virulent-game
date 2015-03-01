@@ -26,6 +26,7 @@ namespace Virulent_dev.Graphics
         Viewport test2;
 
         PolyManager poly;
+        SpriteElement temp;
 
         public GraphicsManager(GraphicsDeviceManager gdm)
         {
@@ -37,6 +38,7 @@ namespace Virulent_dev.Graphics
 
             cam1 = new Camera();
             poly = new PolyManager();
+            temp = new SpriteElement(new StringBuilder(), SpriteElement.defaultFont);
         }
         public void LoadContent(ContentManager content)
         {
@@ -113,13 +115,15 @@ namespace Virulent_dev.Graphics
 
         public void DrawString(float x, float y, Color c, float scale, float rotation, string str)
         {
-            SpriteElement temp = new SpriteElement(new StringBuilder(str), SpriteElement.defaultFont);
+            temp.text.Length = 0;
+            temp.text.Append(str);
+            temp.font = SpriteElement.defaultFont;
             temp.pos.X = x;
             temp.pos.Y = y;
             temp.col = c;
             temp.scale = scale;
             temp.rotation = rotation;
-            worldSprites.Add(temp);
+            SpriteElement result = worldSprites.Add(temp);
         }
 
         public void AddLine(float x1, float y1, Color c1, float x2, float y2, Color c2)

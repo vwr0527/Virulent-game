@@ -95,7 +95,7 @@ namespace Virulent_dev
             }
             //if reached here, add failed
             //TODO: Add error
-            System.Diagnostics.Debug.WriteLine("Hey error");
+            System.Diagnostics.Debug.WriteLine("RecycleArray Add failed");
             return default(T);
         }
 

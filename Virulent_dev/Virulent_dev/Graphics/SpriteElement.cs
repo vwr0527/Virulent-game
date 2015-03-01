@@ -75,10 +75,14 @@ namespace Virulent_dev.Graphics
             subject.col.B = target.col.B;
             subject.col.A = target.col.A;
 
-            subject.text = target.text;
+            if (target.text != null)
+            {
+                if (subject.text == null) subject.text = new StringBuilder();
+                subject.text.Length = 0;
+                subject.text.Append(target.text.ToString());
+            }
             subject.texture = target.texture;
             subject.font = target.font;
-
             if (target.texture != null)
                 subject.orig = target.orig;
             else if (target.font != null)
