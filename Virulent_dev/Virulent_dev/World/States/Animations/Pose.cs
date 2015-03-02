@@ -47,7 +47,7 @@ namespace Virulent_dev.World.States.Animations
             editor_pose_loaded = true;
         }
 
-        public static void SetPosePos(Vector2 p, Vector2 b)
+        public static void SetEditorPosePosSize(Vector2 p, Vector2 b)
         {
             pose_pos = p;
             pose_box = b;
@@ -288,13 +288,13 @@ namespace Virulent_dev.World.States.Animations
                     for (int i = 0; i < selectedPose.sprites.Count; ++i)
                     {
                         Debug.WriteLine("anim.AddSpriteInfo(" + selectedPose.sprites[i].x
-                                                         + "," + selectedPose.sprites[i].y
-                                                         + "," + selectedPose.sprites[i].scale
-                                                         + "," + selectedPose.sprites[i].rot
-                                                         + "," + selectedPose.sprites[i].r
-                                                         + "," + selectedPose.sprites[i].g
-                                                         + "," + selectedPose.sprites[i].b
-                                                         + ");");
+                                                         + "f," + selectedPose.sprites[i].y
+                                                         + "f," + selectedPose.sprites[i].scale
+                                                         + "f," + selectedPose.sprites[i].rot
+                                                         + "f," + selectedPose.sprites[i].r
+                                                         + "f," + selectedPose.sprites[i].g
+                                                         + "f," + selectedPose.sprites[i].b
+                                                         + "f);");
                     }
             //anim.AddSpriteInfo(-2f, -15f, 0.5f, 0, 0, 1f, 1f);//head
                 }

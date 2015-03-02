@@ -90,8 +90,28 @@ namespace Virulent_dev.World.States
             anim.AddSpriteInfo(13f, 19f, 0.22f, 1.3f, 0f, 1f, 1f); //hand right
             anim.AddSpriteInfo(-12f, 19f, 0.22f, 1.6f, 0f, 1f, 1f); //hand left
 
-            Pose.ActivateEditor();
-            Pose.SelectPoseToEdit(anim.currentPose);
+            anim.CreatePose("ready");
+            anim.AddSpriteInfo(0.8f, -9.8f, 0.5f, 0, 0, 1, 1);
+            anim.AddSpriteInfo(-0.3f, 3.7f, 0.4f, 0.18f, 0.2f, 1f, 0.5f);
+            anim.AddSpriteInfo(-0.1f, 17.4f, 0.4f, 0, 0, 1, 1);
+            anim.AddSpriteInfo(-8.6f, 27.7f, 0.45f, 0.35f, 0, 1, 1);
+            anim.AddSpriteInfo(-16.2f, 39f, 0.5f, 0.37f, 0, 1, 1);
+            anim.AddSpriteInfo(-18.9f, 46f, 0.4f, 3.14f, 0, 1, 1);
+            anim.AddSpriteInfo(10.1f, 23.7f, 0.45f, -0.77f, 0, 1, 1);
+            anim.AddSpriteInfo(17.8f, 36.6f, 0.49f, -0.47f, 0, 1, 1);
+            anim.AddSpriteInfo(21.9f, 46f, 0.4f, 3.14f, 0, 1, 1);
+            anim.AddSpriteInfo(-16.2f, 4.1f, 0.35f, 0.56f, 0, 1, 1);
+            anim.AddSpriteInfo(-21.5f, 13.2f, 0.31f, 0.31f, 0, 1, 1);
+            anim.AddSpriteInfo(14.7f, 7f, 0.36f, -0.63f, 0, 1, 1);
+            anim.AddSpriteInfo(20f, 13.9f, 0.31f, -1.03f, 0, 1, 1);
+            anim.AddSpriteInfo(-10.3f, -2.8f, 0.33f, 0.21f, 0.2f, 1, 0.5f);
+            anim.AddSpriteInfo(9.5f, 2.3f, 0.33f, 0.2f, 0.2f, 1, 0.5f);
+            anim.AddSpriteInfo(26.2f, 18.6f, 0.22f, 8.44f, 0, 1, 1);
+            anim.AddSpriteInfo(-24.3f, 19f, 0.22f, 3.25f, 0, 1, 1);
+
+
+            //Pose.ActivateEditor();
+            //Pose.SelectPoseToEdit(anim.currentPose);
         }
 
         public override void InitEntity(Entity e)
@@ -134,9 +154,7 @@ namespace Virulent_dev.World.States
             e.sprite.scale = 1.5f;
             collider.ppos = e.ppos;
             collider.pos = e.pos;
-            if (e.age > maxAge) e.dead = true;
-
-            Pose.SetPosePos(e.pos, new Vector2(100, 100));
+            //if (e.age > maxAge) e.dead = true;
         }
 
         public override Collider GetCollider(Entity e)
@@ -161,7 +179,20 @@ namespace Virulent_dev.World.States
 
         public override void PositionSprites(Entity e, GameTime gameTime)
         {
-            anim.ImitateEditorPose();
+            if (Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / 100.0) > 0)
+            {
+                Debug.WriteLine("standing");
+                anim.currentPose = anim.poseList["standing"];
+            }
+            else
+            {
+                Debug.WriteLine("ready");
+                anim.currentPose = anim.poseList["ready"];
+            }
+
+            //anim.currentPose.ImitateEditorPose();
+            //Pose.SetEditorPosePosSize(e.pos, new Vector2(100, 100));
+
             anim.DoPose(e);
         }
 

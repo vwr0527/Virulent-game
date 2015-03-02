@@ -22,7 +22,7 @@ namespace Virulent_dev.World.Levels
         TimeSpan prevSpawnTime;
         Random rand = new Random();
 
-        int numPendingEntities = 0;
+        int numPendingEntities = 1;
         int numPendingBlocks = 1;
 
         public override void Init(GameTime gameTime)
@@ -74,12 +74,12 @@ namespace Virulent_dev.World.Levels
         public override void Update(GameTime gameTime, InputManager inputMan)
         {
             //bg.rotation += gameTime.ElapsedGameTime.Milliseconds / 3000f;
-
+            /*
             if (gameTime.TotalGameTime - prevSpawnTime >= respawnTime)
             {
                 prevSpawnTime = gameTime.TotalGameTime;
                 numPendingEntities += 1;
-            }
+            }*/
         }
 
         public override bool EntityPending()
