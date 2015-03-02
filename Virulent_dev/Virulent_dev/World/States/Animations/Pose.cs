@@ -374,6 +374,25 @@ namespace Virulent_dev.World.States.Animations
             s.col = new Color(spriteInfo.r, spriteInfo.g, spriteInfo.b);
         }
 
+        public void PoseSpriteElementTween(SpriteElement s, int spriteNum, float x, float y, float rot, Pose next, float ratio)
+        {
+            if (spriteNum >= sprites.Count) return;
+            if (spriteNum >= next.sprites.Count) return;
+            SEInfo spriteInfo = sprites[spriteNum];
+            SEInfo nextSpriteInfo = next.sprites[spriteNum];
+
+            if (ratio > 1.0f) ratio = 1.0f;
+            if (ratio < 0.0f) ratio = 0.0f;
+
+            s.pos.X = x + ((spriteInfo.x * (1f - ratio)) + (nextSpriteInfo.x * ratio));
+            s.pos.Y = y + ((spriteInfo.y * (1f - ratio)) + (nextSpriteInfo.y * ratio));
+            s.scale = ((spriteInfo.scale * (1f - ratio)) + (nextSpriteInfo.scale * ratio));
+            s.rotation = rot + ((spriteInfo.rot * (1f - ratio)) + (nextSpriteInfo.rot * ratio));
+            s.col = new Color(((spriteInfo.r * (1f - ratio)) + (nextSpriteInfo.r * ratio)),
+                                ((spriteInfo.g * (1f - ratio)) + (nextSpriteInfo.g * ratio)),
+                                ((spriteInfo.b * (1f - ratio)) + (nextSpriteInfo.b * ratio)));
+        }
+
         public void Imitate(Pose other)
         {
             sprites.Clear();

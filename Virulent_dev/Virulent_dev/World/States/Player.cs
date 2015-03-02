@@ -109,6 +109,8 @@ namespace Virulent_dev.World.States
             anim.AddSpriteInfo(26.2f, 18.6f, 0.22f, 8.44f, 0, 1, 1);
             anim.AddSpriteInfo(-24.3f, 19f, 0.22f, 3.25f, 0, 1, 1);
 
+            anim.currentPose = anim.poseList["standing"];
+            anim.nextPose = anim.poseList["ready"];
 
             //Pose.ActivateEditor();
             //Pose.SelectPoseToEdit(anim.currentPose);
@@ -179,21 +181,13 @@ namespace Virulent_dev.World.States
 
         public override void PositionSprites(Entity e, GameTime gameTime)
         {
-            if (Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / 100.0) > 0)
-            {
-                Debug.WriteLine("standing");
-                anim.currentPose = anim.poseList["standing"];
-            }
-            else
-            {
-                Debug.WriteLine("ready");
-                anim.currentPose = anim.poseList["ready"];
-            }
-
+            float ratio = (float)((Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / 100.0) + 1.0) / 2.0);
+            Debug.WriteLine(ratio);
+            anim.DoTweenPose(e, ratio);
             //anim.currentPose.ImitateEditorPose();
             //Pose.SetEditorPosePosSize(e.pos, new Vector2(100, 100));
 
-            anim.DoPose(e);
+            //anim.DoPose(e);
         }
 
         public override void DrawPoly(Entity e, GraphicsManager graphMan, GameTime gameTime)

@@ -11,6 +11,7 @@ namespace Virulent_dev.World.States.Animations
     class Animator
     {
         public Pose currentPose;
+        public Pose nextPose;
         public Dictionary<string, Pose> poseList;
         public Animator()
         {
@@ -24,13 +25,34 @@ namespace Virulent_dev.World.States.Animations
             currentPose = poseList[name];
         }
 
+        public void SetNextPose(string name)
+        {
+            if (!poseList.ContainsKey(name)) return;
+
+            nextPose = poseList[name];
+        }
+
         public void DoPose(Entity e)
         {
+            if (currentPose == null) return;
             SpriteElement cur = e.sprite;
             int i = 0;
             while (cur != null)
             {
                 currentPose.PoseSpriteElement(cur, i, e.pos.X, e.pos.Y, e.rot);
+                i++;
+                cur = cur.linkedSprite;
+            }
+        }
+
+        public void DoTweenPose(Entity e, float ratio)
+        {
+            if (currentPose == null || nextPose == null) return;
+            SpriteElement cur = e.sprite;
+            int i = 0;
+            while (cur != null)
+            {
+                currentPose.PoseSpriteElementTween(cur, i, e.pos.X, e.pos.Y, e.rot,nextPose,ratio);
                 i++;
                 cur = cur.linkedSprite;
             }
